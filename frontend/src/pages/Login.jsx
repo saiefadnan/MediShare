@@ -14,7 +14,7 @@ function LoginPage() {
     <div className="login-container">
       <div className="brand-section">
         <div className="illustration-container">
-        <img src="/img/medisharelogin.png" alt="MediShare Login" className='medical-illustration' />
+        <img src="/src/assets/medisharelogin.png" alt="MediShare Login" className='medical-illustration' />
         </div>
       </div>
 

@@ -2,12 +2,8 @@ import Navbar from './components/navbar';
 import Home from './pages/Home';
 import Donation from './pages/Donation';
 import LoginPage from './pages/Login';
-
 import FindMedPage from './pages/FindMedPage';
-
-
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-
 import { Suspense } from 'react';
 
 function App() {
@@ -16,7 +12,6 @@ function App() {
 
   return (
 
-      
         <div className="App">
           <Navbar/>
           <Suspense fallback={<div>Loading...</div>}>
@@ -28,7 +23,6 @@ function App() {
             </Routes>
           </Suspense>
         </div>
-      
 
   );
 }
