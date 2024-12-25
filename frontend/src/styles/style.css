@@ -1,0 +1,87 @@
+body {
+    margin: 20;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #2c3e50;
+    color: #fff;
+    font-size: 18px;
+}
+
+.donation-page {
+    background-color: #2e8b57;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align content to the left */
+    color: #fff;
+}
+
+.donation-header h1 {
+    font-size: 2.5rem;
+    margin: 20px 40px; /* Left alignment */
+}
+
+.donation-form-container {
+    margin: 20px 40px; /* Spacing from sides */
+    padding: 20px; /* Inner spacing */
+    background-color: #ffffff; /* Background color for clarity */
+    border: 1px solid #ccc; /* Border for distinction */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.donation-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 500px;
+}
+
+.donation-input {
+    width: 100%; /* Text box width increased */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.donation-input-file {
+    margin-top: 10px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.donation-button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #1e90ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.donation-button:hover {
+    background-color: #0b70cc;
+}
+
+.map-placeholder {
+    background-color: #eee;
+    padding: 20px;
+    border: 1px dashed #ccc;
+    color: #333;
+    text-align: center;
+    font-style: italic;
+    font-size: 14px;
+}
