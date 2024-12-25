@@ -3,7 +3,6 @@ import Home from './pages/Home';
 import Donation from './pages/Donation';
 import LoginPage from './pages/Login';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import './styles/App.css';
 import { Suspense } from 'react';
 
 function App() {

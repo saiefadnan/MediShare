@@ -1,4 +1,4 @@
-
+import '../styles/style.css'
 const Donation = () => {
     return (
         <div className="donation-page">
