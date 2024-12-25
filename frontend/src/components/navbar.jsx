@@ -20,7 +20,7 @@ const Navbar = () => {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 ,color: 'black'}}>
-          Medishare
+          MediShare
         </Typography>
         <Button sx={{ color: 'black' }}>Home</Button>
         <Button sx={{ color: 'black' }}>About</Button>
