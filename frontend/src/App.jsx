@@ -2,7 +2,6 @@ import Navbar from './components/navbar';
 import Home from './pages/Home';
 import Donation from './pages/Donation';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
-import './styles/App.css';
 import { Suspense } from 'react';
 
 function App() {
