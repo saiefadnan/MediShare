@@ -7,6 +7,9 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 
 const Navbar = () => {
+  const login = () => {
+    window.location.href = '/login';
+  }
   return (
     <AppBar position="static" sx={{backgroundColor: "#F6EFE4"}}>
       <Toolbar>
@@ -25,7 +28,7 @@ const Navbar = () => {
         <Button sx={{ color: 'black' }}>Home</Button>
         <Button sx={{ color: 'black' }}>About</Button>
         <Button sx={{ color: 'black' }}>Contacts</Button>
-        <Button sx={{ color: 'black' }}>Login</Button>
+        <Button sx={{ color: 'black' }} onClick={login}>Login</Button>
       </Toolbar>
     </AppBar>
   );
