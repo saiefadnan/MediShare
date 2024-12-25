@@ -1,10 +1,7 @@
-import './styles.css';
-import Navbar from '../components/navbar';
 
 const Donation = () => {
     return (
         <div className="donation-page">
-            <Navbar />
             <div className="donation-container">
                 <div className="donation-header">
                     <h1>Your One Step Can Make a Difference</h1>
