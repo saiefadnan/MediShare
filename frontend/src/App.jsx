@@ -16,7 +16,7 @@ function App() {
 
   return (
 
-      <BrowserRouter>
+      
         <div className="App">
           <Navbar/>
           <Suspense fallback={<div>Loading...</div>}>
@@ -28,7 +28,7 @@ function App() {
             </Routes>
           </Suspense>
         </div>
-      </BrowserRouter>
+      
 
   );
 }
