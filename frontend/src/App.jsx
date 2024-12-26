@@ -2,8 +2,9 @@ import Navbar from './components/navbar';
 import Donation from './pages/Donation';
 import Ai from './pages/Ai';
 import LoginPage from './pages/Login';
-import FindMedPage from './pages/FindMedPage';
+import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
+
 import { Suspense } from 'react';
 import Admin from './pages/Admin';
 
