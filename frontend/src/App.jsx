@@ -6,7 +6,7 @@ import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 
 import { Suspense } from 'react';
-import Admin from './pages/Admin';
+import AdminPortal from './pages/AdminPortal.jsx';
 
 function App() {
   const location = useLocation();
@@ -23,7 +23,7 @@ function App() {
               <Route path='/login' element={<LoginPage/>}/>
               <Route path='/findMed' element={<FindMedPage/>}/>
               <Route path='/ai' element={<Ai/>}/>
-              <Route path='/admin'  element={<Admin/>}/>
+              <Route path='/admin'  element={<AdminPortal/>}/>
             </Routes>
           </Suspense>
         </div>

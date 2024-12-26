@@ -7,7 +7,7 @@ import Piechart from './dashboard_stuffs/Piechart';
 import Charts from './dashboard_stuffs/charts';
 
 
-const Admin = () => {
+const AdminPortal = () => {
     return ( 
     <div className="page91">
         <Box sx={{ display: 'flex', height: '100%'}}>
@@ -26,4 +26,4 @@ const Admin = () => {
     );
 }
  
-export default Admin;
+export default AdminPortal;
