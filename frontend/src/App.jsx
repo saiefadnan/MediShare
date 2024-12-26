@@ -13,7 +13,7 @@ function App() {
   return (
 
         <div className="App">
-          <Navbar/>
+          {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
               <Route path='/home' element={<Home/>}/>
