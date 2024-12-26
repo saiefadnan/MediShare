@@ -3,7 +3,7 @@ import Home from './pages/Home';
 import Donation from './pages/Donation';
 import LoginPage from './pages/Login';
 
-import FindMedPage from './pages/FindMedPage';
+import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
 
 
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
