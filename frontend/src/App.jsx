@@ -2,17 +2,9 @@ import Navbar from './components/navbar';
 import Donation from './pages/Donation';
 import Ai from './pages/Ai';
 import LoginPage from './pages/Login';
-<<<<<<< HEAD
-
 import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
-
-
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-
-=======
-import FindMedPage from './pages/FindMedPage';
 import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
->>>>>>> fb10eb0568c2d2c92935ed25057fca9655ad1d1d
+
 import { Suspense } from 'react';
 import Admin from './pages/Admin';
 
