@@ -1,4 +1,5 @@
-import '../styles/style.css'
+import '../styles/style.css';
+
 const Donation = () => {
     return (
         <div className="donation-page">
@@ -27,7 +28,6 @@ const Donation = () => {
                         <label>
                             Add Your Location from Map
                             <div className="map-placeholder">
-                                {/* Map Component or Placeholder */}
                                 <p>Map will go here</p>
                             </div>
                         </label>
@@ -43,6 +43,17 @@ const Donation = () => {
                         <button type="submit" className="donation-button">Confirm</button>
                     </form>
                 </div>
+            </div>
+            <div className="right-panel">
+                <h2>About Donations</h2>
+                <p>Help those in need by donating your unused medicines.</p>
+                <p>
+                    Ensure medicines are not expired and well-packaged for safety.
+                </p>
+                <blockquote>
+                    <p>"Small acts, when multiplied by millions of people, can transform the world."</p>
+                    <footer>- Howard Zinn</footer>
+                </blockquote>
             </div>
         </div>
     );
