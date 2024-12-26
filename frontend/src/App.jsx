@@ -1,11 +1,11 @@
 import Navbar from './components/navbar';
-import Home from './pages/Home';
 import Donation from './pages/Donation';
 import Ai from './pages/Ai';
 import LoginPage from './pages/Login';
 import FindMedPage from './pages/FindMedPage';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { Suspense } from 'react';
+import Admin from './pages/Admin';
 
 function App() {
   const location = useLocation();
@@ -17,11 +17,12 @@ function App() {
           {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
           <Suspense fallback={<div>Loading...</div>}>
             <Routes>
-              <Route path='/home' element={<Home/>}/>
+              <Route path='/' element={<Navigate to='/login'/>}/>
               <Route path='/donation' element={<Donation/>}/>
               <Route path='/login' element={<LoginPage/>}/>
               <Route path='/findMed' element={<FindMedPage/>}/>
               <Route path='/ai' element={<Ai/>}/>
+              <Route path='/admin'  element={<Admin/>}/>
             </Routes>
           </Suspense>
         </div>
