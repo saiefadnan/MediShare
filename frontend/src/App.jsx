@@ -1,6 +1,7 @@
 import Navbar from './components/navbar';
 import Home from './pages/Home';
 import Donation from './pages/Donation';
+import Ai from './pages/Ai';
 import LoginPage from './pages/Login';
 import FindMedPage from './pages/FindMedPage';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
@@ -20,6 +21,7 @@ function App() {
               <Route path='/donation' element={<Donation/>}/>
               <Route path='/login' element={<LoginPage/>}/>
               <Route path='/findMed' element={<FindMedPage/>}/>
+              <Route path='/ai' element={<Ai/>}/>
             </Routes>
           </Suspense>
         </div>

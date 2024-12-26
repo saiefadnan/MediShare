@@ -14,7 +14,7 @@ body {
 }
 
 .donation-page {
-    background-color: #2e8b57;
+    background-color: #57b881;
     min-height: 100vh;
     display: flex;
     flex-direction: row;
@@ -48,7 +48,7 @@ body {
 
 .donation-form-container {
     padding: 20px;
-    background-color: #006400;
+    background-color: #054d05;
     border: 1px solid #ccc;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -131,12 +131,12 @@ label {
 }
 
 .right-panel p {
-    font-size: 1rem;
+    font-size: 2rem;
     line-height: 1.5;
 }
 
 .right-panel blockquote {
-    font-size: 1.1rem;
+    font-size: 2rem;
     font-style: italic;
     color: #f1f1f1;
     margin: 20px 0;
@@ -144,6 +144,6 @@ label {
 
 .right-panel blockquote footer {
     text-align: right;
-    font-size: 0.9rem;
+    font-size: 2rem;
     color: #ccc;
 }
