@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import Logo from '../assets/logo.png'
 
 const Navbar = () => {
   const login = () => {
@@ -22,6 +23,7 @@ const Navbar = () => {
         >
           <MenuIcon />
         </IconButton>
+        <img src={Logo} alt='Logo' style={{marginRight:'10px'}}></img>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 ,color: 'black'}}>
           MediShare
         </Typography>

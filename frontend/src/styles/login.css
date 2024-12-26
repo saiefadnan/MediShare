@@ -3,6 +3,7 @@
     width: 100%;
     display: flex;
     margin: 0;
+    overflow: hidden;
 }
   
 .brand-section {
@@ -17,6 +18,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    max-height: 100vh;
+    width: auto;
+    object-fit: cover;
 }
   
 .medical-illustration {
@@ -29,6 +33,7 @@
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    margin-left: 5%;
 }
   
 .login-card {
@@ -36,8 +41,9 @@
     max-width: 400px;
     background: white;
     padding: 2rem;
-    border-radius: 8px;
+    border-radius: 12px 0px 12px 0px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: #393633 1px solid;
 }
   
 .login-card h2 {
@@ -92,7 +98,7 @@
 }
   
 .login-button:hover {
-    background-color: #C0A692;
+    background-color: #393633;
 }
   
 .links-container {
