@@ -1,5 +1,5 @@
 import Navbar from './components/navbar';
-import Home from './pages/Home';
+//import Home from './pages/Home';
 import UserDashboard from './pages/userDashboard'; // Import UserDashboard component
 import UserProfile from './pages/userProfile'; // Import UserProfile component
 import UserRequests from './pages/userRequests';
@@ -11,7 +11,7 @@ import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
 import Admin from './pages/Admin.jsx';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Suspense } from 'react';
-import './styles/App.css';
+//import './styles/App.css';
 import './styles/userGlobal.css';
 import './styles/userProfile.css'; 
 import './styles/userDash.css'; // Import the CSS file for UserDashboard
@@ -35,7 +35,6 @@ function App() {
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
           <Route path='/' element={<Navigate to='/login'/>}/>
-          <Route path='/home' element={<Home/>}/>
           <Route path='/userDashboard' element={<UserDashboard/>}/>
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/userRequests" element={<UserRequests />} />
