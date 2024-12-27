@@ -12,7 +12,7 @@ const Navbar = () => {
     window.location.href = '/login';
   }
   return (
-    <AppBar position="static" sx={{backgroundColor: "#F6EFE4"}}>
+    <AppBar position="sticky" sx={{backgroundColor: "#F6EFE4"}}>
       <Toolbar>
         {/* <IconButton
           size="large"
