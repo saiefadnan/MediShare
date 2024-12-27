@@ -1,22 +1,18 @@
 import '../../styles/admin.css'
-import Sidebar from '../dashboard_stuffs/Sidebar';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import Cards from '../dashboard_stuffs/Cards';
 import Piechart from '../dashboard_stuffs/Piechart';
 import Charts from '../dashboard_stuffs/charts';
 import Datagrid from '../dashboard_stuffs/Datagrid';
 import AdminList from '../dashboard_stuffs/AdminList';
+import { Typography } from '@mui/material';
 
 
 const AdminPortal = () => {
     return ( 
-    <div className="page91">
-        <Box sx={{ display: 'flex', height: '100%'}}>
-                <CssBaseline />
-                <Sidebar/>
             <Box component="main" sx={{ display: 'flex',flexDirection:'column', width: '100%'}}>
                 {/* <DrawerHeader /> */}
+                <Typography variant="h6">Admin Portal</Typography>
                 <Cards/>
                 <div style={{display: 'flex', width: '100%'}}>
                     <Charts/>
@@ -27,8 +23,6 @@ const AdminPortal = () => {
                     <AdminList/>
                 </div>
             </Box>
-        </Box>
-    </div> 
     );
 }
  

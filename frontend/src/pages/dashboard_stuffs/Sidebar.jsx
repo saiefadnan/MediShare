@@ -86,8 +86,8 @@ const Sidebar = ()=> {
     setOpen(!open);
   };
 
-const Menu = ['DashBoard','Collection','Donation','Chat'];
-const Manage = ['Accounts', 'Review', 'Sign out'];
+  const Menu = ['DashBoard','Collection','Donation','Chat'];
+  const Manage = ['Accounts', "Users' Review", 'Sign out'];
 
   return (
       <Drawer variant="permanent" open={open}>
@@ -104,12 +104,12 @@ const Manage = ['Accounts', 'Review', 'Sign out'];
                <Link
                 to={
                   index === 0
-                    ? '/admin-portal'
+                    ? '/admin/dashboard'
                     : index === 1
-                    ? '/collection-chart'
+                    ? '/admin/collection'
                     : index === 2
-                    ? '/donation-chart'
-                    : '/chat'
+                    ? '/admin/donation'
+                    : '/admin/chat'
                 }
                 style={{ textDecoration: 'none', color: 'inherit' }}
               >
@@ -170,9 +170,9 @@ const Manage = ['Accounts', 'Review', 'Sign out'];
               <Link
                 to={
                   index === 0
-                    ? '/accounts'
+                    ? '/admin/accounts'
                     : index === 1
-                    ? '/review'
+                    ? '/admin/review'
                     :'/login'
                 }
                 style={{ textDecoration: 'none', color: 'inherit' }}
@@ -230,4 +230,4 @@ const Manage = ['Accounts', 'Review', 'Sign out'];
   );
 }
 
-export default Sidebar;
+export default Sidebar;;
