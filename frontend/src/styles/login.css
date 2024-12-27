@@ -1,0 +1,131 @@
+.login-container {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    margin: 0;
+    overflow: hidden;
+}
+  
+.brand-section {
+    display: none;
+    width: 40%;
+    background: linear-gradient(135deg, #40E0D0 0%, #2AAF96 100%);
+    flex-direction: column;
+}
+  
+.illustration-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-height: 100vh;
+    width: auto;
+    object-fit: cover;
+}
+  
+.medical-illustration {
+    width: 100%;
+}
+  
+.form-section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    margin-left: 5%;
+}
+  
+.login-card {
+    width: 100%;
+    max-width: 400px;
+    background: white;
+    padding: 2rem;
+    border-radius: 12px 0px 12px 0px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: #393633 1px solid;
+}
+  
+.login-card h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+  
+.input-group {
+    margin-bottom: 1rem;
+}
+  
+.input-container {
+    position: relative;
+    width: 100%;
+}
+  
+.icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.25rem;
+    height: 1.25rem;
+    color: #6B7280;
+}
+  
+.input-group input {
+    width: 100%;
+    padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+    border: 1px solid #E5E7EB;
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+  
+.input-group input:focus {
+    outline: none;
+    border-color: #40E0D0;
+}
+  
+.login-button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: #D2B8A4;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+  
+.login-button:hover {
+    background-color: #393633;
+}
+  
+.links-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+    font-size: 0.875rem;
+}
+  
+.links-container a {
+    color: #6B7280;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+  
+.links-container a:hover {
+    color: #374151;
+}
+  
+@media (min-width: 768px) {
+    .brand-section {
+      display: flex;
+    }
+    
+    .form-section {
+      width: 50%;
+    }
+}
+  
+  

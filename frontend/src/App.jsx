@@ -4,35 +4,57 @@ import UserDashboard from './pages/userDashboard'; // Import UserDashboard compo
 import UserProfile from './pages/userProfile'; // Import UserProfile component
 import UserRequests from './pages/userRequests';
 import UserRequested from './pages/userRequested';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Donation from './pages/Donation';
+import Ai from './pages/Ai';
+import LoginPage from './pages/Login';
+import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
+import Admin from './pages/Admin.jsx';
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Suspense } from 'react';
 import './styles/App.css';
 import './styles/userGlobal.css';
 import './styles/userProfile.css'; 
 import './styles/userDash.css'; // Import the CSS file for UserDashboard
 import './styles/userRequests.css'; // Import the CSS file for UserDashboard
-import { Suspense } from 'react';
 
 function App() {
+  const location = useLocation();
+  const hideNavbarRoutes = [
+    '/login',
+    '/admin',
+    '/userDashboard',
+    '/userProfile',
+    '/userRequests',
+    '/userRequested',
+  ];
+
   return (
-    <BrowserRouter>  
-      <div className="App">
-        {/* Only render Navbar on /home route */}
-        {window.location.pathname !== '/userDashboard' && 
-        window.location.pathname !== '/userProfile' &&
-        window.location.pathname !== '/userRequests' && 
-        window.location.pathname !== '/userRequested' && <Navbar />}
-        <Suspense fallback={<div>Loading...</div>}>
-          <Routes>
-            <Route path='/home' element={<Home/>}/>
-            <Route path='/userDashboard' element={<UserDashboard/>}/> {/* Route for /userDashboard */}
-            <Route path="/userProfile" element={<UserProfile />} />
-            <Route path="/userRequests" element={<UserRequests />} />
-            <Route path="/userRequested" element={<UserRequested />} />
-          </Routes>
-        </Suspense>
-      </div>
-    </BrowserRouter>
+    <div className="App">
+      {/* Show Navbar only if the current route is not in the `hideNavbarRoutes` */}
+      {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path='/' element={<Navigate to='/login'/>}/>
+          <Route path='/home' element={<Home/>}/>
+          <Route path='/userDashboard' element={<UserDashboard/>}/>
+          <Route path="/userProfile" element={<UserProfile />} />
+          <Route path="/userRequests" element={<UserRequests />} />
+          <Route path="/userRequested" element={<UserRequested />} />
+          <Route path='/donation' element={<Donation/>}/>
+          <Route path='/login' element={<LoginPage/>}/>
+          <Route path='/findMed' element={<FindMedPage/>}/>
+          <Route path='/ai' element={<Ai/>}/>
+          <Route path='/admin/*'  element={<Admin/>}/>
+        </Routes>
+      </Suspense>
+    </div>
   );
 }
 
-export default App;
+export default function Root() {
+  return (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
+}
