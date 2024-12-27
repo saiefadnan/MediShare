@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import '../styles/login.css'
 
-function LoginPage() {
+function SignupPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
     const handleSubmit = (e) => {
@@ -13,6 +13,9 @@ function LoginPage() {
   return (
     <div className="login-container">
       <div className="brand-section">
+        <div className="illustration-container">
+        <img src="/src/assets/medisharelogin.png" alt="MediShare Login" className='medical-illustration' />
+        </div>
       </div>
 
       <div className="form-section">
@@ -64,5 +67,4 @@ function LoginPage() {
   )
 }
 
-export default LoginPage
-
+export default SignupPage

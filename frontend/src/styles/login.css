@@ -7,9 +7,11 @@
 }
   
 .brand-section {
+    background-image: url('/src/assets/medisharelogin.png');
+    background-size: cover;
+    background-position: center;
     display: none;
     width: 40%;
-    background: linear-gradient(135deg, #40E0D0 0%, #2AAF96 100%);
     flex-direction: column;
 }
   
@@ -39,7 +41,7 @@
 .login-card {
     width: 100%;
     max-width: 400px;
-    background: white;
+    background: transparent;
     padding: 2rem;
     border-radius: 12px 0px 12px 0px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -64,7 +66,7 @@
 .icon {
     position: absolute;
     left: 0.75rem;
-    top: 50%;
+    top: 40%;
     transform: translateY(-50%);
     width: 1.25rem;
     height: 1.25rem;
@@ -74,10 +76,11 @@
 .input-group input {
     width: 100%;
     padding: 0.75rem 0.75rem 0.75rem 2.5rem;
-    border: 1px solid #E5E7EB;
-    border-radius: 4px;
+    border: none;
+    border-bottom: 2px solid #393633;
     font-size: 1rem;
     transition: border-color 0.2s;
+    background-color: transparent;
 }
   
 .input-group input:focus {
@@ -86,15 +89,20 @@
 }
   
 .login-button {
-    width: 100%;
+    text-align: center;
+    width: 50%;
     padding: 0.75rem;
     background-color: #D2B8A4;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.4s;
+    position: relative;
+    margin: 0 auto;
+    display: block;
+    margin-top: 1rem;
 }
   
 .login-button:hover {
