@@ -14,6 +14,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -100,6 +101,18 @@ const Manage = ['Accounts', 'Review', 'Sign out'];
         <List>
           {Menu.map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+               <Link
+                to={
+                  index === 0
+                    ? '/admin-portal'
+                    : index === 1
+                    ? '/collection-chart'
+                    : index === 2
+                    ? '/donation-chart'
+                    : '/chat'
+                }
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
               <ListItemButton
                 sx={[
                   {
@@ -145,6 +158,7 @@ const Manage = ['Accounts', 'Review', 'Sign out'];
                   ]}
                 />
               </ListItemButton>
+              </Link>
             </ListItem>
           ))}
         </List>
@@ -153,6 +167,16 @@ const Manage = ['Accounts', 'Review', 'Sign out'];
         <List>
           {Manage.map((text, index) => (
             <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+              <Link
+                to={
+                  index === 0
+                    ? '/accounts'
+                    : index === 1
+                    ? '/review'
+                    :'/login'
+                }
+                style={{ textDecoration: 'none', color: 'inherit' }}
+              >
               <ListItemButton
                 sx={[
                   {
@@ -198,6 +222,7 @@ const Manage = ['Accounts', 'Review', 'Sign out'];
                   ]}
                 />
               </ListItemButton>
+              </Link>
             </ListItem>
           ))}
         </List>

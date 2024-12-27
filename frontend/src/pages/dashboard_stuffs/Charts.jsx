@@ -13,17 +13,25 @@ const data = [
 
 const Charts = () => {
     return (  
-    <ResponsiveContainer width="100%" height={300}>
-    <LineChart data={data}>
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
-      <Tooltip />
-      <Legend />
-      <Line type="monotone" dataKey="donators" stroke="#ff7300" />
-      <Line type="monotone" dataKey="collectors" stroke="#387908" />
-    </LineChart>
-  </ResponsiveContainer> );
+      <div style={{ 
+        backgroundColor: "#DCEAE3", 
+        minWidth: '800px',
+        height: "auto" , 
+        margin: '20px auto',
+        padding: '50px',
+        borderRadius: '8px'}}>
+        <ResponsiveContainer width="100%" height={300}>
+        <LineChart data={data}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="donators" stroke="#ff7300" />
+          <Line type="monotone" dataKey="collectors" stroke="#387908" />
+        </LineChart>
+      </ResponsiveContainer> 
+    </div>  );
 }
  
 export default Charts;

@@ -11,26 +11,35 @@ const COLORS = ['#ff7300', '#387908', '#f8d7da'];
 
 const Piechart = () => {
     return ( 
-    <ResponsiveContainer width="100%" height={300}>
-        <PieChart>
-            <Pie
-                data={data}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={100}
-                fill="#8884d8"
-                label
-            >
-                {data.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index]} />
-                ))}
-            </Pie>
-        <Tooltip />
-        <Legend />
-        </PieChart>
-  </ResponsiveContainer> );
+        <div style={{ 
+            backgroundColor: "#DCEAE3", 
+            minWidth: "400px", 
+            height: "auto" , 
+            margin: '20px auto',
+            padding: '50px',
+            borderRadius: '8px'}}>
+            <ResponsiveContainer width="100%" height={300}>
+                <PieChart>
+                    <Pie
+                        data={data}
+                        dataKey="value"
+                        nameKey="name"
+                        cx="50%"
+                        cy="50%"
+                        outerRadius={100}
+                        fill="#8884d8"
+                        label
+                    >
+                        {data.map((entry, index) => (
+                        <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                        ))}
+                    </Pie>
+                <Tooltip />
+                <Legend />
+                </PieChart>
+        </ResponsiveContainer>
+  </div> 
+  );
 }
  
 export default Piechart;

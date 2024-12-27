@@ -1,10 +1,12 @@
-import '../styles/admin.css'
-import Sidebar from './dashboard_stuffs/Sidebar';
+import '../../styles/admin.css'
+import Sidebar from '../dashboard_stuffs/Sidebar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Cards from './dashboard_stuffs/Cards';
-import Piechart from './dashboard_stuffs/Piechart';
-import Charts from './dashboard_stuffs/charts';
+import Cards from '../dashboard_stuffs/Cards';
+import Piechart from '../dashboard_stuffs/Piechart';
+import Charts from '../dashboard_stuffs/charts';
+import Datagrid from '../dashboard_stuffs/Datagrid';
+import AdminList from '../dashboard_stuffs/AdminList';
 
 
 const AdminPortal = () => {
@@ -19,6 +21,10 @@ const AdminPortal = () => {
                 <div style={{display: 'flex', width: '100%'}}>
                     <Charts/>
                     <Piechart/>
+                </div>
+                <div style={{display: 'flex', width: '100%'}}>
+                    <Datagrid/>
+                    <AdminList/>
                 </div>
             </Box>
         </Box>
