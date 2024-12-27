@@ -1,0 +1,287 @@
+/*body {
+    font-family: Arial, sans-serif;  he font style for the entire page 
+}  */
+
+  
+.profile-editor {
+    display: flex;
+    min-height: 100vh;
+    background-color: #f8f3f0; /* Main container for the profile editor */
+}
+  
+.sidebar {
+    width: 250px;
+    background-color: #2b3d36; /* Styles for the left sidebar */
+    height: 100vh;
+    color: #fff;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+  
+.back-button {
+    align-self: flex-start;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    margin-bottom: 20px; /* Back button styling */
+}
+  
+.user-info {
+    text-align: center;
+    margin-bottom: 30px; /* User profile information */
+}
+  
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%; /* User avatar image styling */
+    overflow: hidden;
+    margin: 0 auto 10px;
+}
+  
+.avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* this is sidebar avatar */
+}
+  
+.user-info h2 {
+    font-size: 20px;
+    margin: 5px 0;
+}
+  
+.user-info p {
+    font-size: 16px;
+    color: #c3c3c3;
+}
+  
+.menu-section {
+    margin-bottom: 20px; /* Menu items in the sidebar */
+}
+  
+.menu-section h3 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+    text-transform: uppercase; /* Menu section headings */
+}
+  
+.menu-button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-family: 'Arial', sans-serif;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: background-color 0.3s; /* Sidebar button styles */
+}
+  
+.menu-button:hover {
+    background-color: #62c69e;
+    color: #fff; /* Hover effect for buttons */
+}
+  
+.menu-button.active {
+    background-color: #4caf84;
+    color: white; /* Active state for buttons */
+}
+  
+.sidebar .divider {
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
+    margin: 20px 0; /* Divider styling */
+}
+  
+.menu-section + .menu-section {
+    margin-top: 20px;
+}
+  
+.sign-out-button {
+    margin-top: 120px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer; /* Sign-out button styling */
+}
+  
+.main-content {
+    flex: 1;
+    margin-left: 250px;
+    padding: 60px; /* Main content area */
+}
+  
+.profile-header {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 40px; /* Header section with profile image and details */
+}
+  
+.profile-image-section {
+    flex: 0 0 auto;
+    margin-right: 100px; /* Profile image container */
+}
+  
+.profile-image {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    margin-top: -20px;
+    top: 10px;
+}
+  
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Profile image */
+}
+  
+.upload-button {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4a1eff;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    font-size: 14px; /* Upload button styling */
+}
+  
+.name-fields {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Fields for entering name details */
+}
+  
+.form-section {
+    max-width: 800px; /* General form container */
+}
+  
+.form-group {
+    margin-bottom: 20px; /* Individual form fields */
+}
+  
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 14px;
+    color: #333; /* Labels for form inputs */
+}
+  
+input, select {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: #e8e8e8;
+    border-radius: 6px;
+    font-size: 14px; /* Input and dropdown styling */
+}
+  
+.form-row {
+    display: flex;
+    gap: 40px;
+    margin-bottom: 25px; /* Row layout for form fields */
+}
+  
+.form-row .form-group {
+    flex: 1; /* Equal spacing for grouped inputs */
+}
+  
+.input-with-icon {
+    position: relative;
+}
+  
+.check-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: green; /* Icon styling for input validation */
+}
+  
+.address-section {
+    margin-top: 30px;
+    border-top: 1px solid #000;
+    padding-top: 20px; /* Address section */
+}
+  
+.address-section h3 {
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+  
+.button-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px; /* Buttons for saving or cancelling */
+}
+  
+.cancel-button, .save-button {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold; /* Styling for buttons */
+}
+  
+.cancel-button {
+    background-color: #e0e0e0;
+    color: #333; /* Cancel button */
+}
+  
+.save-button {
+    background-color: #00d9ff;
+    color: white; /* Save button */
+}
+  
+/* Responsive design */
+@media (max-width: 768px) {
+    .profile-editor {
+        flex-direction: column;
+    }
+  
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static; /* Adjustments for smaller screens */
+    }
+  
+    .main-content {
+        margin-left: 0;
+        padding: 20px;
+    }
+  
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+    }
+  
+    .profile-image-section {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+  
+    .form-row {
+        flex-direction: column;
+    }
+}
