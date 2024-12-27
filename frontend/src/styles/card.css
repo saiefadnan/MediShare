@@ -1,0 +1,93 @@
+.card-item{
+    background-color: rgb(229, 243, 255);
+    height: 300px;
+    width: 230px;
+   
+    
+    margin: 20px;
+    position: relative;
+    box-shadow: 3px  3px 5px rgba(0, 0, 0, 0.162);
+    border-radius: 35px;
+}
+
+.card-item img{
+
+    height: 45%;
+    width: 100%;
+    border-radius:0px 0px 35px 35px;
+    box-shadow: 0px 5px 5px rgba(0, 217, 255, 0.162);
+    
+
+}
+
+.card-item .card-details{
+    margin-left: 15px;
+    margin-top: 10px;
+}
+
+.card-details .card-title{
+    font-size: 20px;
+    font-weight: 600;
+    color: #10433f;
+    transition: all .2s ease-in-out;
+    
+
+}
+
+.card-details .card-title:hover{
+    transform: scale(1.08);
+    color: #29ff89;
+
+    
+
+}
+.quantity{
+    font-size: 15px;
+    
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+ .exp-date{
+    font-size: 15px;
+    
+}
+
+.card-btns{
+    position:absolute;
+    left:50%;
+    transform: translate(-50%);
+    display: flex;
+    margin-top: 10px;
+    gap: 20px;
+
+}
+
+.card-btns button{
+    border: none;
+    background-color: #10433f;
+    color: white;
+    height: 30px;
+    width: 80px;
+    border-radius: 35px;
+}
+
+.card-btns button:nth-child(2){
+    border: 3px solid rgb(26, 54, 51);
+    background-color: rgb(252, 252, 253);
+    color: rgb(32, 32, 32);
+    height: 30px;
+    width: 80px;
+    border-radius: 35px;
+}
+
+.card-btns button:nth-child(1):hover{
+    background-color: rgb(36, 118, 81);
+    
+}
+
+.card-btns button:nth-child(2):hover{
+    background-color:rgb(26, 54, 51);
+    color: aliceblue;
+    
+}

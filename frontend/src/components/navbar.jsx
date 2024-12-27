@@ -5,15 +5,16 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import Logo from '../assets/logo.png'
 
 const Navbar = () => {
   const login = () => {
     window.location.href = '/login';
   }
   return (
-    <AppBar position="static" sx={{backgroundColor: "#F6EFE4"}}>
+    <AppBar position="sticky" sx={{backgroundColor: "#F6EFE4"}}>
       <Toolbar>
-        <IconButton
+        {/* <IconButton
           size="large"
           edge="start"
           color="inherit"
@@ -21,8 +22,10 @@ const Navbar = () => {
           sx={{ mr: 2 , color: 'black'}}
         >
           <MenuIcon />
-        </IconButton>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1 ,color: 'black'}}>
+        </IconButton> */}
+        
+        <Typography variant="h6" component="div" sx={{ flexGrow: 1 ,color: 'black', marginLeft: "50px"}}>
+          <img src={Logo} alt='Logo' style={{marginRight:'10px'}}></img>
           MediShare
         </Typography>
         <Button sx={{ color: 'black' }}>Home</Button>
