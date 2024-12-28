@@ -1,12 +1,32 @@
 import '../styles/home.css';
 
 function Home() {
+  const donate = () => {
+    window.location.href='/donation'
+  }
+  const findmed = () => {
+    window.location.href='/findmed'
+  }
+
   return (
     <div className="Home">
+      <header className="header">
+        <h1>MediShare</h1>
+        <nav>
+          <a href="#impact">Impact</a>
+          <a href="#mission">Mission</a>
+          <a href="#approach">Approach</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </header>
+
       <section className="hero">
         <h2>Explore The Power of MediShare</h2>
         <p>Connecting surplus medicines with those in need.</p>
-        <button>Get Started</button>
+        <div className="button-container">
+          <button onClick={donate}>Donate Now!</button>
+          <button onClick={findmed}>Get Medicine For Free!</button>
+        </div>
       </section>
 
       <section id="impact" className="section">
@@ -52,6 +72,9 @@ function Home() {
 
       <footer id="contact">
         <p>&copy; 2024 MediShare. All Rights Reserved.</p>
+        <p>
+          <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+        </p>
       </footer>
     </div>
   );

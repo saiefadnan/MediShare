@@ -1,5 +1,5 @@
 import Navbar from './components/navbar';
-//import Home from './pages/Home';
+import Home from './pages/Home';
 import UserDashboard from './pages/userDashboard'; // Import UserDashboard component
 import UserProfile from './pages/userProfile'; // Import UserProfile component
 import UserRequests from './pages/userRequests';
@@ -9,7 +9,7 @@ import Ai from './pages/Ai';
 import LoginPage from './pages/Login';
 import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
 import Admin from './pages/Admin.jsx';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Suspense } from 'react';
 import './styles/userGlobal.css';
 import './styles/userProfile.css'; 
@@ -35,7 +35,7 @@ function App() {
       {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/" element={<Home/>} />
           <Route path="/userDashboard" element={<UserDashboard />} />
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/userRequests" element={<UserRequests />} />

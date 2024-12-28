@@ -1,92 +1,146 @@
+:root {
+  --light-beige: #f8f5f0;
+  --beige: #e2d8c8;
+  --dark-green: #457b6f;
+  --dark-brown: #4a403a;
+  --transition-duration: 0.3s;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: var(--light-beige);
-    color: var(--dark-brown);
-  }
-  
-  .header {
-    background-color: var(--dark-green);
-    color: white;
-    padding: 1rem 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .header h1 {
-    font-size: 1.5rem;
-  }
-  
-  .header nav a {
-    color: white;
-    text-decoration: none;
-    margin-left: 1rem;
-  }
-  
-  .hero {
-    background-color: var(--beige);
-    text-align: center;
-    padding: 4rem 2rem;
-  }
-  
-  .hero h2 {
-    font-size: 2.5rem;
-    margin: 0;
-  }
-  
-  .hero p {
-    margin: 1rem 0;
-  }
-  
-  .hero button {
-    background-color: var(--dark-green);
-    color: white;
-    padding: 0.5rem 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .section {
-    padding: 2rem;
-    text-align: center;
-  }
-  
-  .section h3 {
-    font-size: 1.8rem;
-    margin-bottom: 1rem;
-  }
-  
-  .cards {
-    display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-  }
-  
-  .card {
-    background-color: var(--light-beige);
-    border: 1px solid var(--beige);
-    border-radius: 10px;
-    padding: 1rem;
-    max-width: 300px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .card img {
-    width: 100%;
-    border-radius: 10px;
-  }
-  
-  footer {
-    background-color: var(--dark-green);
-    color: white;
-    text-align: center;
-    padding: 1rem;
-  }
-  
-  footer p {
-    margin: 0;
-  }
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--light-beige);
+  color: var(--dark-brown);
+  line-height: 1.6;
+}
+
+.header {
+  background-color: var(--dark-green);
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+}
+
+.header nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: 1rem;
+  font-weight: 500;
+  transition: color var(--transition-duration);
+}
+
+.header nav a:hover {
+  color: var(--light-beige);
+}
+
+.hero {
+  background: linear-gradient(to bottom, var(--dark-green), var(--beige));
+  color: white;
+  text-align: center;
+  padding: 5rem 2rem;
+  transition: background-color var(--transition-duration);
+}
+
+.hero h2 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+.hero p {
+  margin: 1rem 0;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.hero button {
+  background-color: var(--dark-green);
+  color: white;
+  padding: 0.8rem 1.5rem;
+  margin-left: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color var(--transition-duration), transform var(--transition-duration);
+}
+
+.hero button:hover {
+  background-color: var(--dark-brown);
+  transform: scale(1.1);
+}
+
+.section {
+  padding: 3rem;
+  text-align: center;
+}
+
+.section h3 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  transition: color var(--transition-duration);
+}
+
+.section h3:hover {
+  color: var(--dark-green);
+}
+
+.cards {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: var(--light-beige);
+  border: 1px solid var(--beige);
+  border-radius: 10px;
+  padding: 1rem;
+  max-width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform var(--transition-duration), box-shadow var(--transition-duration);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+  background-color: var(--dark-green);
+  color: white;
+  text-align: center;
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
+}
+
+footer a {
+  color: var(--light-beige);
+  text-decoration: none;
+  margin: 0 0.5rem;
+  transition: color var(--transition-duration);
+}
+
+footer a:hover {
+  color: white;
+}
