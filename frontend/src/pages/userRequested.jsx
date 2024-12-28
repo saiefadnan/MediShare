@@ -42,7 +42,7 @@ function RequestedTable() {
 
       {/* Main Content with Requested Table */}
       <div className="main-content">
-        <h1>Requested</h1>
+        <h1 style={{ fontWeight: 'bold', color: 'black' }}>Requested</h1>
         <table className="requests-table">
           <thead>
             <tr>
@@ -50,7 +50,7 @@ function RequestedTable() {
               <th>Type</th>
               <th>Status</th>
               <th>Contact</th>
-              <th>Remove</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -61,7 +61,9 @@ function RequestedTable() {
                 <td>{item.status}</td>
                 <td>{item.contact}</td>
                 <td>
-                  <button onClick={() => handleReject(item.id)}>Remove</button>
+                  {item.status !== "Declined" && item.status !== "Accepted" &&(
+                    <button onClick={() => handleReject(item.id)}>Remove</button>
+                  )}
                 </td>
               </tr>
             ))}

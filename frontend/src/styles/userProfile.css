@@ -1,12 +1,17 @@
 body {
     font-family: Arial, sans-serif;  
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9; 
 }  
 
-  
 .profile-editor {
     display: flex;
-    min-height: 100vh;
-    background-color: #f8f3f0; /* Main container for the profile editor */
+    flex-direction: row; /* Ensure the sidebar and content are side-by-side */
+    align-items: flex-start; /* Align to the top */
+    justify-content: flex-start; /* Prevent horizontal centering */
+    min-height: 100vh; /* Full viewport height */
+    background-color: #f9f9f9;
 }
   
 .sidebar {
@@ -19,7 +24,30 @@ body {
     flex-direction: column;
     padding: 20px;
 }
-  
+
+.sidebar .divider {
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
+    margin: 30px 0; /* Adjusted spacing between sections */
+}
+
+.menu-section {
+    margin-bottom: 20px; /* Menu items in the sidebar */
+}
+
+.menu-section h3 {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+    text-transform: uppercase; /* Menu section headings */
+}
+
+.menu-section + .menu-section {
+    margin-top: 30px; /* Add spacing between sections like Manage */
+}
+
 .back-button {
     align-self: flex-start;
     background: none;
@@ -59,18 +87,6 @@ body {
     color: #c3c3c3;
 }
   
-.menu-section {
-    margin-bottom: 20px; /* Menu items in the sidebar */
-}
-  
-.menu-section h3 {
-    font-size: 22px;
-    font-weight: bold;
-    color: #fff;
-    margin-bottom: 15px;
-    text-transform: uppercase; /* Menu section headings */
-}
-  
 .menu-button {
     display: block;
     width: 100%;
@@ -96,18 +112,7 @@ body {
     background-color: #4caf84;
     color: white; /* Active state for buttons */
 }
-  
-.sidebar .divider {
-    width: 100%;
-    height: 1px;
-    background-color: #fff;
-    margin: 20px 0; /* Divider styling */
-}
-  
-.menu-section + .menu-section {
-    margin-top: 20px;
-}
-  
+
 .sign-out-button {
     margin-top: 120px;
     background: none;
@@ -115,173 +120,187 @@ body {
     color: white;
     cursor: pointer; /* Sign-out button styling */
 }
-  
-.main-content {
+  /*main */
+  .main-content {
     flex: 1;
-    margin-left: 250px;
-    padding: 60px; /* Main content area */
+    margin-left: 250px; /* Leave space for the sidebar */
+    padding: 20px 40px;
+    width: calc(100% - 250px); /* Dynamically adjust width */
+    max-width: none; /* Remove the fixed maximum width */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    overflow-y: auto; /* Allow vertical scrolling */
+    background-color: #f9f9f9; /* Uniform background color */
+    min-width: 600px; /* Set a minimum width to prevent collapsing */
 }
-  
+
+
 .profile-header {
     display: flex;
     align-items: flex-start;
-    margin-bottom: 40px; /* Header section with profile image and details */
+    justify-content: flex-start;
+    gap: 30px;
+    margin-bottom: 40px;
+    flex-wrap: wrap; /* Wrap on smaller screens */
 }
-  
+
 .profile-image-section {
-    flex: 0 0 auto;
-    margin-right: 100px; /* Profile image container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 30px; /* Adjust spacing between image and fields */
 }
-  
+
 .profile-image {
-    width: 180px;
-    height: 180px;
+    width: 200px; /* Enlarged profile picture size */
+    height: 200px;
     border-radius: 50%;
     overflow: hidden;
     position: relative;
-    margin-top: -20px;
-    top: 10px;
+    border: 2px dashed #f6d69e;
+    margin-bottom: 10px;
 }
-  
+
 .profile-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Profile image */
+    object-fit: cover;
 }
-  
+
 .upload-button {
     position: absolute;
-    bottom: 0;
+    bottom: -10px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: #4a1eff;
-    color: white;
-    padding: 5px 15px;
-    border-radius: 15px;
+    background-color: #1a3cff;
+    color: #fff;
+    padding: 8px 16px; /* Increased button size */
+    border-radius: 50%;
     cursor: pointer;
-    font-size: 14px; /* Upload button styling */
+    font-size: 18px; /* Increased font size for button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
 }
-  
+
 .name-fields {
-    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Fields for entering name details */
+    gap: 20px; /* Space between fields */
+    align-items: flex-start; /* Align fields to the left */
+    flex-grow: 1; /* Let the name fields grow to fill available space */
 }
-  
-.form-section {
-    max-width: 800px; /* General form container */
-}
-  
-.form-group {
-    margin-bottom: 20px; /* Individual form fields */
-}
-  
-label {
-    display: block;
-    margin-bottom: 5px;
+
+/* Make the labels for name, email, and phone number bold */
+.name-fields .form-group {
+    display: flex;
+    flex-direction: column;
+    font-size: 16px; /* Slightly larger font size for labels */
     font-weight: bold;
-    font-size: 14px;
-    color: #333; /* Labels for form inputs */
+    color: #000000; /* Changed to bold black */
 }
-  
+
 input, select {
-    width: 100%;
-    padding: 12px;
-    border: none;
-    background-color: #e8e8e8;
+    width: 100%; /* Expand inputs to fill the available space */
+    max-width: 600px; /* Set a maximum width */
+    padding: 15px; /* Increased padding for better usability */
+    font-size: 16px; /* Larger font size for inputs */
+    border: 1px solid #ccc;
     border-radius: 6px;
-    font-size: 14px; /* Input and dropdown styling */
+    background-color: #f9f9f9;
+    color: #4a4a4a;
 }
-  
+
+input:focus, select:focus {
+    border-color: #4a1eff;
+    outline: none;
+}
+
+.form-section {
+    max-width: 1200px; /* Match the maximum width of the main content */
+    margin-top: 20px;
+}
+
 .form-row {
     display: flex;
-    gap: 40px;
-    margin-bottom: 25px; /* Row layout for form fields */
+    gap: 40px; /* Space between grouped inputs */
+    margin-bottom: 25px;
+    justify-content: flex-start; /* Align rows to the left */
 }
-  
+
 .form-row .form-group {
-    flex: 1; /* Equal spacing for grouped inputs */
+    flex: 1; /* Let each group take up equal space */
+    font-weight: bold; /* Added bold text for form fields */
+    color: #000; /* Changed color to black */
 }
-  
-.input-with-icon {
-    position: relative;
-}
-  
-.check-icon {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: green; /* Icon styling for input validation */
-}
-  
+
 .address-section {
     margin-top: 30px;
-    border-top: 1px solid #000;
-    padding-top: 20px; /* Address section */
+    border-top: 1px solid #ccc; /* Softer horizontal divider */
+    padding-top: 20px;
 }
-  
+
 .address-section h3 {
     margin-bottom: 20px;
-    font-size: 18px;
+    font-size: 18px; /* Increased font size for address heading */
     font-weight: bold;
+    color: #000; /* Changed to bold black */
 }
-  
+
 .button-group {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-end; /* Align buttons to the right */
     gap: 15px;
-    margin-top: 30px; /* Buttons for saving or cancelling */
+    margin-top: 30px;
 }
-  
-.cancel-button, .save-button {
-    padding: 12px 30px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold; /* Styling for buttons */
-}
-  
+
 .cancel-button {
-    background-color: #e0e0e0;
-    color: #333; /* Cancel button */
+    padding: 12px 30px;
+    background-color: #d3d3d3;
+    color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
-  
+
 .save-button {
-    background-color: #00d9ff;
-    color: white; /* Save button */
+    padding: 12px 30px;
+    background-color: #00bff3;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
-  
-/* Responsive design */
+
+.save-button:hover {
+    background-color: #009fcc;
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .profile-editor {
-        flex-direction: column;
+        flex-direction: column; /* Stack sidebar and content vertically */
     }
-  
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: static; /* Adjustments for smaller screens */
-    }
-  
+
     .main-content {
-        margin-left: 0;
-        padding: 20px;
+        margin-left: 0; /* Remove sidebar space */
+        width: 100%; /* Take full width */
     }
-  
+
     .profile-header {
-        flex-direction: column;
+        flex-direction: column; /* Stack items vertically */
         align-items: center;
+        gap: 20px;
     }
-  
-    .profile-image-section {
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-  
+
     .form-row {
-        flex-direction: column;
+        flex-direction: column; /* Stack form fields vertically */
+    }
+
+    input,
+    select {
+        width: 100%; /* Full width for smaller screens */
     }
 }
+

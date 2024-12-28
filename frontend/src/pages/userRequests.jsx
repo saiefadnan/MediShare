@@ -43,7 +43,7 @@ function UserRequests() { // Renamed function to UserRequests
 
       {/* Main Content with Requests Table */}
       <div className="main-content">
-        <h1>Requests</h1>
+        <h1 style={{ fontWeight: 'bold', color: 'black' }}>Requests</h1>
         <table className="requests-table">
           <thead>
             <tr>

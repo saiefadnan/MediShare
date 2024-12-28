@@ -75,11 +75,11 @@ export default function ProfileEditor() {
           </div>
           <div className="name-fields">
             <div className="form-group">
-              <label htmlFor="firstName">First Name</label>
+              <label htmlFor="firstName" style={{ fontWeight: 'bold', color: 'black' }}>First Name</label>
               <input type="text" id="firstName" defaultValue="John" />
             </div>
             <div className="form-group">
-              <label htmlFor="lastName">Last Name</label>
+              <label htmlFor="lastName" style={{ fontWeight: 'bold', color: 'black' }}>Last Name</label>
               <input type="text" id="lastName" defaultValue="Smith" />
             </div>
           </div>
@@ -87,14 +87,14 @@ export default function ProfileEditor() {
         <div className="form-section">
           <div className="form-row">
             <div className="form-group">
-              <label htmlFor="email">E-mail</label>
+              <label htmlFor="email" style={{ fontWeight: 'bold', color: 'black' }}>E-mail</label>
               <div className="input-with-icon">
                 <input type="email" id="email" defaultValue="johnsmith@gmail.com" />
                 <span className="check-icon">✓</span>
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="phone">Contact Number</label>
+              <label htmlFor="phone" style={{ fontWeight: 'bold', color: 'black' }}>Contact Number</label>
               <div className="input-with-icon">
                 <input type="tel" id="phone" defaultValue="01678901234" />
                 <span className="check-icon">✓</span>
@@ -104,7 +104,7 @@ export default function ProfileEditor() {
           <div className="address-section">
             <h3>Address</h3>
             <div className="form-group">
-              <label htmlFor="addressLine1">Address Line 1 *</label>
+              <label htmlFor="addressLine1" style={{ fontWeight: 'bold', color: 'black' }}>Address Line 1 *</label>
               <input
                 type="text"
                 id="addressLine1"
@@ -112,12 +112,12 @@ export default function ProfileEditor() {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="addressLine2">Address Line 2 (optional)</label>
+              <label htmlFor="addressLine2" style={{ fontWeight: 'bold', color: 'black' }}>Address Line 2 (optional)</label>
               <input type="text" id="addressLine2" />
             </div>
             <div className="form-row">
               <div className="form-group">
-                <label htmlFor="division">Division</label>
+                <label htmlFor="division" style={{ fontWeight: 'bold', color: 'black' }}>Division</label>
                 <select id="division" defaultValue="dhaka">
                   <option value="dhaka">Dhaka</option>
                   <option value="chittagong">Chittagong</option>
@@ -126,7 +126,7 @@ export default function ProfileEditor() {
                 </select>
               </div>
               <div className="form-group">
-                <label htmlFor="zipCode">ZIP/Postal Code</label>
+                <label htmlFor="zipCode" style={{ fontWeight: 'bold', color: 'black' }}>ZIP/Postal Code</label>
                 <input type="text" id="zipCode" defaultValue="1216" />
               </div>
             </div>
