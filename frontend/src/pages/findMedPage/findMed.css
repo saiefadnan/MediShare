@@ -63,7 +63,8 @@
     position: relative;
     left: 50%;
     transform: translate(-50%);
-    width: 600px;
+   
+  width: 600px;
     border-radius: 30px;
     padding-left: 15px;
 
@@ -215,6 +216,8 @@
     background-color: rgb(255, 144, 70);
     
 }
+
+
 
 
 

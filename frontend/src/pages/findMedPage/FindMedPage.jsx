@@ -18,7 +18,8 @@ export default function FindMedPage(){
     }
 
     return (
-        <>
+        
+        <div id='full-page'>
         <div className='search-section'>
             <h1 >Find Your Med!</h1>
             <div className='search-container'>
@@ -48,7 +49,7 @@ export default function FindMedPage(){
         <div className='card-section'>
             <div className='cards-container'>
             <Card imgSrc={cardImg}  title="Napa(500mg)" qty={5} expiryDate="22 Dec 2024"/>
-            <Card imgSrc={cardImg} title="Paracetamol (500mg)" qty={10} expiryDate="15 Jan 2025" />
+            {/*<Card imgSrc={cardImg} title="Paracetamol (500mg)" qty={10} expiryDate="15 Jan 2025" />
             <Card imgSrc={cardImg} title="Ibuprofen (200mg)" qty={20} expiryDate="30 Mar 2025" />
             <Card imgSrc={cardImg} title="Amoxicillin (250mg)" qty={15} expiryDate="12 Jul 2024" />
             <Card imgSrc={cardImg} title="Cetirizine (10mg)" qty={5} expiryDate="18 Oct 2024" />
@@ -61,7 +62,7 @@ export default function FindMedPage(){
             <Card imgSrc={cardImg} title="Doxycycline (100mg)" qty={7} expiryDate="25 Aug 2025" />
             <Card imgSrc={cardImg} title="Ciprofloxacin (500mg)" qty={6} expiryDate="14 Feb 2024" />
             <Card imgSrc={cardImg} title="Loratadine (10mg)" qty={9} expiryDate="5 Sep 2025" />
-            <Card imgSrc={cardImg} title="Pantoprazole (40mg)" qty={4} expiryDate="1 Nov 2024" />
+            <Card imgSrc={cardImg} title="Pantoprazole (40mg)" qty={4} expiryDate="1 Nov 2024" />*/}
             </div>
             <button className='loadmore-btn'>Load More</button>
            
@@ -71,6 +72,8 @@ export default function FindMedPage(){
         <div className='footer-section'>
 
         </div>
-        </>
+        </div>
+        
+        
     );
 }
