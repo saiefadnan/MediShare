@@ -1,3 +1,7 @@
+button:hover{
+    background-color: #ffffff;
+    scale: 1.02;
+}
 .card-item{
     background-color: rgb(229, 243, 255);
     height: 300px;
@@ -91,3 +95,138 @@
     color: aliceblue;
     
 }
+
+.request-popup{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-color: #cfcfcf;
+    z-index: 12;
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+    
+}
+
+.request-form{
+    background-color: rgb(85, 255, 0);
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    gap: 15px;
+    padding: 10px;
+    padding-top: 30px;
+    border-radius: 8px;
+}
+
+.request-form input{
+    height: 40px;
+    width: 300px;
+    margin:auto;
+    border: none;
+    padding-left: 7px;
+    border-radius: 30px;
+    padding-right: 7px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.116);
+    
+
+
+}
+
+.request-form input:focus{
+    outline:solid 2px rgb(71, 79, 243);
+}
+
+.request-form input[type="file"]{
+    height: 40px;
+    width: 300px;
+    background-color: #f6f8f8;
+    
+
+
+}
+
+.request-form input[type="file"]::file-selector-button{
+    border: none;
+    text-align: center;
+   
+    
+
+
+}
+
+.request-form input[type="file"]::file-selector-button{
+    border: none;
+    height: 40px;
+    width: 300px;
+    color: #5b5b5b;
+    text-align: left;
+    margin: auto;
+    position: relative;
+    top: 0px;
+    left: -7px;
+    cursor: pointer;
+    
+   
+    
+
+
+}
+
+.request-form button{
+    border:none;
+    height: 35px;
+    width: 100px;
+    background-color: rgb(242, 255, 0);
+    margin: auto;
+    border-radius: 35px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.116);
+    
+}
+
+.request-form span{
+    position:absolute;
+    top: 148px;
+    color: #5b5b5b;
+    z-index: 1;
+    right: 40px;
+    border-left: solid 2px rgb(88, 88, 88);
+    padding-left: 3px;
+    text-align: center;
+    cursor: pointer;
+    
+}
+
+.form-btns{
+    display: flex;
+    gap: 10px;
+}
+
+.details-popup{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    background-color: #09f357;
+    z-index: 12;
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+    padding: 15px;
+    
+}
+
+.details-popup button{
+    width: 100px;
+    height: 35px;
+    border: none;
+    border-radius: 30px;
+    position:relative;
+    left: 50%;
+    transform: translate(-50%);
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.115);
+}
+
+hr{
+    
+    opacity: .5;
+}
+
+
