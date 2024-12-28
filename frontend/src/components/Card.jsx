@@ -27,7 +27,7 @@ function handleClose() {
 
 
     return(
-        <div className="card-item">
+        <div className={background?"card-item":"card-item popup-active"}>
             <img src={props.imgSrc} alt="img" />
 
             <div className='card-details'>

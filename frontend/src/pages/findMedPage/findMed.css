@@ -206,7 +206,7 @@
 .card-section .loadmore-btn{
     border:none;
     height: 40px;
-    position: absolute;
+    position: relative;
     left: 50%;
     transform: translate(-50%);
     width: 120px;
@@ -214,6 +214,7 @@
     border-radius: 35px;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.116);
     background-color: rgb(255, 144, 70);
+    margin-bottom: 30px;
     
 }
 
