@@ -11,7 +11,6 @@ import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
 import Admin from './pages/Admin.jsx';
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Suspense } from 'react';
-//import './styles/App.css';
 import './styles/userGlobal.css';
 import './styles/userProfile.css'; 
 import './styles/userDash.css'; // Import the CSS file for UserDashboard
@@ -19,6 +18,8 @@ import './styles/userRequests.css'; // Import the CSS file for UserDashboard
 
 function App() {
   const location = useLocation();
+
+  // Define routes where the Navbar should not be displayed
   const hideNavbarRoutes = [
     '/login',
     '/admin',
@@ -34,16 +35,16 @@ function App() {
       {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
       <Suspense fallback={<div>Loading...</div>}>
         <Routes>
-          <Route path='/' element={<Navigate to='/login'/>}/>
-          <Route path='/userDashboard' element={<UserDashboard/>}/>
+          <Route path="/" element={<Navigate to="/login" />} />
+          <Route path="/userDashboard" element={<UserDashboard />} />
           <Route path="/userProfile" element={<UserProfile />} />
           <Route path="/userRequests" element={<UserRequests />} />
           <Route path="/userRequested" element={<UserRequested />} />
-          <Route path='/donation' element={<Donation/>}/>
-          <Route path='/login' element={<LoginPage/>}/>
-          <Route path='/findMed' element={<FindMedPage/>}/>
-          <Route path='/ai' element={<Ai/>}/>
-          <Route path='/admin/*'  element={<Admin/>}/>
+          <Route path="/donation" element={<Donation />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/findMed" element={<FindMedPage />} />
+          <Route path="/ai" element={<Ai />} />
+          <Route path="/admin/*" element={<Admin />} />
         </Routes>
       </Suspense>
     </div>
