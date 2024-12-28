@@ -11,6 +11,7 @@ import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
 import Admin from './pages/Admin.jsx';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Suspense } from 'react';
+import { StateProvider} from './Contexts/SidebarContext.jsx';
 import './styles/userGlobal.css';
 import './styles/userProfile.css'; 
 import './styles/userDash.css'; // Import the CSS file for UserDashboard
@@ -22,14 +23,20 @@ function App() {
   // Define routes where the Navbar should not be displayed
   const hideNavbarRoutes = [
     '/login',
-    '/admin',
     '/userDashboard',
     '/userProfile',
     '/userRequests',
     '/userRequested',
+    '/admin/dashboard',
+    '/admin/collection',
+    '/admin/donation',
+    '/admin/review',
+    '/admin/accounts',
+    '/admin/chat',
   ];
 
   return (
+    <StateProvider>
     <div className="App">
       {/* Show Navbar only if the current route is not in the `hideNavbarRoutes` */}
       {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
@@ -48,6 +55,7 @@ function App() {
         </Routes>
       </Suspense>
     </div>
+    </StateProvider>
   );
 }
 

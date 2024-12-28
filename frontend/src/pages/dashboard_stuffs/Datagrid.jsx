@@ -25,7 +25,8 @@ const Datagrid = () => {
         height: "auto" , 
         margin: '20px auto',
         padding: '20px',
-        borderRadius: '8px'}}>
+        borderRadius: '8px',
+        overflowY: 'auto'}}>
         <Box sx={{ height: 400, width: '100%' }}>
         <Typography variant="h6">Top Demanding Medicines</Typography>
         <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} />
