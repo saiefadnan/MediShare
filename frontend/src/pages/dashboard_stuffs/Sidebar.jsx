@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -15,6 +15,14 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
+import { StateContext } from '../../Contexts/SidebarContext';
+import signoutIcon from '../../assets/signout.png'
+import heartIcon from '../../assets/Heart.png'
+import dashboardIcon from '../../assets/dashboard.png'
+import mailIcon from '../../assets/mail.png'
+import starsIcon from '../../assets/stars.png'
+import boxIcon from '../../assets/Box.png'
+import accountsIcon from '../../assets/accounts.png'
 
 const drawerWidth = 240;
 
@@ -79,14 +87,12 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 const Sidebar = ()=> {
+  const {open, setOpen} = useContext(StateContext);
   const theme = useTheme();
-  const [open, setOpen] = useState(false);
-
   const handleDrawer = () => {
     setOpen(!open);
   };
-
-  const Menu = ['DashBoard','Collection','Donation','Chat'];
+  const Menu = ['DashBoard','Collection','Donation'];
   const Manage = ['Accounts', "Users' Review", 'Sign out'];
 
   return (
@@ -143,7 +149,9 @@ const Sidebar = ()=> {
                         },
                   ]}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index ===0 ? <img src={dashboardIcon}/> 
+                  : index ===1 ?<img src={heartIcon}/> 
+                  : <img src={boxIcon}/> }
                 </ListItemIcon>
                 <ListItemText
                   primary={text}
@@ -207,7 +215,9 @@ const Sidebar = ()=> {
                         },
                   ]}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index ===0 ? <img src={accountsIcon}/> 
+                  : index ===1 ?<img src={starsIcon}/> 
+                  : <img src={signoutIcon}/> }
                 </ListItemIcon>
                 <ListItemText
                   primary={text}

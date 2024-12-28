@@ -1,10 +1,18 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, styled } from "@mui/material";
 import AccountsInfo from "../dashboard_stuffs/AccountsInfo";
-
+const DrawerHeader = styled('div')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    padding: theme.spacing(0, 1),
+    // necessary for content to be below app bar
+    ...theme.mixins.toolbar,
+  }));
 const AccountsPortal = () => { 
     return ( 
     <Box component="main" sx={{ display: 'flex',flexDirection:'column', width: '100%'}}>
-        <Typography variant="h6">Accounts Info.</Typography>
+        <DrawerHeader/>
+        <Typography variant="h6" sx={{margin: '20px 0 0 20px'}}>Accounts Info.</Typography>
         <AccountsInfo/>
     </Box>);
 }
