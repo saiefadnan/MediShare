@@ -13,7 +13,7 @@ body {
     min-height: 100vh; /* Full viewport height */
     background-color: #f9f9f9;
 }
-  
+
 .sidebar {
     width: 250px;
     background-color: #2b3d36; /* Styles for the left sidebar */
@@ -57,12 +57,12 @@ body {
     cursor: pointer;
     margin-bottom: 20px; /* Back button styling */
 }
-  
+
 .user-info {
     text-align: center;
     margin-bottom: 30px; /* User profile information */
 }
-  
+
 .avatar {
     width: 80px;
     height: 80px;
@@ -70,23 +70,23 @@ body {
     overflow: hidden;
     margin: 0 auto 10px;
 }
-  
+
 .avatar img {
     width: 100%;
     height: 100%;
     object-fit: cover; /* this is sidebar avatar */
 }
-  
+
 .user-info h2 {
     font-size: 20px;
     margin: 5px 0;
 }
-  
+
 .user-info p {
     font-size: 16px;
     color: #c3c3c3;
 }
-  
+
 .menu-button {
     display: block;
     width: 100%;
@@ -102,12 +102,12 @@ body {
     border-radius: 5px;
     transition: background-color 0.3s; /* Sidebar button styles */
 }
-  
+
 .menu-button:hover {
     background-color: #62c69e;
     color: #fff; /* Hover effect for buttons */
 }
-  
+
 .menu-button.active {
     background-color: #4caf84;
     color: white; /* Active state for buttons */
@@ -120,27 +120,25 @@ body {
     color: white;
     cursor: pointer; /* Sign-out button styling */
 }
-  /*main */
-  .main-content {
+
+.main-content {
     flex: 1;
     margin-left: 250px; /* Leave space for the sidebar */
-    padding: 20px 40px;
+    padding: 40px 60px;
     width: calc(100% - 250px); /* Dynamically adjust width */
     max-width: none; /* Remove the fixed maximum width */
     overflow-x: hidden; /* Prevent horizontal scrolling */
     overflow-y: auto; /* Allow vertical scrolling */
-    background-color: #f9f9f9; /* Uniform background color */
+    background-color: #fdf8f4; /* Uniform background color */
     min-width: 600px; /* Set a minimum width to prevent collapsing */
 }
 
-
 .profile-header {
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 30px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
     margin-bottom: 40px;
-    flex-wrap: wrap; /* Wrap on smaller screens */
 }
 
 .profile-image-section {
@@ -148,17 +146,17 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-right: 30px; /* Adjust spacing between image and fields */
+    flex-shrink: 0;
+    margin-right: 30px;
 }
 
 .profile-image {
-    width: 200px; /* Enlarged profile picture size */
-    height: 200px;
+    width: 150px; /* Profile picture size */
+    height: 150px;
     border-radius: 50%;
     overflow: hidden;
     position: relative;
     border: 2px dashed #f6d69e;
-    margin-bottom: 10px;
 }
 
 .profile-image img {
@@ -169,15 +167,15 @@ body {
 
 .upload-button {
     position: absolute;
-    bottom: -10px;
+    bottom: 10px;
     left: 50%;
     transform: translateX(-50%);
     background-color: #1a3cff;
     color: #fff;
-    padding: 8px 16px; /* Increased button size */
+    padding: 8px 16px; /* Button size */
     border-radius: 50%;
     cursor: pointer;
-    font-size: 18px; /* Increased font size for button */
+    font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -187,29 +185,29 @@ body {
 .name-fields {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Space between fields */
-    align-items: flex-start; /* Align fields to the left */
-    flex-grow: 1; /* Let the name fields grow to fill available space */
+    gap: 10px;
+    align-items: flex-start;
+    flex-grow: 1;
+    min-width: 200px;
 }
 
-/* Make the labels for name, email, and phone number bold */
 .name-fields .form-group {
     display: flex;
     flex-direction: column;
-    font-size: 16px; /* Slightly larger font size for labels */
+    font-size: 16px; /* Increase font size */
     font-weight: bold;
-    color: #000000; /* Changed to bold black */
+    color: #000000;
 }
 
 input, select {
-    width: 100%; /* Expand inputs to fill the available space */
-    max-width: 600px; /* Set a maximum width */
-    padding: 15px; /* Increased padding for better usability */
-    font-size: 16px; /* Larger font size for inputs */
+    width: 100%;
+    padding: 16px; /* Increase padding for larger textboxes */
+    font-size: 16px; /* Increase font size */
     border: 1px solid #ccc;
     border-radius: 6px;
     background-color: #f9f9f9;
     color: #4a4a4a;
+    height: 55px; /* Increase height of textboxes */
 }
 
 input:focus, select:focus {
@@ -217,46 +215,46 @@ input:focus, select:focus {
     outline: none;
 }
 
+.details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
 .form-section {
-    max-width: 1200px; /* Match the maximum width of the main content */
+    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    align-items: center;
+}
+
+h3 {
+    font-size: 18px; /* Slightly increase font size for section headings */
+    font-weight: bold;
+    color: #333;
     margin-top: 20px;
-}
-
-.form-row {
-    display: flex;
-    gap: 40px; /* Space between grouped inputs */
-    margin-bottom: 25px;
-    justify-content: flex-start; /* Align rows to the left */
-}
-
-.form-row .form-group {
-    flex: 1; /* Let each group take up equal space */
-    font-weight: bold; /* Added bold text for form fields */
-    color: #000; /* Changed color to black */
+    margin-bottom: 10px;
+    grid-column: span 2;
 }
 
 .address-section {
     margin-top: 30px;
-    border-top: 1px solid #ccc; /* Softer horizontal divider */
     padding-top: 20px;
-}
-
-.address-section h3 {
-    margin-bottom: 20px;
-    font-size: 18px; /* Increased font size for address heading */
-    font-weight: bold;
-    color: #000; /* Changed to bold black */
+    border-top: 1px solid #ccc;
 }
 
 .button-group {
     display: flex;
-    justify-content: flex-end; /* Align buttons to the right */
-    gap: 15px;
+    justify-content: flex-end;
+    gap: 20px;
     margin-top: 30px;
+    grid-column: span 2;
 }
 
 .cancel-button {
-    padding: 12px 30px;
+    padding: 12px 24px; /* Slightly larger buttons */
     background-color: #d3d3d3;
     color: #333;
     border: none;
@@ -265,7 +263,7 @@ input:focus, select:focus {
 }
 
 .save-button {
-    padding: 12px 30px;
+    padding: 12px 24px; /* Slightly larger buttons */
     background-color: #00bff3;
     color: #fff;
     border: none;
@@ -280,27 +278,31 @@ input:focus, select:focus {
 /* Responsive Design */
 @media (max-width: 768px) {
     .profile-editor {
-        flex-direction: column; /* Stack sidebar and content vertically */
+        flex-direction: column;
     }
 
     .main-content {
-        margin-left: 0; /* Remove sidebar space */
-        width: 100%; /* Take full width */
+        margin-left: 0;
+        width: 100%;
     }
 
     .profile-header {
-        flex-direction: column; /* Stack items vertically */
+        flex-direction: column;
         align-items: center;
         gap: 20px;
     }
 
-    .form-row {
-        flex-direction: column; /* Stack form fields vertically */
+    .form-section {
+        grid-template-columns: 1fr;
     }
 
     input,
     select {
-        width: 100%; /* Full width for smaller screens */
+        width: 100%;
+    }
+
+    .button-group {
+        flex-direction: column;
+        align-items: center;
     }
 }
-
