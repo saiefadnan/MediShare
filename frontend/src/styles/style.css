@@ -1,16 +1,21 @@
 .donation-container {
-  min-height: vh;
+  min-height:vh ;
   background-color: #2F4F4F;
   padding: 2rem;
+  width: 100%;
+  border-radius: 50px;
+  shape-margin: 0cqmax;
+  
+
 }
 
 .donation-content {
   max-width: 1400px;
-  margin: 0 auto;
+  margin: 0 0;
 }
 
 .main-heading {
-  color: #98FB98;
+  color: #000c00;
   font-size: 2.5rem;
   font-weight: bold;
   margin-bottom: 3rem;
@@ -170,5 +175,8 @@
   .info-section {
     text-align: center;
   }
+
+  
+
 }
 

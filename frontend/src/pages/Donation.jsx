@@ -3,6 +3,11 @@ import '../styles/style.css';
 import Footer from '../components/Footer.jsx'
 import '../styles/footer.css'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFacebook, faTwitter, faInstagram, faLinkedin } from '@fortawesome/free-brands-svg-icons';
+import { faMapMarkerAlt, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
+
+
 
 const Donation = () => {
   const [formData, setFormData] = useState({
@@ -141,7 +146,7 @@ const Donation = () => {
       </div>
        
     </div>
-    <div className='footer-section'>
+    <div style={{width:2000,backgroundColor:'black'}}>
                   <Footer/>
               </div>
     </div>

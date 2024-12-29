@@ -35,7 +35,7 @@ const Ai = () => {
         </form>
         
                     </div>
-                    <div className='footer-section'style={{ backgroundColor: 'black', color: 'white' }} >
+                    <div className='footer-section' >
                         <Footer/>
                     </div>
                     </div>
