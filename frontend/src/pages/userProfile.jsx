@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; // Import useLocation and useNavigate hooks
+import { useLocation, useNavigate } from 'react-router-dom'; 
 import '../styles/userGlobal.css'; 
 import '../styles/userProfile.css';
 
 export default function ProfileEditor() {
   const [profileImage, setProfileImage] = useState(null);
-  const location = useLocation(); // Get the current route using useLocation
-  const navigate = useNavigate(); // Initialize the useNavigate hook for navigation
+  const location = useLocation(); 
+  const navigate = useNavigate(); 
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];

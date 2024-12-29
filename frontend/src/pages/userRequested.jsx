@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/userGlobal.css'; 
-import '../styles/userRequests.css'; // Import the CSS file
+import '../styles/userRequests.css';
 
 function RequestedTable() {
   const [requested, setRequested] = useState([
@@ -16,7 +16,7 @@ function RequestedTable() {
   };
 
   return (
-    <div className="user-requests">  {/* Renamed class name */}
+    <div className="user-requests">  {/*class name */}
       {/* Sidebar */}
       <div className="sidebar">
         <div className="profile">
@@ -40,7 +40,7 @@ function RequestedTable() {
         </ul>
       </div>
 
-      {/* Main Content with Requested Table */}
+      {/* Main Content*/}
       <div className="main-content">
         <h1 style={{ fontWeight: 'bold', color: 'black' }}>Requested</h1>
         <table className="requests-table">

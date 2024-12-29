@@ -7,16 +7,16 @@ body {
 
 .profile-editor {
     display: flex;
-    flex-direction: row; /* Ensure the sidebar and content are side-by-side */
-    align-items: flex-start; /* Align to the top */
-    justify-content: flex-start; /* Prevent horizontal centering */
-    min-height: 100vh; /* Full viewport height */
+    flex-direction: row; 
+    align-items: flex-start; 
+    justify-content: flex-start; 
+    min-height: 100vh; 
     background-color: #f9f9f9;
 }
 
 .sidebar {
     width: 250px;
-    background-color: #2b3d36; /* Styles for the left sidebar */
+    background-color: #2b3d36; 
     height: 100vh;
     color: #fff;
     position: fixed;
@@ -29,11 +29,11 @@ body {
     width: 100%;
     height: 1px;
     background-color: #fff;
-    margin: 30px 0; /* Adjusted spacing between sections */
+    margin: 30px 0; 
 }
 
 .menu-section {
-    margin-bottom: 20px; /* Menu items in the sidebar */
+    margin-bottom: 20px; 
 }
 
 .menu-section h3 {
@@ -41,11 +41,11 @@ body {
     font-weight: bold;
     color: #fff;
     margin-bottom: 15px;
-    text-transform: uppercase; /* Menu section headings */
+    text-transform: uppercase; 
 }
 
 .menu-section + .menu-section {
-    margin-top: 30px; /* Add spacing between sections like Manage */
+    margin-top: 30px; 
 }
 
 .back-button {
@@ -55,18 +55,18 @@ body {
     color: white;
     font-size: 24px;
     cursor: pointer;
-    margin-bottom: 20px; /* Back button styling */
+    margin-bottom: 20px; 
 }
 
 .user-info {
     text-align: center;
-    margin-bottom: 30px; /* User profile information */
+    margin-bottom: 30px; 
 }
 
 .avatar {
     width: 80px;
     height: 80px;
-    border-radius: 50%; /* User avatar image styling */
+    border-radius: 50%;
     overflow: hidden;
     margin: 0 auto 10px;
 }
@@ -74,7 +74,7 @@ body {
 .avatar img {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* this is sidebar avatar */
+    object-fit: cover; 
 }
 
 .user-info h2 {
@@ -100,17 +100,17 @@ body {
     font-family: 'Arial', sans-serif;
     font-weight: 600;
     border-radius: 5px;
-    transition: background-color 0.3s; /* Sidebar button styles */
+    transition: background-color 0.3s; 
 }
 
 .menu-button:hover {
     background-color: #62c69e;
-    color: #fff; /* Hover effect for buttons */
+    color: #fff; 
 }
 
 .menu-button.active {
     background-color: #4caf84;
-    color: white; /* Active state for buttons */
+    color: white; 
 }
 
 .sign-out-button {
@@ -118,19 +118,19 @@ body {
     background: none;
     border: none;
     color: white;
-    cursor: pointer; /* Sign-out button styling */
+    cursor: pointer; 
 }
 
 .main-content {
     flex: 1;
-    margin-left: 250px; /* Leave space for the sidebar */
+    margin-left: 250px; 
     padding: 40px 60px;
-    width: calc(100% - 250px); /* Dynamically adjust width */
-    max-width: none; /* Remove the fixed maximum width */
-    overflow-x: hidden; /* Prevent horizontal scrolling */
-    overflow-y: auto; /* Allow vertical scrolling */
-    background-color: #fdf8f4; /* Uniform background color */
-    min-width: 600px; /* Set a minimum width to prevent collapsing */
+    width: calc(100% - 250px); 
+    max-width: none; 
+    overflow-x: hidden; 
+    overflow-y: auto; 
+    background-color: #fdf8f4; 
+    min-width: 600px; 
 }
 
 .profile-header {
@@ -151,7 +151,7 @@ body {
 }
 
 .profile-image {
-    width: 150px; /* Profile picture size */
+    width: 150px; 
     height: 150px;
     border-radius: 50%;
     overflow: hidden;
@@ -172,7 +172,7 @@ body {
     transform: translateX(-50%);
     background-color: #1a3cff;
     color: #fff;
-    padding: 8px 16px; /* Button size */
+    padding: 8px 16px; 
     border-radius: 50%;
     cursor: pointer;
     font-size: 14px;
@@ -194,20 +194,20 @@ body {
 .name-fields .form-group {
     display: flex;
     flex-direction: column;
-    font-size: 16px; /* Increase font size */
+    font-size: 16px; 
     font-weight: bold;
     color: #000000;
 }
 
 input, select {
     width: 100%;
-    padding: 16px; /* Increase padding for larger textboxes */
-    font-size: 16px; /* Increase font size */
+    padding: 16px; 
+    font-size: 16px; 
     border: 1px solid #ccc;
     border-radius: 6px;
     background-color: #f9f9f9;
     color: #4a4a4a;
-    height: 55px; /* Increase height of textboxes */
+    height: 55px; 
 }
 
 input:focus, select:focus {
@@ -231,7 +231,7 @@ input:focus, select:focus {
 }
 
 h3 {
-    font-size: 18px; /* Slightly increase font size for section headings */
+    font-size: 18px; 
     font-weight: bold;
     color: #333;
     margin-top: 20px;
@@ -254,7 +254,7 @@ h3 {
 }
 
 .cancel-button {
-    padding: 12px 24px; /* Slightly larger buttons */
+    padding: 12px 24px; 
     background-color: #d3d3d3;
     color: #333;
     border: none;
@@ -263,7 +263,7 @@ h3 {
 }
 
 .save-button {
-    padding: 12px 24px; /* Slightly larger buttons */
+    padding: 12px 24px; 
     background-color: #00bff3;
     color: #fff;
     border: none;
@@ -275,7 +275,7 @@ h3 {
     background-color: #009fcc;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
     .profile-editor {
         flex-direction: column;
