@@ -12,10 +12,7 @@ import Admin from './pages/Admin.jsx';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Suspense } from 'react';
 import { StateProvider} from './Contexts/SidebarContext.jsx';
-import './styles/userGlobal.css';
-import './styles/userProfile.css'; 
-import './styles/userDash.css'; // Import the CSS file for UserDashboard
-import './styles/userRequests.css'; // Import the CSS file for UserDashboard
+
 
 function App() {
   const location = useLocation();
