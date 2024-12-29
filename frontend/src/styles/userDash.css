@@ -1,4 +1,4 @@
-/* General styles */
+/*styles */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
@@ -272,7 +272,7 @@ body {
   background-color: #b3a895;
 }
 
-/* Chart Container */
+
 .chart-container {
   position: relative;
   height: 250px;
@@ -280,15 +280,15 @@ body {
 }
 
 .activity-table-container {
-  max-width: 100%; /* Ensure it doesn't exceed the container's size */
-  overflow-x: auto; /* Allow horizontal scrolling if the table is too wide */
+  max-width: 100%; 
+  overflow-x: auto; 
 }
 
 .monthly-reports .header-container {
-  background-color: #d9e8e5; /* Card-like background for the header */
-  border-radius: 10px; /* Rounded corners for the header */
-  padding: 10px; /* Padding for the header */
-  margin-bottom: 15px; /* Spacing between header and graph */
-  text-align: center; /* Center align the header text */
-  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for header */
+  background-color: #d9e8e5; 
+  border-radius: 10px; 
+  padding: 10px; 
+  margin-bottom: 15px;  
+  text-align: center; 
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1); 
 }

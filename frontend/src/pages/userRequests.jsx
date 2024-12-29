@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/userGlobal.css'; 
-import '../styles/userRequests.css'; // Import the CSS file
+import '../styles/userRequests.css'; 
 
-function UserRequests() { // Renamed function to UserRequests
+function UserRequests() { 
   const [requests, setRequests] = useState([
     { id: 1, name: "Abraham", type: "Receive", prescription: "View", date: "20/10/24" },
     { id: 2, name: "Brian", type: "Donation", prescription: "View", date: "11/10/24" },
@@ -17,7 +17,7 @@ function UserRequests() { // Renamed function to UserRequests
   };
 
   return (
-    <div className="user-requests">  {/* Renamed class name */}
+    <div className="user-requests">  {/*class name */}
       {/* Sidebar */}
       <div className="sidebar">
         <div className="profile">
@@ -41,7 +41,7 @@ function UserRequests() { // Renamed function to UserRequests
         </ul>
       </div>
 
-      {/* Main Content with Requests Table */}
+      {/* Main Content*/}
       <div className="main-content">
         <h1 style={{ fontWeight: 'bold', color: 'black' }}>Requests</h1>
         <div className="table-container">

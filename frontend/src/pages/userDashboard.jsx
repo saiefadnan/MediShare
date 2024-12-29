@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/userDash.css'; // Import the CSS file for UserDashboard
+import '../styles/userDash.css'; 
 
 function UserDashboard() {
   const [items, setItems] = useState([
@@ -9,13 +9,13 @@ function UserDashboard() {
   ]);
 
   const handleDelete = (itemId) => {
-    // Remove the item from the inventory based on the id
+    
     setItems(items.filter(item => item.id !== itemId));
   };
 
   return (
     <div className="user-dashboard">
-      {/* Sidebar remains unchanged */}
+      {/* Sidebar*/}
       <div className="sidebar">
         <div className="profile">
           <img src="https://via.placeholder.com/80" alt="Profile" />
@@ -58,7 +58,7 @@ function UserDashboard() {
           </div>
         </div>
 
-        {/* Recent Activity and Monthly Reports Side by Side */}
+        {/* Recent Activity and Monthly Reports */}
         <div className="side-by-side">
           {/* Recent Activity */}
           <div className="recent-activity">
