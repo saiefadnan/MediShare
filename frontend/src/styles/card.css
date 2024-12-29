@@ -108,7 +108,7 @@ button:hover{
 }
 
 .request-form{
-    background-color: rgb(85, 255, 0);
+    background-color: rgb(255, 248, 240);
     display: flex;
     flex-direction: column;
     width: 350px;
@@ -125,9 +125,10 @@ button:hover{
     margin:auto;
     border: none;
     padding-left: 7px;
-    border-radius: 30px;
+    border-radius: 0px;
     padding-right: 7px;
-    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.116);
+    
+    border-bottom: 2px solid rgba(0, 0, 0, 0.551);
     
 
 
@@ -146,24 +147,17 @@ button:hover{
 
 }
 
-.request-form input[type="file"]::file-selector-button{
-    border: none;
-    text-align: center;
-   
-    
 
-
-}
 
 .request-form input[type="file"]::file-selector-button{
     border: none;
     height: 40px;
     width: 300px;
-    color: #5b5b5b;
+    
     text-align: left;
     margin: auto;
     position: relative;
-    top: 0px;
+    bottom: 15px;
     left: -7px;
     cursor: pointer;
     
@@ -206,7 +200,7 @@ button:hover{
     position: fixed;
     top: 50%;
     left: 50%;
-    background-color: #09f357;
+    background-color: #fffcee;
     z-index: 1000;
     transform: translate(-50%,-50%);
     border-radius: 10px;
@@ -223,6 +217,7 @@ button:hover{
     left: 50%;
     transform: translate(-50%);
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.115);
+    background-color: #a6beaf;
 }
 
 hr{

@@ -195,12 +195,15 @@
    flex-wrap: wrap;
   justify-content: center;
   transition:flex-wrap 0.3s ease;
+  
    
    
 }
 
 .card-section{
     position: relative;
+    
+    margin-top: -50px;
 }
 
 .card-section .loadmore-btn{
