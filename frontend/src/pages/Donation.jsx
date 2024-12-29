@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import '../styles/style.css';
+import Footer from '../components/Footer.jsx'
+import '../styles/footer.css'
+
 
 const Donation = () => {
   const [formData, setFormData] = useState({
@@ -13,7 +16,7 @@ const Donation = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
+    // Handle form submissionch
     console.log('Form submitted:', formData);
   };
 
@@ -32,6 +35,7 @@ const Donation = () => {
   };
 
   return (
+    <div>
     <div className="donation-container">
       <div className="donation-content">
         <h1 className="main-heading">YOUR ONE STEP CAN MAKE A DIFFERENCE</h1>
@@ -135,7 +139,14 @@ const Donation = () => {
           </div>
         </div>
       </div>
+       
     </div>
+    <div className='footer-section'>
+                  <Footer/>
+              </div>
+    </div>
+           
+            
   );
 };
 

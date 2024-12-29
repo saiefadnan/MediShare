@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/ai.css';
+import Footer from '../components/Footer.jsx'
+import '../styles/footer.css'
 
 const Ai = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -31,18 +33,14 @@ const Ai = () => {
             </button>
           </div>
         </form>
-      </div>
-
-      <footer className="footer">
-        <div className="footer-content">
-          <img src="/placeholder.svg" alt="MediShare" width={30} height={30} />
-          <div>
-            <h3>MEDISHARE</h3>
-            <p>Share To Care</p>
-          </div>
-        </div>
-      </footer>
-    </div>
+        
+                    </div>
+                    <div className='footer-section'>
+                        <Footer/>
+                    </div>
+                    </div>
+       
+   
   );
 };
 

@@ -5,7 +5,7 @@
 }
 
 .donation-content {
-  max-width: 1200px;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
@@ -23,6 +23,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: start;
+ 
 }
 
 .form-section {
@@ -69,6 +70,9 @@
 
 .confirmation-section {
   margin-top: 2rem;
+}
+.confirmation-section input {
+ width:10%;
 }
 
 .checkbox-container {
