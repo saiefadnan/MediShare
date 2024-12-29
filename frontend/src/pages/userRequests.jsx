@@ -43,32 +43,36 @@ function UserRequests() { // Renamed function to UserRequests
 
       {/* Main Content with Requests Table */}
       <div className="main-content">
-        <h1>Requests</h1>
-        <table className="requests-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Prescription</th>
-              <th>Date</th>
-              <th>Donate/Reject</th>
-            </tr>
-          </thead>
-          <tbody>
-            {requests.map((request) => (
-              <tr key={request.id}>
-                <td>{request.name}</td>
-                <td>{request.type}</td>
-                <td><a href="#">{request.prescription}</a></td>
-                <td>{request.date}</td>
-                <td>
-                  <button>Donate</button>
-                  <button onClick={() => handleReject(request.id)}>Reject</button>
-                </td>
+        <h1 style={{ fontWeight: 'bold', color: 'black' }}>Requests</h1>
+        <div className="table-container">
+          <table className="requests-table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Prescription</th>
+                <th>Date</th>
+                <th>Donate/Reject</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {requests.map((request) => (
+                <tr key={request.id}>
+                  <td>{request.name}</td>
+                  <td>{request.type}</td>
+                  <td><a href="#">{request.prescription}</a></td>
+                  <td>{request.date}</td>
+                  <td>
+                    <div className="actions">
+                      <button className="donate-button">Donate</button>
+                      <button className="reject-button" onClick={() => handleReject(request.id)}>Reject</button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

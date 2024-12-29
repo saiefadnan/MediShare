@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import '../styles/userGlobal.css'; 
 import '../styles/userDash.css'; // Import the CSS file for UserDashboard
 
 function UserDashboard() {
@@ -16,7 +15,7 @@ function UserDashboard() {
 
   return (
     <div className="user-dashboard">
-      {/* Sidebar */}
+      {/* Sidebar remains unchanged */}
       <div className="sidebar">
         <div className="profile">
           <img src="https://via.placeholder.com/80" alt="Profile" />
@@ -65,63 +64,66 @@ function UserDashboard() {
           <div className="recent-activity">
             <h2>Recent Activity</h2>
             <p className="overview">Overview of most recent</p>
-            <table className="activity-table">
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Action</th>
-                  <th>Status</th>
-                  <th>Date</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Abraham</td>
-                  <td>Receive</td>
-                  <td>Complete</td>
-                  <td>20/10/24</td>
-                </tr>
-                <tr>
-                  <td>Brian</td>
-                  <td>Donation</td>
-                  <td>Complete</td>
-                  <td>11/10/24</td>
-                </tr>
-                <tr>
-                  <td>Jeremy</td>
-                  <td>Donation</td>
-                  <td>Complete</td>
-                  <td>16/7/24</td>
-                </tr>
-                <tr>
-                  <td>Sarah</td>
-                  <td>Donation</td>
-                  <td>Complete</td>
-                  <td>19/7/24</td>
-                </tr>
-                <tr>
-                  <td>Jack</td>
-                  <td>Donation</td>
-                  <td>Complete</td>
-                  <td>22/7/24</td>
-                </tr>
-                <tr>
-                  <td>Mary</td>
-                  <td>Receive</td>
-                  <td>Complete</td>
-                  <td>30/9/24</td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="activity-table-container">
+              <table className="activity-table">
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Action</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Abraham</td>
+                    <td>Receive</td>
+                    <td>Complete</td>
+                    <td>20/10/24</td>
+                  </tr>
+                  <tr>
+                    <td>Brian</td>
+                    <td>Donation</td>
+                    <td>Complete</td>
+                    <td>11/10/24</td>
+                  </tr>
+                  <tr>
+                    <td>Jeremy</td>
+                    <td>Donation</td>
+                    <td>Complete</td>
+                    <td>16/7/24</td>
+                  </tr>
+                  <tr>
+                    <td>Sarah</td>
+                    <td>Donation</td>
+                    <td>Complete</td>
+                    <td>19/7/24</td>
+                  </tr>
+                  <tr>
+                    <td>Jack</td>
+                    <td>Donation</td>
+                    <td>Complete</td>
+                    <td>22/7/24</td>
+                  </tr>
+                  <tr>
+                    <td>Mary</td>
+                    <td>Receive</td>
+                    <td>Complete</td>
+                    <td>30/9/24</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
             <button className="load-more">Load More</button>
           </div>
 
-          {/* Monthly Reports - Placeholder Graph */}
+          {/* Monthly Reports */}
           <div className="monthly-reports">
-            <h2>Monthly Reports</h2>
-            <div className="chart-placeholder">
-              {/* Replace with actual chart */}
-              <p>Graph Placeholder</p>
+            <div className="header-container">
+              <h2>Monthly Reports</h2>
+            </div>
+            <div className="chart-container">
+              <p>Chart Placeholder</p>
             </div>
           </div>
         </div>
@@ -144,7 +146,6 @@ function UserDashboard() {
           </div>
           <button className="load-more">Load More</button>
         </div>
-
       </div>
     </div>
   );
