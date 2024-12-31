@@ -1,9 +1,4 @@
-body {
-    font-family: Arial, sans-serif;  
-    margin: 0;
-    padding: 0;
-    background-color: #f9f9f9; 
-}  
+ 
 
 .profile-editor {
     display: flex;
@@ -39,7 +34,7 @@ body {
 .menu-section h3 {
     font-size: 22px;
     font-weight: bold;
-    color: #fff;
+    color: #d7d6d6;
     margin-bottom: 15px;
     text-transform: uppercase; 
 }
@@ -199,8 +194,19 @@ body {
     color: #000000;
 }
 
-input, select {
+.form-group116 input{
     width: 100%;
+    padding: 16px; 
+    font-size: 16px; 
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    color: #4a4a4a;
+    height: 55px; 
+
+}
+ select {
+    width: 15%;
     padding: 16px; 
     font-size: 16px; 
     border: 1px solid #ccc;
@@ -295,9 +301,11 @@ h3 {
     .form-section {
         grid-template-columns: 1fr;
     }
-
-    input,
-    select {
+    .form-group116 input{
+        width:100%;
+    }
+    
+    .form-group116 select {
         width: 100%;
     }
 
@@ -305,4 +313,8 @@ h3 {
         flex-direction: column;
         align-items: center;
     }
+}
+
+.form-group116 label{
+    color: #000000;
 }

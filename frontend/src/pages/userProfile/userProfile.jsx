@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'; 
-import '../styles/userGlobal.css'; 
-import '../styles/userProfile.css';
+
+import './userProfile.css';
 
 export default function ProfileEditor() {
   const [profileImage, setProfileImage] = useState(null);
@@ -72,11 +72,11 @@ export default function ProfileEditor() {
             </div>
           </div>
           <div className="name-fields">
-            <div className="form-group">
+            <div className="form-group116">
               <label htmlFor="firstName">First Name</label>
               <input type="text" id="firstName" defaultValue="John" />
             </div>
-            <div className="form-group">
+            <div className="form-group116">
               <label htmlFor="lastName">Last Name</label>
               <input type="text" id="lastName" defaultValue="Smith" />
             </div>
@@ -84,20 +84,20 @@ export default function ProfileEditor() {
         </div>
 
         {/* Email Field */}
-        <div className="form-group">
+        <div className="form-group116">
           <label htmlFor="email">E-mail</label>
           <input type="email" id="email" defaultValue="johnsmith@gmail.com" />
         </div>
 
         {/* Contact Field */}
-        <div className="form-group">
+        <div className="form-group116">
           <label htmlFor="phone">Contact Number</label>
           <input type="tel" id="phone" defaultValue="01678901234" />
         </div>
 
         {/* Address Fields */}
         <h3>Address</h3>
-        <div className="form-group">
+        <div className="form-group116">
           <label htmlFor="addressLine1">Address Line 1 *</label>
           <input
             type="text"
@@ -105,11 +105,11 @@ export default function ProfileEditor() {
             defaultValue="House-120, Road-4, Avenue-3, Mirpur DOHS"
           />
         </div>
-        <div className="form-group">
+        <div className="form-group116">
           <label htmlFor="addressLine2">Address Line 2 (optional)</label>
           <input type="text" id="addressLine2" />
         </div>
-        <div className="form-group">
+        <div className="form-group116">
           <label htmlFor="division">Division</label>
           <select id="division" defaultValue="dhaka">
             <option value="dhaka">Dhaka</option>
@@ -118,7 +118,7 @@ export default function ProfileEditor() {
             <option value="khulna">Khulna</option>
           </select>
         </div>
-        <div className="form-group">
+        <div className="form-group116">
           <label htmlFor="zipCode">ZIP/Postal Code</label>
           <input type="text" id="zipCode" defaultValue="1216" />
         </div>

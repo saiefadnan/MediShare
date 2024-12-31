@@ -32,7 +32,7 @@ body {
 }
 
 .header nav a {
-  color: white;
+  color: rgb(145, 145, 145);
   text-decoration: none;
   margin-left: 1rem;
   font-weight: 500;
