@@ -1,13 +1,11 @@
 .donation-container {
-  min-height:vh ;
+  min-height: 100vh;
   background-color: #2F4F4F;
   padding: 2rem;
   width: 100%;
   border-radius: 50px;
-  shape-margin: 0cqmax;
-  
-
 }
+
 
 .donation-content {
   max-width: 1400px;
@@ -27,34 +25,39 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
+  justify-items: start;
   align-items: start;
-  
 }
 
-.form-section {
-  
-    background: rgba(31, 9, 9, 0.1);
-    padding: 2rem;
-    padding-top: 3rem; /* Add extra padding to avoid clipping from the top */
-    border-radius: 10px;
-    display: flex-start;
-  justify-content: flex-start;
-    gap: 1.5rem;
-    overflow-y: scroll;
-    height: 550px;
 
-     /* Ensure scrolling works */
-     /* Height of the section */
-   
+.form-section100 {
+  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Ensures items align to the start horizontally */
+  justify-content: flex-start; /* Ensures items align to the start vertically */
+  gap: 1.5rem;
+  overflow-y: scroll;
+  height: 550px;
+  padding: 2rem 2rem 3rem 2rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  background: rgba(31, 9, 9, 0.1);
+  position: relative;
+  
     
-    
+  margin: 0;
+  flex-shrink: 0;
   
   
 }
 
 
 .form-group {
-  margin-bottom: 1.5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .form-group label {

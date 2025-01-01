@@ -103,7 +103,7 @@ const Donation = () => {
           <h1 className="main-heading">YOUR ONE STEP CAN MAKE A DIFFERENCE</h1>
 
           <div className="donation-form-container">
-            <div className="form-section">
+            <div className="form-section100">
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
                   <label>MEDICINE NAME</label>
