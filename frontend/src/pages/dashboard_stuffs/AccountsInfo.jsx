@@ -25,8 +25,7 @@ const AccountsInfo = () => {
         display: 'flex', 
         width: '90%', 
         maxHeight: '800px', 
-        margin: '50px auto',
-        padding: '20px'}}>
+        margin: '50px auto'}}>
         <TableContainer component={Paper} style={{backgroundColor: "#DCEAE3", padding: '30px'}}>
         <Table>
             <TableHead>
