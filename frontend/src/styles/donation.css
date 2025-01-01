@@ -28,16 +28,19 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: start;
+  overflow: visible;
+  
  
 }
 
 .form-section {
   background: rgba(255, 255, 255, 0.1);
-  padding: 2rem;
+  
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+ 
 }
 
 .form-group {
