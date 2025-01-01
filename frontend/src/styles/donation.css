@@ -28,23 +28,29 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: start;
+  
 }
 
 .form-section {
-  background: rgba(86, 27, 27, 0.1);
-  padding: 2rem;
-  padding-top: 3rem; /* Add extra padding to avoid clipping from the top */
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  overflow-y: auto; /* Ensure scrolling works */
-  height: 600px; /* Height of the section */
-  box-sizing: border-box; /* Include padding in the height calculation */
-  content-visibility:auto ;
-  justify-content: top;
-}
+  
+    background: rgba(31, 9, 9, 0.1);
+    padding: 2rem;
+    padding-top: 3rem; /* Add extra padding to avoid clipping from the top */
+    border-radius: 10px;
+    display: flex-start;
+  justify-content: flex-start;
+    gap: 1.5rem;
+    overflow-y: scroll;
+    height: 550px;
 
+     /* Ensure scrolling works */
+     /* Height of the section */
+   
+    
+    
+  
+  
+}
 
 
 .form-group {
