@@ -28,17 +28,24 @@
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: start;
- 
 }
 
 .form-section {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(86, 27, 27, 0.1);
   padding: 2rem;
+  padding-top: 3rem; /* Add extra padding to avoid clipping from the top */
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  overflow-y: auto; /* Ensure scrolling works */
+  height: 600px; /* Height of the section */
+  box-sizing: border-box; /* Include padding in the height calculation */
+  content-visibility:auto ;
+  justify-content: top;
 }
+
+
 
 .form-group {
   margin-bottom: 1.5rem;
@@ -71,6 +78,8 @@
   align-items: center;
   gap: 1rem;
   color: white;
+  overlay: visible;
+  ;
 }
 
 .confirmation-section {
@@ -127,6 +136,7 @@
   border-radius: 8px;
   overflow: hidden;
 }
+
 
 .medicine-upload-container {
   margin-top: 1rem;
