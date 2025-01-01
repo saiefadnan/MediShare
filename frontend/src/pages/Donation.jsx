@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import '../styles/style.css';
+import '../styles/donation.css';
 import Footer from '../components/Footer.jsx';
-import '../styles/footer.css';
+
 import L from 'leaflet'; // Import Leaflet for the map
 import 'leaflet/dist/leaflet.css';
 

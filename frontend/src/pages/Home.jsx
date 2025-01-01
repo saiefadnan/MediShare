@@ -10,7 +10,7 @@ function Home() {
 
   return (
     <div className="Home">
-      <header className="header">
+      <header className="header69">
         <h1>MediShare</h1>
         <nav>
           <a href="#impact">Impact</a>

@@ -1,5 +1,5 @@
 .ai-page {
-  min-height: 100vh;
+  
   display: flex;
   flex-direction: column;
   background: #09db87;
@@ -44,7 +44,7 @@
 }
 
 .main-content h1 {
-  color: white;
+  color: rgb(5, 12, 9);
   font-size: 3rem;
   margin-bottom: 2rem;
   text-align: center;
@@ -87,7 +87,7 @@
 }
 
 .footer {
-  background: white;
+  background: rgb(14, 216, 55);
   padding: 1rem 2rem;
 }
 

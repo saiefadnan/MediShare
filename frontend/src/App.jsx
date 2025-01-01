@@ -1,7 +1,7 @@
 import Navbar from './components/navbar';
 import Home from './pages/Home';
 import UserDashboard from './pages/userDashboard'; // Import UserDashboard component
-import UserProfile from './pages/userProfile'; // Import UserProfile component
+import UserProfile from './pages/userProfile/userProfile'; // Import UserProfile component
 import UserRequests from './pages/userRequests';
 import UserRequested from './pages/userRequested';
 import Donation from './pages/Donation';

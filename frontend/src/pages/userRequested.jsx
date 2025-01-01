@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../styles/userGlobal.css'; 
+
 import '../styles/userRequests.css';
 
 function RequestedTable() {

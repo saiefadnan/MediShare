@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import '../styles/login.css'
+import loginAnimated from '../assets/tablet-login-animate.svg'
+import signupAnimated from '../assets/sign-up-animate.svg'
 
 function LoginPage() {
   const [username, setUsername] = useState('')
@@ -10,6 +12,8 @@ function LoginPage() {
   const [showFormSection, setShowFormSection] = useState(false);
   const [showLoginSection, setShowLoginSection] = useState(true);
   const [fadeClass, setFadeClass] = useState('');
+  const [imageSrc, setImageSrc] = useState(loginAnimated);
+
   const handleSubmit = (e) => {
         e.preventDefault()
         console.log('Email:', email)
@@ -43,9 +47,22 @@ function LoginPage() {
     }
   }, [isTransformed]);
 
+  useEffect(() => {
+    const newSrc = showLoginSection
+      ? `${loginAnimated}?t=${Date.now()}`
+      : `${signupAnimated}?t=${Date.now()}`;
+
+    setImageSrc(newSrc);
+  }, [showLoginSection]);
+
   return (
     <div className="login-container">
       <div className={`brand-section ${isTransformed ? 'transformed' : ''}`}>
+      <img
+        src={imageSrc}
+        alt={showLoginSection ? 'login' : 'signup'}
+        style={{ width: '90%', height: 'auto' }}
+      />
       </div>
 
       {showLoginSection && (

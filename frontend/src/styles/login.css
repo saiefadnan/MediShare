@@ -8,17 +8,21 @@
 }
   
 .brand-section {
-    background-image: url('/src/assets/medisharelogin.png');
+    background: linear-gradient(to left, #10FCCC, #458898);
     background-size: cover;
     background-position: center;
     display: none;
     width: 40%;
     flex-direction: column;
     transition: transform 1s ease-out;
+    border-radius: 0px 15px 15px 0px;
+    justify-content: center;
+    align-items: center;
 }
 
 .brand-section.transformed {
     transform: translateX(150%);
+    border-radius: 15px 0px 0px 15px;
   }
   
 .illustration-container {

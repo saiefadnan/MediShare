@@ -6,8 +6,8 @@
   --transition-duration: 0.3s;
 }
 
-body {
-  font-family: 'Poppins', sans-serif;
+.home body {
+  font-family: 'Outline', sans-serif;
   margin: 0;
   padding: 0;
   background-color: var(--light-beige);
@@ -15,9 +15,9 @@ body {
   line-height: 1.6;
 }
 
-.header {
+.header69 {
   background-color: var(--dark-green);
-  color: white;
+  color: var(--beige);
   padding: 1rem 2rem;
   display: flex;
   justify-content: space-between;
@@ -27,19 +27,19 @@ body {
   z-index: 1000;
 }
 
-.header h1 {
+.header69 h1 {
   font-size: 1.8rem;
 }
 
-.header nav a {
-  color: white;
+.header69 nav a {
+  color: var(--beige);;
   text-decoration: none;
   margin-left: 1rem;
   font-weight: 500;
   transition: color var(--transition-duration);
 }
 
-.header nav a:hover {
+.header69 nav a:hover {
   color: var(--light-beige);
 }
 
