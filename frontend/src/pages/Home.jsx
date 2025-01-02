@@ -10,7 +10,7 @@ function Home() {
 
   return (
     <div className="Home">
-      <header className="header69">
+      {/*<header className="header69">
         <h1>MediShare</h1>
         <nav>
           <a href="#impact">Impact</a>
@@ -18,10 +18,11 @@ function Home() {
           <a href="#approach">Approach</a>
           <a href="#contact">Contact</a>
         </nav>
-      </header>
+      </header>*/}
 
       <section className="hero">
-        <h2>Explore The Power of MediShare</h2>
+        <h1>Explore The Power</h1>
+        <h1>of MediShare</h1>
         <p>Connecting surplus medicines with those in need.</p>
         <div className="button-container">
           <button onClick={donate}>Donate Now!</button>
