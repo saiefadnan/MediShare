@@ -36,7 +36,7 @@ export default function ProfileEditor() {
             className="menu-button"
             onClick={() => navigate('/userDashboard')}
           >
-            Activity
+           <i className="fa-solid fa-book"></i> Activity
           </button>
           <button className="menu-button"><i className="fa-solid fa-bell"></i>Notifications</button>
           <button className="menu-button"><i className="fa-solid fa-inbox"></i>Requests</button>
@@ -58,13 +58,17 @@ export default function ProfileEditor() {
       </div>
 
       {/*Main content */}
-      <div className="main-content">
+      <div className="profile-page">
         <div className="profile-header">
           <div className="profile-image-section">
             <div className="profile-image">
               <img src={profileImage || "/placeholder.svg"} alt="Profile" />
-              <label className="upload-button" htmlFor="profile-upload">
-                Upload
+              
+              
+            </div>
+            <div className='upload-popup'>
+                <label className="upload-button" htmlFor="profile-upload">
+                Change Profile Picture
                 <input
                   id="profile-upload"
                   type="file"
@@ -73,6 +77,7 @@ export default function ProfileEditor() {
                   hidden
                 />
               </label>
+
             </div>
           </div>
           <div className="name-fields">
@@ -88,45 +93,61 @@ export default function ProfileEditor() {
         </div>
 
         {/* Email Field */}
-        <div className="form-group116">
-          <label htmlFor="email">E-mail</label>
-          <input type="email" id="email" defaultValue="johnsmith@gmail.com" />
-        </div>
+        <div className='middle-div'>
+          <div className="form-group116">
+            <label htmlFor="email">E-mail</label>
+            <input type="email" id="email" defaultValue="johnsmith@gmail.com" />
+          </div>
 
         {/* Contact Field */}
-        <div className="form-group116">
-          <label htmlFor="phone">Contact Number</label>
-          <input type="tel" id="phone" defaultValue="01678901234" />
+          <div className="form-group116">
+            <label htmlFor="phone">Contact Number</label>
+            <input type="tel" id="phone" defaultValue="01678901234" />
+          </div>
+            
         </div>
 
-        {/* Address Fields */}
+        <hr />
+
+        <div className='user-address-section'>
         <h3>Address</h3>
-        <div className="form-group116">
-          <label htmlFor="addressLine1">Address Line 1 *</label>
-          <input
-            type="text"
-            id="addressLine1"
-            defaultValue="House-120, Road-4, Avenue-3, Mirpur DOHS"
-          />
-        </div>
-        <div className="form-group116">
-          <label htmlFor="addressLine2">Address Line 2 (optional)</label>
-          <input type="text" id="addressLine2" />
-        </div>
-        <div className="form-group116">
-          <label htmlFor="division">Division</label>
-          <select id="division" defaultValue="dhaka">
+        <div className='add-div1'>
+          <div className="form-group116">
+            <label htmlFor="addressLine1">Address Line 1 </label>
+            <input
+              type="text"
+              id="addressLine1"
+              defaultValue="House-120, Road-4, Avenue-3, Mirpur DOHS"
+           />
+          </div>
+          <div className="form-group116">
+            <label htmlFor="division">Division</label>
+           <select id="division" defaultValue="dhaka">
             <option value="dhaka">Dhaka</option>
             <option value="chittagong">Chittagong</option>
             <option value="rajshahi">Rajshahi</option>
             <option value="khulna">Khulna</option>
-          </select>
-        </div>
-        <div className="form-group116">
-          <label htmlFor="zipCode">ZIP/Postal Code</label>
-          <input type="text" id="zipCode" defaultValue="1216" />
-        </div>
+            </select>
+          </div>
 
+          </div>
+
+          <div className='add-div2'>
+            <div className="form-group116">
+              <label htmlFor="addressLine2">Address Line 2 (optional)</label>
+              <input type="text" id="addressLine2" />
+            </div>
+        
+            <div className="form-group116">
+              <label htmlFor="zipCode">ZIP/Postal Code</label>
+              <input type="text" id="zipCode" defaultValue="1216" />
+            </div>
+          </div>
+        
+
+        </div>
+        {/* Address Fields */}
+        
         {/* Buttons */}
         <div className="button-group">
           <button className="cancel-button">Cancel</button>
