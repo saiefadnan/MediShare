@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Quando&display=swap');
 :root {
   --light-beige: #f8f5f0;
   --beige: #e2d8c8;
@@ -44,16 +45,21 @@
 }
 
 .hero {
-  background: linear-gradient(to bottom, var(--dark-green), var(--beige));
+  background-image: url('../assets/Group8.svg');
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
   color: white;
   text-align: center;
   padding: 5rem 2rem;
   transition: background-color var(--transition-duration);
 }
 
-.hero h2 {
+.hero h1 {
   font-size: 3rem;
   margin: 0;
+  text-align: left;
+  font-family: 'Quando', serif;
 }
 
 .hero p {

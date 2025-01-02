@@ -13,7 +13,11 @@ const CollectionTable = () => {
     { name: "user_02", status: "Frequent", amount: "$800" ,edit: "details"},
   ];
   return (
-    <div style={{display: 'flex', width: '90%', height: '542px', margin: '50px auto'}}>
+    <div style={{
+      display: 'flex', 
+      width: '90%', 
+      height: '542px', 
+      margin: '50px auto'}}>
         <TableContainer component={Paper} style={{backgroundColor: "#F4E9FC", padding: '30px'}}>
         <Table>
             <TableHead>
