@@ -1,6 +1,9 @@
+import { useEffect, useState } from 'react';
 import '../styles/home.css';
+import heroImage from '../assets/humanitarian-help-animate.svg';
 
 function Home() {
+  const [imageKey, setImageKey] = useState(Math.random());
   const donate = () => {
     window.location.href='/donation'
   }
@@ -8,25 +11,27 @@ function Home() {
     window.location.href='/findmed'
   }
 
+  useEffect(() => {
+    setImageKey(Math.random());
+  }, []);
+
   return (
     <div className="Home">
-      {/*<header className="header69">
-        <h1>MediShare</h1>
-        <nav>
-          <a href="#impact">Impact</a>
-          <a href="#mission">Mission</a>
-          <a href="#approach">Approach</a>
-          <a href="#contact">Contact</a>
-        </nav>
-      </header>*/}
 
       <section className="hero">
-        <h1>Explore The Power</h1>
-        <h1>of MediShare</h1>
-        <p>Connecting surplus medicines with those in need.</p>
-        <div className="button-container">
-          <button onClick={donate}>Donate Now!</button>
-          <button onClick={findmed}>Get Medicine For Free!</button>
+        <div className="hero-content">
+          <div className="hero-text">
+            <h1>Explore The Power of MediShare</h1>
+            <p>Medishare is a non profit organization dedicated to providing essential medical 
+            supplies and medications to underprivileged communities around the world</p>
+            <div className="button-container">
+              <button onClick={donate}>Donate Now!</button>
+              <button onClick={findmed}><span className="button-content">Get Medicine For Free!<span className="material-symbols-outlined">expand_circle_right</span></span></button>
+            </div>
+          </div>
+          <div className="hero-image">
+            <img key={imageKey} src={heroImage} alt="Hero Image" />
+          </div>
         </div>
       </section>
 
