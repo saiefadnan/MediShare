@@ -28,8 +28,8 @@ const DonationChart = () => {
           <YAxis tick={{ fill: "#6c757d" }} />
           <Tooltip />
           <Legend />
-          <Bar dataKey="Previous" fill="#007bff" name="Previous week" barSize={20} />
-          <Bar dataKey="Present" fill="#28a745" name="Present week" barSize={20} />
+          <Bar dataKey="Previous" fill="#007bff" name="Previous week" barSize={20} radius={[8,8,0,0]}/>
+          <Bar dataKey="Present" fill="#28a745" name="Present week" barSize={20} radius={[8,8,0,0]}/>
         </BarChart>
       </ResponsiveContainer>
     </div>

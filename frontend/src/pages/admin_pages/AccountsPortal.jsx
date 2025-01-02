@@ -12,7 +12,7 @@ const AccountsPortal = () => {
     return ( 
     <Box component="main" sx={{ display: 'flex',flexDirection:'column', width: '100%'}}>
         <DrawerHeader/>
-        <Typography variant="h4" sx={{margin: '20px 0 0 20px'}}>Accounts Info.</Typography>
+        <Typography variant="h6" sx={{margin: '20px 0 0 20px', fontWeight: 'bold'}}>Accounts Info.</Typography>
         <AccountsInfo/>
     </Box>);
 }

@@ -27,6 +27,7 @@ const DonationPie = () => {
                         cx="50%"
                         cy="50%"
                         outerRadius={100}
+                        innerRadius={50}
                         fill="#8884d8"
                         label
                     >

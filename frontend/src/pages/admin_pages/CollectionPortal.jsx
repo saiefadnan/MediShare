@@ -15,7 +15,7 @@ const  CollectionPortal= () => {
     return ( 
     <Box component="main" sx={{ display: 'flex',flexDirection:'column', width: '100%'}}>
         <DrawerHeader/>
-        <Typography variant="h4" sx={{margin: '20px 0 0 20px'}}>Collection</Typography>
+        <Typography variant="h6" sx={{margin: '20px 0 0 20px', fontWeight: 'bold'}}>Collection</Typography>
         <CollectionTable/>
         <div style={{display: 'flex', width: '100%'}}>
             <CollectionPie/>

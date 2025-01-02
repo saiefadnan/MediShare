@@ -1,7 +1,6 @@
 .page91{
     width: 100%;
     min-width: 1440px;
-    height: 1300px;
+    min-height: 100vh;
     background-color:  #F6EFE4;
-    border-top: 1.5px solid #375546;
 }
