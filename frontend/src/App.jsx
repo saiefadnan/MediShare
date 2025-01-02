@@ -12,6 +12,8 @@ import Admin from './pages/Admin.jsx';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Suspense } from 'react';
 import { StateProvider} from './Contexts/SidebarContext.jsx';
+import MedicineSearchResults from './pages/components_MedicineSearchResults';
+  
 
 
 function App() {
@@ -49,6 +51,7 @@ function App() {
           <Route path="/findMed" element={<FindMedPage />} />
           <Route path="/ai" element={<Ai />} />
           <Route path="/admin/*" element={<Admin />} />
+          <Route path="/airesult/*" element={< MedicineSearchResults />} />
         </Routes>
       </Suspense>
     </div>

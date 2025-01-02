@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom'; 
 
+
 import './userProfile.css';
 
 export default function ProfileEditor() {
@@ -21,7 +22,7 @@ export default function ProfileEditor() {
 
   return (
     <div className="profile-editor">
-      <div className="sidebar">
+      <div className="sidenav">
         <div className="user-info">
           <div className="avatar">
             <img src={profileImage || "/placeholder.svg"} alt="Profile" />
@@ -37,23 +38,26 @@ export default function ProfileEditor() {
           >
             Activity
           </button>
-          <button className="menu-button">Notifications</button>
-          <button className="menu-button">Requests</button>
-          <button className="menu-button">Requested</button>
+          <button className="menu-button"><i className="fa-solid fa-bell"></i>Notifications</button>
+          <button className="menu-button"><i className="fa-solid fa-inbox"></i>Requests</button>
+          <button className="menu-button"><i className="fa-solid fa-comment-medical"></i>Requested</button>
         </div>
-        <div className="divider"></div>
-        <div className="menu-section">
+        <hr className='divider'/>
+        <div className="manage-section">
           <h3>Manage</h3>
           <button
             className={`menu-button ${
               location.pathname === '/userProfile' ? 'active' : ''
             }`}
           >
-            Edit Profile
+            <i className="fa-solid fa-pen"></i>Edit Profile
           </button>
+          <button className="menu-button "><i className="fa-solid fa-right-from-bracket"></i>Sign Out</button>
         </div>
-        <button className="menu-button sign-out-button">Sign Out</button>
+        
       </div>
+
+      {/*Main content */}
       <div className="main-content">
         <div className="profile-header">
           <div className="profile-image-section">

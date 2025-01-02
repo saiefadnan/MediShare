@@ -15,7 +15,7 @@ const  DonationPortal= () => {
     return ( 
     <Box component="main" sx={{ display: 'flex',flexDirection:'column', width: '100%'}}>
         <DrawerHeader/>
-        <Typography variant="h6" sx={{margin: '20px 0 0 20px'}}>Donation</Typography>
+        <Typography variant="h4" sx={{margin: '20px 0 0 20px'}}>Donation</Typography>
         <DonationTable/>
         <div style={{display: 'flex', width: '100%'}}>
             <DonationPie/>
