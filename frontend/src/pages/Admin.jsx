@@ -13,7 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import { StateContext } from "../Contexts/SidebarContext";
-import Logo from '../assets/logo.png'
+import Logo from '../assets/medisharelogo.png'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationPanel from "./dashboard_stuffs/NotificationPanel";
 
@@ -71,9 +71,9 @@ const Admin = () => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 ,color: 'black', marginLeft: "50px"}}>
-                    <img src={Logo} alt='Logo' style={{marginRight:'10px'}}></img>
-                    MediShare
+                    <Typography variant="h5" component="div" sx={{ flexGrow: 1 ,color: 'black', marginLeft: "50px"}}>
+                    <span style={{display: 'flex', alignItems: 'center'}}><img src={Logo} alt='Logo' style={{marginRight:'5px', width: '3.5%'}}></img>
+                    <text style={{fontFamily:'Outfit', fontWeight: '600'}}>MediShare</text></span>
                     </Typography>
                     <IconButton color="black" onClick={handlePanel}>
                         <Badge badgeContent={4} color="error">

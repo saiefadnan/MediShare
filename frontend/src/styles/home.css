@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Quando&display=swap');
 :root {
   --light-beige: #f8f5f0;
   --beige: #e2d8c8;
+  --dark-beige: #ce986f;
   --dark-green: #457b6f;
   --dark-brown: #4a403a;
   --transition-duration: 0.3s;
@@ -45,49 +45,89 @@
 }
 
 .hero {
-  background-image: url('../assets/Group8.svg');
+  background-image: url('../assets/hero.png');
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  height: 92vh;
   color: white;
   text-align: center;
   padding: 5rem 2rem;
   transition: background-color var(--transition-duration);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.hero h1 {
+.hero-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 2rem;
+}
+
+.hero-text {
+  flex: 1;
+  text-align: left;
+}
+
+.hero-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image img {
+  max-width: 100%;
+  height: auto;
+}
+
+.hero-text h1 {
   font-size: 3rem;
-  margin: 0;
+  margin-top: 27%;
   text-align: left;
   font-family: 'Quando', serif;
 }
 
-.hero p {
-  margin: 1rem 0;
+.hero-text p {
+  margin: 2% 0;
+  text-align: left;
+  width: 80%;
+  font-family: 'Roboto', serif;
 }
 
 .button-container {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 3%;
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+}
+
+.button-content .material-symbols-outlined {
+  margin-left: 4px;
 }
 
 .hero button {
-  background-color: var(--dark-green);
-  color: white;
+  background-color: var(--dark-beige);
+  color: #365445;
+  font-weight: 525;
+  font-family: 'Roboto', sans-serif;
   padding: 0.8rem 1.5rem;
-  margin-left: 15px;
+  margin-right: 25px;
   border: none;
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
-  transition: background-color var(--transition-duration), transform var(--transition-duration);
+  transition: background-color 0.5s ease-out, color 0.5s ease-out;
 }
 
 .hero button:hover {
-  background-color: var(--dark-brown);
-  transform: scale(1.1);
+  background-color: #CA7636;
+  color: white;
 }
 
 .section {
