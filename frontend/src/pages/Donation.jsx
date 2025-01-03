@@ -162,7 +162,7 @@ const Donation = () => {
                   <label>ADD PICTURE OF YOUR MEDICINE</label>
                   <div className="medicine-upload-container">
                     <label htmlFor="medicineImage" className="upload-box">
-                      <img src={imagePreview} alt="Upload Medicine" width={100} height={100} />
+                      <img src={imagePreview} alt="Upload Medicine" width={500} height={200} />
                       <input
                         type="file"
                         id="medicineImage"

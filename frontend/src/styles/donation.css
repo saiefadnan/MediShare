@@ -3,7 +3,7 @@
   background-color: #2F4F4F;
   padding: 2rem;
   width: 100%;
-  border-radius: 50px;
+ 
 }
 
 
@@ -112,9 +112,9 @@
   align-items: center;
   gap: 1rem;
   color: white;
-  
+  justify-content: center;
   size: 1.5rem;
-  width: auto;
+  
   height: auto;
   margin-top: 1rem;
   ;
@@ -167,33 +167,42 @@
   margin-top: 2rem;
   display: flex;
   justify-content: center;
+  
 }
 
 .map-container {
   margin-top: 1rem;
   border-radius: 8px;
   overflow: hidden;
+
 }
 
 
 .medicine-upload-container {
   margin-top: 1rem;
+  justify-content: center;
+  margin-bottom: 1rem;
+  
 }
 
 .upload-box {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 200px;
+  
   height: 200px;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s;
+  
+  
+  
 }
 
 .upload-box:hover {
   background: rgba(255, 255, 255, 0.2);
+
 }
 
 .upload-note {
