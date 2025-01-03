@@ -14,7 +14,7 @@ const CollectionChart = () => {
 
   return (
     <div style={{ 
-      backgroundColor: "#F4E9FC", 
+      backgroundColor: "#FFE2E5", 
       borderRadius: "8px", 
       padding: "20px",
       margin: '50px auto',

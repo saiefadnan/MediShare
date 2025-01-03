@@ -12,7 +12,7 @@ const COLORS = ['#006AFF', '#52C93A', '#FF2727'];
 const CollectionPie = () => {
     return ( 
         <div style={{ 
-            backgroundColor: "#F4E9FC", 
+            backgroundColor: "#FFE2E5", 
             minWidth: "400px", 
             height: "auto" , 
             margin: '50px auto',

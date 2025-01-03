@@ -3,8 +3,16 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Avatar, Box, Button, LinearProgress} from '@mui/material';
 import check from './Icons/check.png'
 import error from './Icons/error.png'
+import { useState } from 'react';
+import ModalDiv from './ModalDiv';
 
 const DonationTable = () => {
+  const [open, setOpen]= useState(false);
+
+  const HandleOpen = ()=>{
+    setOpen(!open);
+  }
+
   const rows = [
     { id: 1, name: "user_01", status: "Regular", contribution: 49, edit: "details" },
     { id: 2, name: "user_02", status: "Frequent", contribution: 98, edit: "details" },
@@ -87,6 +95,7 @@ const DonationTable = () => {
     renderCell: (params)=>(
       <Box>
         <Button 
+        onClick={HandleOpen}
         variant='contained'
         size='small'
         sx={{
@@ -117,6 +126,11 @@ const DonationTable = () => {
                 
               },
           }}/>
+          {open && 
+          <ModalDiv
+            open = {open}
+            setOpen = {setOpen}
+          />}
         </Box>
   );
 };

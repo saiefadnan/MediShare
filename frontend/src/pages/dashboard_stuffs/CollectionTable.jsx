@@ -3,8 +3,16 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Avatar, Box, Button, LinearProgress} from '@mui/material';
 import check from './Icons/check.png'
 import error from './Icons/error.png'
+import { useState } from 'react';
+import ModalDiv from './ModalDiv';
 
 const CollectionTable = () => {
+  const [open, setOpen]= useState(false);
+
+  const HandleOpen = ()=>{
+    setOpen(!open);
+  }
+
   const rows = [
     { id: 1, name: "user_01", status: "Regular", contribution: 49, edit: "details" },
     { id: 2, name: "user_02", status: "Frequent", contribution: 98, edit: "details" },
@@ -61,14 +69,13 @@ const CollectionTable = () => {
     { field: 'contribution', headerName: 'Contribution', width: 250,type: 'number',
     renderCell: (params)=>(
       <Box
-    sx={{
+      sx={{
       width: '100%',
       height: '100%',
       display: 'flex', 
       alignItems: 'center',
       justifyContent: 'center',
-    }}
-  >
+    }}>
         <LinearProgress value={params.value}
         variant="determinate"
         sx={{
@@ -77,7 +84,7 @@ const CollectionTable = () => {
           borderRadius: '8px',
           backgroundColor: '#EFF4FB',
           '& .MuiLinearProgress-bar': {
-            backgroundColor: '#CDABE5',
+            backgroundColor: '#D17A8C',
           },
         }}>
         </LinearProgress>
@@ -87,10 +94,11 @@ const CollectionTable = () => {
     renderCell: (params)=>(
       <Box>
         <Button 
+        onClick={HandleOpen}
         variant='contained'
         size='small'
         sx={{
-          backgroundColor: '#CDABE5'
+          backgroundColor: '#D17A8C'
         }}>
           Manage
         </Button>
@@ -109,14 +117,19 @@ const CollectionTable = () => {
               width: '72%',
               minWidth: '1300px',
               margin: '20px auto',
-              backgroundColor: "#F4E9FC", 
+              backgroundColor: "#FFE2E5", 
               '.MuiDataGrid-columnHeaders': {
-                backgroundColor: '#CDABE5', 
+                backgroundColor: '#D17A8C', 
                 padding: '20px',
                 color: 'black',
                 
               },
           }}/>
+          {open && 
+          <ModalDiv
+            open = {open}
+            setOpen = {setOpen}
+          />}
         </Box>
   );
 };
