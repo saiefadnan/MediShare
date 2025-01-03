@@ -78,9 +78,10 @@ const Admin = () => {
                     <IconButton color="black" onClick={handlePanel}>
                         <Badge badgeContent={4} color="error">
                             <NotificationsIcon/>
+                            {openNotif && <NotificationPanel/>}
                         </Badge>
                     </IconButton>
-                    {openNotif && <NotificationPanel/>}
+                    
                     <IconButton color="inherit">
                         <Avatar src="/src/assets/avatar.png"/>
                     </IconButton>

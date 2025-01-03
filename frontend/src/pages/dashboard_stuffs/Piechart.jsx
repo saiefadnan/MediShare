@@ -7,7 +7,7 @@ const data = [
   { name: 'Failure', value: 2000 },
 ];
 
-const COLORS = ['#FF2727', '#52C93F', '#006AFF'];
+const COLORS = ['#006AFF', '#52C93A', '#FF2727'];
 
 const Piechart = () => {
     return ( 

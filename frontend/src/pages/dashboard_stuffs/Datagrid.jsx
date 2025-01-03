@@ -4,12 +4,16 @@ import { Box, LinearProgress, Typography } from '@mui/material';
 
 const Datagrid = () => {
   const rows = [
-    { id: 1, name: 'Paracetamol', donation: 15, collection: 10 },
-    { id: 2, name: 'Amoxicillin', donation: 100, collection: 20 },
-    { id: 3, name: 'Metformin', donation: 80, collection: 45 },
-    { id: 4, name: 'Ibuprofen', donation: 70, collection: 30 },
-    { id: 5, name: 'Cough Syrup', donation: 65, collection: 42 },
+    { id: 1, name: 'Paracetamol', donation: [15,0] ,collection: [10,0] },
+    { id: 2, name: 'Amoxicillin', donation: [100,1], collection: [20,1] },
+    { id: 3, name: 'Metformin', donation: [80,2], collection: [45,2] },
+    { id: 4, name: 'Ibuprofen', donation: [70,3], collection: [30,3] },
+    { id: 5, name: 'Cough Syrup', donation: [65,4], collection: [42,4] },
   ];
+
+  const progressColor = ['#0095FF','#00E096','#884DFF','#FF8F0D','#979797'];
+  const barColor = ['#CDE7FF','#8CFAC7','#C5A8FF','#FFD5A4','#F4F7FE'];
+
 
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
@@ -18,28 +22,37 @@ const Datagrid = () => {
     renderCell: (params)=>(
       <Box sx={{ width: "100%" }}>
           <Typography variant="body2" sx={{ mb: 0.5 }}>
-            {`${params.value}%`}
+            {`${params.value[0]}%`}
           </Typography>
           <LinearProgress
             variant="determinate"
-            value={params.value}
-            sx={{ height: 5, borderRadius: 5 }}/>
+            value={params.value[0]}
+            sx={{ height: 5, borderRadius: 5,
+              backgroundColor: barColor[params.value[1]],
+              '& .MuiLinearProgress-bar': {
+                backgroundColor: progressColor[params.value[1]], // Custom bar color
+              },
+              }}/>
         </Box>
     )},
-    { field: 'collection', headerName: 'Collection', type: 'number', width: 150,
-  renderCell:(params)=>(
-    <Box sx={{
-      width: '80px',
-      margin: '15px auto',
-      border: '1px solid #0095FF',
-      borderRadius: '8px',
-      backgroundColor: '#F0F9FF',
-      textAlign: 'center'
-    }}>
-      <Typography variant="body2" >
-            {`${params.value}%`}
-          </Typography>
-    </Box>
+    { 
+      field: 'collection', 
+      headerName: 'Collection', 
+      type: 'number', 
+      width: 150,
+      renderCell:(params)=>(
+        <Box sx={{
+          width: '80px',
+          margin: '15px auto',
+          border: `1px solid ${progressColor[params.value[1]]}`,
+          borderRadius: '8px',
+          backgroundColor: barColor[params.value[1]],
+          textAlign: 'center'
+        }}>
+          <Typography variant="body2" >
+                {`${params.value[0]}%`}
+              </Typography>
+        </Box>
   )},
   ];
 

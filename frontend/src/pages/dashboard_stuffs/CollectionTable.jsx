@@ -1,46 +1,123 @@
-import React from "react";
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
+import React from 'react';
+import { DataGrid } from '@mui/x-data-grid';
+import { Avatar, Box, Button, LinearProgress} from '@mui/material';
+import check from './Icons/check.png'
+import error from './Icons/error.png'
 
 const CollectionTable = () => {
-  const donors = [
-    { name: "user_01", status: "Regular", amount: "$500" ,edit: "details"},
-    { name: "user_02", status: "Frequent", amount: "$800" ,edit: "details"},
-    { name: "user_03", status: "Limited", amount: "$200" ,edit: "details"},
-    { name: "user_01", status: "Regular", amount: "$500" ,edit: "details"},
-    { name: "user_02", status: "Frequent", amount: "$800" ,edit: "details"},
-    { name: "user_03", status: "Limited", amount: "$200" ,edit: "details"},
-    { name: "user_01", status: "Regular", amount: "$500" ,edit: "details"},
-    { name: "user_02", status: "Frequent", amount: "$800" ,edit: "details"},
+  const rows = [
+    { id: 1, name: "user_01", status: "Regular", contribution: 49, edit: "details" },
+    { id: 2, name: "user_02", status: "Frequent", contribution: 98, edit: "details" },
+    { id: 3, name: "user_03", status: "Limited", contribution: 7, edit: "details" },
+    { id: 4, name: "user_01", status: "Regular", contribution: 96, edit: "details" },
+    { id: 5, name: "user_02", status: "Frequent", contribution: 95, edit: "details" },
+    { id: 6, name: "user_03", status: "Limited", contribution: 94, edit: "details" },
+    { id: 7, name: "user_01", status: "Regular", contribution: 9, edit: "details" },
+    { id: 8, name: "user_02", status: "Frequent", contribution: 92, edit: "details" },
+    { id: 9, name: "user_01", status: "Regular", contribution: 91, edit: "details" },
+    { id: 10, name: "user_02", status: "Frequent", contribution: 90, edit: "details" },
+    { id: 11, name: "user_03", status: "Limited", contribution: 89, edit: "details" },
+    { id: 12, name: "user_01", status: "Regular", contribution: 88, edit: "details" },
+    { id: 13, name: "user_02", status: "Frequent", contribution: 87, edit: "details" },
+    { id: 14, name: "user_03", status: "Limited", contribution: 86, edit: "details" },
+    { id: 15, name: "user_01", status: "Regular", contribution: 85, edit: "details" },
+    { id: 16, name: "user_02", status: "Frequent", contribution: 8, edit: "details" },
+    { id: 1, name: "user_01", status: "Regular", contribution: 49, edit: "details" },
+    { id: 2, name: "user_02", status: "Frequent", contribution: 98, edit: "details" },
+    { id: 3, name: "user_03", status: "Limited", contribution: 7, edit: "details" },
+    { id: 4, name: "user_01", status: "Regular", contribution: 96, edit: "details" },
+    { id: 5, name: "user_02", status: "Frequent", contribution: 95, edit: "details" },
+    { id: 6, name: "user_03", status: "Limited", contribution: 94, edit: "details" },
+    { id: 7, name: "user_01", status: "Regular", contribution: 9, edit: "details" },
+    { id: 8, name: "user_02", status: "Frequent", contribution: 92, edit: "details" },
+    { id: 9, name: "user_01", status: "Regular", contribution: 91, edit: "details" },
+    { id: 10, name: "user_02", status: "Frequent", contribution: 90, edit: "details" },
+    { id: 11, name: "user_03", status: "Limited", contribution: 89, edit: "details" },
+    { id: 12, name: "user_01", status: "Regular", contribution: 88, edit: "details" },
+    { id: 13, name: "user_02", status: "Frequent", contribution: 87, edit: "details" },
+    { id: 14, name: "user_03", status: "Limited", contribution: 86, edit: "details" },
+    { id: 15, name: "user_01", status: "Regular", contribution: 85, edit: "details" },
+    { id: 16, name: "user_02", status: "Frequent", contribution: 8, edit: "details" },
   ];
-  return (
-    <div style={{
+  
+  const columns = [
+    { field: 'name', headerName: 'Name', width: 350 },
+    { field: 'status', headerName: 'Status', width: 350,
+      renderCell: (params)=>(
+        <Box sx={{
+          width: '100%', 
+          height: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          padding: '10px'}}>
+          {params.value==='Regular'?
+          <Avatar src={check}
+            sx={{ height: 30, width: 30 , border: '1px solid #F4F7FE' }} />
+          :<Avatar src={error}
+            sx={{ height: 30, width: 30 , border: '1px solid #F4F7FE' }}  
+          />}
+        </Box>
+      ) },
+    { field: 'contribution', headerName: 'Contribution', width: 250,type: 'number',
+    renderCell: (params)=>(
+      <Box
+    sx={{
+      width: '100%',
+      height: '100%',
       display: 'flex', 
-      width: '90%', 
-      height: '542px', 
-      margin: '50px auto'}}>
-        <TableContainer component={Paper} style={{backgroundColor: "#F4E9FC", padding: '30px'}}>
-        <Table>
-            <TableHead>
-            <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell>Account Status</TableCell>
-                <TableCell>Contribution</TableCell>
-                <TableCell>Edit</TableCell>
-            </TableRow>
-            </TableHead>
-            <TableBody>
-            {donors.map((donor, index) => (
-                <TableRow key={index}>
-                <TableCell>{donor.name}</TableCell>
-                <TableCell>{donor.status}</TableCell>
-                <TableCell>{donor.amount}</TableCell>
-                <TableCell>{donor.edit}</TableCell>
-                </TableRow>
-            ))}
-            </TableBody>
-        </Table>
-        </TableContainer>
-    </div>
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+  >
+        <LinearProgress value={params.value}
+        variant="determinate"
+        sx={{
+          width: '80%', 
+          margin: 'auto',
+          borderRadius: '8px',
+          backgroundColor: '#EFF4FB',
+          '& .MuiLinearProgress-bar': {
+            backgroundColor: '#CDABE5',
+          },
+        }}>
+        </LinearProgress>
+      </Box>
+    )},
+    { field: 'edit', headerName: 'Edit', width: 350 ,
+    renderCell: (params)=>(
+      <Box>
+        <Button 
+        variant='contained'
+        size='small'
+        sx={{
+          backgroundColor: '#CDABE5'
+        }}>
+          Manage
+        </Button>
+      </Box>
+    )},
+  ];
+
+  return (
+        <Box sx={{ height: 750, width: '100%',}}>
+          <DataGrid 
+            rows={rows} 
+            columns={columns} 
+            pageSize={5} 
+            rowsPerPageOptions={[10]} 
+            sx={{
+              width: '72%',
+              minWidth: '1300px',
+              margin: '20px auto',
+              backgroundColor: "#F4E9FC", 
+              '.MuiDataGrid-columnHeaders': {
+                backgroundColor: '#CDABE5', 
+                padding: '20px',
+                color: 'black',
+                
+              },
+          }}/>
+        </Box>
   );
 };
 

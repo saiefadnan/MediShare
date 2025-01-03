@@ -7,7 +7,7 @@ const data = [
   { name: 'Others', value: 2000 },
 ];
 
-const COLORS = ['#ff7300', '#387908', '#f8d7da'];
+const COLORS = ['#006AFF', '#52C93A', '#FF2727'];
 
 const CollectionPie = () => {
     return ( 
@@ -15,7 +15,7 @@ const CollectionPie = () => {
             backgroundColor: "#F4E9FC", 
             minWidth: "400px", 
             height: "auto" , 
-            margin: '20px auto',
+            margin: '50px auto',
             padding: '50px',
             borderRadius: '8px'}}>
             <ResponsiveContainer width="100%" height={300}>
