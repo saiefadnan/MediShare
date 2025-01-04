@@ -1,0 +1,77 @@
+.sidebar {
+    width: 250px;
+    background-color: #2b3d36;
+    height: 100vh;
+    color: #fff;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;  
+}
+
+.sidebar .profile {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.sidebar .profile img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.sidebar .profile h2 {
+    font-size: 20px;
+    margin: 5px 0;
+}
+
+.sidebar .profile p {
+    font-size: 16px;
+    color: #c3c3c3;
+}
+
+
+.sidebar .menu {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar .menu-header {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.sidebar .menu li {
+    margin: 10px 0;
+}
+
+.sidebar .menu li a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 600;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar .menu li a:hover {
+    background-color: #62c69e;
+    color: #fff;
+}
+
+
+.sidebar .divider {
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
+    margin: 20px 0;
+}
