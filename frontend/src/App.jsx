@@ -8,6 +8,7 @@ import Donation from './pages/Donation';
 import Ai from './pages/Ai';
 import LoginPage from './pages/Login';
 import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
+import Footer from './components/Footer';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import { StateProvider} from './Contexts/SidebarContext.jsx';
@@ -34,6 +35,8 @@ function App() {
     '/admin/chat',
   ];
 
+  const hideFooterRoutes = ['/login'];
+
   return (
     <StateProvider>
     <div className="App">
@@ -54,6 +57,7 @@ function App() {
           <Route path="/airesult/*" element={< MedicineSearchResults />} />
         </Routes>
       </Suspense>
+      {!hideFooterRoutes.includes(location.pathname) && <Footer/>}
     </div>
     </StateProvider>
   );

@@ -1,0 +1,18 @@
+footer {
+    background-image: url(../assets/footer.png);
+    color: white;
+    text-align: center;
+    padding: 1.5rem 0;
+    font-size: 0.9rem;
+  }
+  
+  footer a {
+    color: var(--light-beige);
+    text-decoration: none;
+    margin: 0 0.5rem;
+    transition: color var(--transition-duration);
+  }
+  
+  footer a:hover {
+    color: white;
+  }
