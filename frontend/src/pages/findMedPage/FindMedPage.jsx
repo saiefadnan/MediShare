@@ -7,6 +7,9 @@ import data from './assets/data.js';
 import cardImg from './assets/img/bg.jpg';
 import Footer from '../../components/Footer.jsx'
 
+for (let i=1;i<10;i++){
+
+}
 
 
 export default function FindMedPage(){
