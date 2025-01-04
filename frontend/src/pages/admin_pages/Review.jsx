@@ -1,7 +1,7 @@
 import { Box, styled, Typography } from "@mui/material";
 import ReviewCards from "../dashboard_stuffs/ReviewCards";
+import ReviewBreakdown from "../dashboard_stuffs/ReviewBreakdown";
 import ReviewChart from "../dashboard_stuffs/ReviewChart";
-import CollectionChart from "../dashboard_stuffs/CollectionChart";
 
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -15,12 +15,13 @@ const Review = () => {
     return ( 
     <Box component="main" sx={{ display: 'flex',flexDirection:'column', width: '100%'}}>
     <DrawerHeader/>
-        <Typography variant="h4" sx={{margin: '20px 0 0 20px'}}>Users' Review</Typography>
-        
+        <Typography variant="h6" sx={{margin: '20px 0 0 20px', fontWeight: 'bold'}}>Users' Review</Typography>
         <ReviewCards/>
-        <div style={{display: 'flex', width: '100%'}}>
+        <div style={{
+            display: 'flex', 
+            width: '100%'}}>
+             <ReviewBreakdown/>
              <ReviewChart/>
-             <CollectionChart/>
         </div>
        
     </Box>);

@@ -13,7 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { styled, useTheme } from '@mui/material/styles';
 import MuiAppBar from '@mui/material/AppBar';
 import { StateContext } from "../Contexts/SidebarContext";
-import Logo from '../assets/logo.png'
+import Logo from '../assets/medisharelogo.png'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationPanel from "./dashboard_stuffs/NotificationPanel";
 
@@ -26,6 +26,7 @@ const Admin = () => {
         shouldForwardProp: (prop) => prop !== 'open',
       })(({ theme }) => ({
         zIndex: theme.zIndex.drawer + 1,
+        height: '65px',
         transition: theme.transitions.create(['width', 'margin'], {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
@@ -36,6 +37,7 @@ const Admin = () => {
             style: {
               marginLeft: drawerWidth,
               width: `calc(100% - ${drawerWidth}px)`,
+              height: '65px',
               transition: theme.transitions.create(['width', 'margin'], {
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.enteringScreen,
@@ -71,16 +73,17 @@ const Admin = () => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 ,color: 'black', marginLeft: "50px"}}>
-                    <img src={Logo} alt='Logo' style={{marginRight:'10px'}}></img>
-                    MediShare
-                    </Typography>
+                    <Box variant="h5" component="div" sx={{ flexGrow: 1 ,color: 'black', marginLeft: "30px",}}>
+                        <img src={Logo} alt='Logo' style={{marginRight:'5px',width: '50px',height: 'auto',}}/>
+                        <text style={{fontFamily:'Outfit', fontWeight: '600', fontSize: '20px'}}>MediShare</text>
+                    </Box>
                     <IconButton color="black" onClick={handlePanel}>
                         <Badge badgeContent={4} color="error">
                             <NotificationsIcon/>
+                            {openNotif && <NotificationPanel/>}
                         </Badge>
                     </IconButton>
-                    {openNotif && <NotificationPanel/>}
+                    
                     <IconButton color="inherit">
                         <Avatar src="/src/assets/avatar.png"/>
                     </IconButton>

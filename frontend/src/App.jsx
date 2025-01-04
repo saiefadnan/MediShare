@@ -8,12 +8,13 @@ import Donation from './pages/Donation';
 import Ai from './pages/Ai';
 import LoginPage from './pages/Login';
 import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
-import Admin from './pages/Admin.jsx';
+import Footer from './components/Footer';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
-import { Suspense } from 'react';
+import { Suspense, lazy } from 'react';
 import { StateProvider} from './Contexts/SidebarContext.jsx';
 import MedicineSearchResults from './pages/components_MedicineSearchResults';
-  
+import CircularUnderLoad from './components/CircularUnderLoad.jsx';
+const Admin = lazy(()=>import('./pages/Admin.jsx'));
 
 
 function App() {
@@ -34,12 +35,14 @@ function App() {
     '/admin/chat',
   ];
 
+  const hideFooterRoutes = ['/login'];
+
   return (
     <StateProvider>
     <div className="App">
       {/* Show Navbar only if the current route is not in the `hideNavbarRoutes` */}
       {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div className='circularunderload-container'><CircularUnderLoad/></div>}>
         <Routes>
           <Route path="/" element={<Home/>} />
           <Route path="/userDashboard" element={<UserDashboard />} />
@@ -54,6 +57,7 @@ function App() {
           <Route path="/airesult/*" element={< MedicineSearchResults />} />
         </Routes>
       </Suspense>
+      {!hideFooterRoutes.includes(location.pathname) && <Footer/>}
     </div>
     </StateProvider>
   );

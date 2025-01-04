@@ -17,7 +17,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Link } from 'react-router-dom';
 import { StateContext } from '../../Contexts/SidebarContext';
 import signoutIcon from '../../assets/signout.png'
-import heartIcon from '../../assets/Heart.png'
+import heartIcon from '../../assets/heartLogo.png'
 import dashboardIcon from '../../assets/dashboard.png'
 import mailIcon from '../../assets/mail.png'
 import starsIcon from '../../assets/stars.png'

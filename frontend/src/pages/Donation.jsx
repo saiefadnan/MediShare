@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import '../styles/donation.css';
-import Footer from '../components/Footer.jsx';
 
 import L from 'leaflet'; // Import Leaflet for the map
 import 'leaflet/dist/leaflet.css';
@@ -162,7 +161,7 @@ const Donation = () => {
                   <label>ADD PICTURE OF YOUR MEDICINE</label>
                   <div className="medicine-upload-container">
                     <label htmlFor="medicineImage" className="upload-box">
-                      <img src={imagePreview} alt="Upload Medicine" width={100} height={100} />
+                      <img src={imagePreview} alt="Upload Medicine" width={500} height={200} />
                       <input
                         type="file"
                         id="medicineImage"
@@ -194,9 +193,6 @@ const Donation = () => {
             </div>
           </div>
         </div>
-      </div>
-      <div style={{ width: 2000, backgroundColor: 'black' }}>
-        <Footer />
       </div>
     </div>
   );

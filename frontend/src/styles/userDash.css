@@ -1,23 +1,58 @@
 
 
-.header {
-  background: none;
-  padding: 0;
-  margin: 0;
+.header-container {
+  width: 100%; /* Make the container span the entire width */
+  position: relative; /* Allows proper alignment and positioning */
+  padding: 10px 20px; /* Add spacing around the header content */
+  margin-bottom: 20px; /* Add spacing below the header */
+  border-bottom: 2px solid #000000; /* Full-width divider line */
 }
+
+.header {
+  display: flex; /* Align title and icon horizontally */
+  align-items: center; /* Vertically align items */
+  justify-content: flex-start; /* Ensure left alignment */
+}
+
+.header .icon {
+  margin-right: 15px; /* Add space between the icon and title */
+  height: 30px;
+  width: 20px;
+  transform: translateY(-9px);
+  flex-shrink: 0; /* Adjust icon size */
+}
+
+.header .title116 {
+  font-size: 28px; /* Adjust font size */
+  font-weight: bold;
+  color: #2b3d36; /* Adjust color */
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Remove extra padding */
+  margin-left: 20px;
+  line-height: 1;
+}
+
 
 /* Sidebar */
 .sidebar {
-  width: 250px;
-  background-color: #2b3d36;
-  height: 100vh;
-  color: #fff;
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
+ 
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  
+   
 }
-
+/* .sidebar {
+    width: 250px;
+    background-color: #2b3d36;
+    height: 100vh;
+    color: #fff;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;  
+}*/
 .sidebar .profile {
   text-align: center;
   margin-bottom: 30px;
@@ -94,7 +129,7 @@
 }
 
 /* Main Content */
-.main-content {
+.user-dashboard-main-content {
   margin-left: 270px;
   padding: 20px;
   display: flex;
@@ -102,36 +137,36 @@
   align-items: flex-start;
 }
 
-.header .title {
-  font-size: 28px;
-  color: #2b3d36;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  display: inline;
-  background: none;
-  padding: 0;
-}
+
+
+
 
 /* Dashboard Cards */
 .dashboard-cards {
   display: flex;
-  gap: 20px;
+  gap: 70px;
   margin-bottom: 30px;
   flex-wrap: wrap;
   justify-content: flex-start;
+  
 }
 
 .dashboard-card {
   flex: 1 1 calc(45% - 20px);
-  padding: 20px 200px;
+  padding: 40px 200px;
   border-radius: 15px;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
-  text-align: center;
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
   font-size: 20px;
   font-weight: bold;
   color: #fff;
   min-width: 220px;
+  position: relative; /* Enable absolute positioning for child elements */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+   
+   /* Align content to the left */
 }
 
 .dashboard-card.donated {
@@ -140,6 +175,32 @@
 
 .dashboard-card.received {
   background-color: #9c88ff;
+}
+
+.dashboard-card img {
+  position: relative;
+  left: -200px; /* Enables relative movement of the icon */
+  top: 70px; /* Moves the icon 20px downward */
+  width: 50px; /* Keeps the size unchanged */
+  height: 50px;
+}
+
+.dashboard-card p {
+  position: relative;
+  right: 180px;
+  bottom: 80px;
+  margin: 0;
+  font-size: 20px; /* Adjust text size */
+  font-weight: bold;
+
+}
+
+.dashboard-card h3 {
+  margin: 0;
+  font-size: 36px; /* Adjust number size */
+  position: absolute;
+  bottom: 15px; /* Align the number at the bottom */
+  right: 15px; /* Align the number at the right */
 }
 
 /* Recent Activity and Monthly Reports */
@@ -170,7 +231,7 @@
 
 .recent-activity h2, .monthly-reports h2 {
   font-size: 20px;
-  color: #2b3d36;
+  color: #3d2b2b;
   margin-bottom: 10px;
 }
 
@@ -180,6 +241,19 @@
   margin-bottom: 10px;
 }
 
+.recent-activity .load-more {
+  margin-top: 10px;
+  background-color: #62c69e;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 20px auto 0;
+  text-align: center;
+  display: block;
+}
 .activity-table {
   width: 100%;
   border-collapse: collapse;
@@ -205,7 +279,7 @@
   background-color: #f9f9f9;
 }
 
-.load-more {
+/*.load-more2 {
   margin-top: 10px;
   background-color: #62c69e;
   color: #fff;
@@ -214,16 +288,26 @@
   font-size: 14px;
   border-radius: 5px;
   cursor: pointer;
-}
+  
+} */
 
 .load-more:hover {
   background-color: #4ba683;
 }
 
 /* Inventory */
+/* Inventory */
 .inventory {
   margin-top: 30px;
   width: 100%;
+  display: flex;
+  flex-direction: column; /* Change layout to column */
+  align-items: center; /* Center all content horizontally */
+  gap: 20px; /* Space between items */
+  background-color: #E2D8C3;
+  border-radius: 10px;
+  padding: 0 20px;
+  overflow: hidden;;
 }
 
 .inventory h2 {
@@ -236,6 +320,8 @@
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+  justify-content: center; /* Center inventory items */
+  width: 100%;
 }
 
 .inventory .item {
@@ -266,11 +352,34 @@
   background-color: #b3a895;
 }
 
+.inventory .load-more2 {
+  width: fit-content;
+  margin: 20px auto; /* Center button horizontally */
+  background-color: #007bff; /* Blue background */
+  color: #fff; /* White text */
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+}
 
+.inventory .load-more2:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+
+
+/*charts */
 .chart-container {
+  width: 100%; /* Full width */
+  height: 350px; /* Set the height */
+  display: flex; /* Use flexbox to center chart */
+  justify-content: center;
+  align-items: center;
+  transform: translateY(40px);
   position: relative;
-  height: 250px;
-  width: 100%;
 }
 
 .activity-table-container {
@@ -285,4 +394,14 @@
   margin-bottom: 15px;  
   text-align: center; 
   box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1); 
+}
+
+
+.heart-icon {
+  /* Allows positioning relative to the card */
+  top: 80px; /* Adjust this value to fine-tune the vertical position */
+  left: 10px; /* Adjust this value to fine-tune the horizontal position */
+  width: 40px; /* Set the size of the heart icon */
+  height: 40px;
+  /*pointer-events: none;  */ /* Prevents the heart icon from blocking clicks */
 }
