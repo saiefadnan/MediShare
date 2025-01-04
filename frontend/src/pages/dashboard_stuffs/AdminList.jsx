@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, Typography, IconButton, Box, Avatar } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import avatar1 from '../dashboard_stuffs/Icons/avatar1.png'
 import avatar2 from '../dashboard_stuffs/Icons/avatar2.png'
 import avatar3 from '../dashboard_stuffs/Icons/avatar3.png'
 import { GridAddIcon } from '@mui/x-data-grid';
+import SearchUsers from './SearchUsers';
+import { Button } from 'react-bootstrap';
 
 const AdminList = () => {
   const admins = [
@@ -12,6 +14,12 @@ const AdminList = () => {
     { id: 2, name: 'Jane Doe', role: 'Admin', avatar: avatar2 },
     { id: 3, name: 'John Smith', role: 'Moderator', avatar: avatar3 },
   ];
+
+  const [open, setOpen] = useState(false);
+  const HandleOpen = ()=>{
+    console.log('asdsa');
+    setOpen(!open);
+  }
 
   return (
     <div style={{ 
@@ -24,7 +32,7 @@ const AdminList = () => {
         <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 500, margin: '0 auto' }}>
         <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
             <Typography variant="h6">Other Admins</Typography>
-            <IconButton>
+            <IconButton onClick={HandleOpen}>
                 <GridAddIcon/>
             </IconButton>
         </Box>
@@ -51,11 +59,15 @@ const AdminList = () => {
                     </Typography>
                 </CardContent>
             </Box>
-            <IconButton>
+            <IconButton >
                 <MoreVertIcon />
             </IconButton>
             </Card>
         ))}
+        {open && 
+            <SearchUsers
+            open = {open}
+            setOpen = {setOpen}/>}
         </Box>
     </div>
   );

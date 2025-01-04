@@ -49,7 +49,7 @@ const CollectionTable = () => {
   ];
   
   const columns = [
-    { field: 'name', headerName: 'Name', width: 350 },
+    { field: 'name', headerName: 'Top Collectors', width: 350 },
     { field: 'status', headerName: 'Status', width: 350,
       renderCell: (params)=>(
         <Box sx={{
@@ -120,7 +120,7 @@ const CollectionTable = () => {
               backgroundColor: "#FFE2E5", 
               '.MuiDataGrid-columnHeaders': {
                 backgroundColor: '#D17A8C', 
-                padding: '20px',
+                padding: '10px',
                 color: 'black',
                 
               },

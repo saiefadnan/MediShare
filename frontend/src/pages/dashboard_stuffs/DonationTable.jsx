@@ -49,7 +49,7 @@ const DonationTable = () => {
   ];
   
   const columns = [
-    { field: 'name', headerName: 'Name', width: 350 },
+    { field: 'name', headerName: 'Top Donators', width: 350 },
     { field: 'status', headerName: 'Status', width: 350,
       renderCell: (params)=>(
         <Box sx={{
@@ -121,7 +121,7 @@ const DonationTable = () => {
               backgroundColor: "#FEF4DF", 
               '.MuiDataGrid-columnHeaders': {
                 backgroundColor: '#DBC391', 
-                padding: '20px',
+                padding: '10px',
                 color: 'black',
                 
               },

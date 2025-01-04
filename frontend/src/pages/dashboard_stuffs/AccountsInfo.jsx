@@ -48,7 +48,7 @@ const AccountsPortal = () => {
   ];
   
   const columns = [
-    { field: 'name', headerName: 'Name', width: 350 },
+    { field: 'name', headerName: 'Account Name', width: 350 },
     { field: 'status', headerName: 'Status', width: 350,
       renderCell: (params)=>(
         <Box sx={{
@@ -119,7 +119,7 @@ const AccountsPortal = () => {
               backgroundColor: "#DCEAE3", 
               '.MuiDataGrid-columnHeaders': {
                 backgroundColor: '#60C67F', 
-                padding: '20px',
+                padding: '10px',
                 color: 'black',
                 
               },
