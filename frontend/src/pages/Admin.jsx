@@ -26,6 +26,7 @@ const Admin = () => {
         shouldForwardProp: (prop) => prop !== 'open',
       })(({ theme }) => ({
         zIndex: theme.zIndex.drawer + 1,
+        height: '65px',
         transition: theme.transitions.create(['width', 'margin'], {
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
@@ -36,6 +37,7 @@ const Admin = () => {
             style: {
               marginLeft: drawerWidth,
               width: `calc(100% - ${drawerWidth}px)`,
+              height: '65px',
               transition: theme.transitions.create(['width', 'margin'], {
                 easing: theme.transitions.easing.sharp,
                 duration: theme.transitions.duration.enteringScreen,
@@ -71,10 +73,10 @@ const Admin = () => {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h5" component="div" sx={{ flexGrow: 1 ,color: 'black', marginLeft: "50px"}}>
-                    <span style={{display: 'flex', alignItems: 'center'}}><img src={Logo} alt='Logo' style={{marginRight:'5px', width: '3.5%'}}></img>
-                    <text style={{fontFamily:'Outfit', fontWeight: '600'}}>MediShare</text></span>
-                    </Typography>
+                    <Box variant="h5" component="div" sx={{ flexGrow: 1 ,color: 'black', marginLeft: "30px",}}>
+                        <img src={Logo} alt='Logo' style={{marginRight:'5px',width: '50px',height: 'auto',}}/>
+                        <text style={{fontFamily:'Outfit', fontWeight: '600', fontSize: '20px'}}>MediShare</text>
+                    </Box>
                     <IconButton color="black" onClick={handlePanel}>
                         <Badge badgeContent={4} color="error">
                             <NotificationsIcon/>
