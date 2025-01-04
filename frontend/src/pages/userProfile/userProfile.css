@@ -108,6 +108,7 @@
 }
 
   .form-group116 label {
+    font-weight: bold;
     font-size: 0.9rem;
     color: #666;
   }
@@ -147,6 +148,7 @@
   }
 
   .user-address-section {
+    margin-top: 2rem;
     margin-bottom: 2rem;
     padding: 1rem;
     border: 1px  ;
