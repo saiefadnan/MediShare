@@ -14,7 +14,7 @@ const CollectionChart = () => {
 
   return (
     <div style={{ 
-      backgroundColor: "#F4E9FC", 
+      backgroundColor: "#FFE2E5", 
       borderRadius: "8px", 
       padding: "20px",
       margin: '50px auto',
@@ -28,8 +28,8 @@ const CollectionChart = () => {
           <YAxis tick={{ fill: "#6c757d" }} />
           <Tooltip />
           <Legend />
-          <Bar dataKey="Previous" fill="#007bff" name="Previous week" barSize={20} />
-          <Bar dataKey="Present" fill="#28a745" name="Present week" barSize={20} />
+          <Bar dataKey="Previous" fill="#007bff" name="Previous week" barSize={20} radius={[8,8,0,0]}/>
+          <Bar dataKey="Present" fill="#28a745" name="Present week" barSize={20} radius={[8,8,0,0]}/>
         </BarChart>
       </ResponsiveContainer>
     </div>
