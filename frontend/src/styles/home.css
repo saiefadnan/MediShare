@@ -7,6 +7,10 @@
   --transition-duration: 0.3s;
 }
 
+.Home{
+  overflow: hidden;
+}
+
 .home body {
   font-family: 'Outline', sans-serif;
   margin: 0;
