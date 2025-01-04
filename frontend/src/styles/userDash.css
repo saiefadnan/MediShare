@@ -153,24 +153,54 @@
 
 .dashboard-card {
   flex: 1 1 calc(45% - 20px);
-  padding: 20px 200px;
+  padding: 40px 200px;
   border-radius: 15px;
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
-  text-align: center;
   font-size: 20px;
   font-weight: bold;
   color: #fff;
   min-width: 220px;
+  position: relative; /* Enable absolute positioning for child elements */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+   
+   /* Align content to the left */
 }
 
 .dashboard-card.donated {
-  
   background-color: #ff6b6b;
-  
 }
 
 .dashboard-card.received {
   background-color: #9c88ff;
+}
+
+.dashboard-card img {
+  position: relative;
+  left: -200px; /* Enables relative movement of the icon */
+  top: 70px; /* Moves the icon 20px downward */
+  width: 50px; /* Keeps the size unchanged */
+  height: 50px;
+}
+
+.dashboard-card p {
+  position: relative;
+  right: 180px;
+  bottom: 80px;
+  margin: 0;
+  font-size: 20px; /* Adjust text size */
+  font-weight: bold;
+
+}
+
+.dashboard-card h3 {
+  margin: 0;
+  font-size: 36px; /* Adjust number size */
+  position: absolute;
+  bottom: 15px; /* Align the number at the bottom */
+  right: 15px; /* Align the number at the right */
 }
 
 /* Recent Activity and Monthly Reports */

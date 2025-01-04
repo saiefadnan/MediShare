@@ -10,9 +10,9 @@ import {
   Legend,
 } from 'chart.js';
 import '../styles/userDash.css'; 
-import heartIcon from '../assets/icons8-heart-64.png';
+import heartIcon from '../assets/icons8-medicine-48.png';
 import parcelIcon from '../assets/icons8-parcel-48.png';
-/*import MediShareLogo from '../assets/logo.png'; */
+import MediShareLogo from '../assets/medisharelogo.png'; 
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -175,7 +175,7 @@ function UserDashboard() {
       <div className="user-dashboard-main-content">
         <div className="header-container">
           <div className="header">
-             {/*<img src={MediShareLogo} alt="MediShare Icon" className="icon" /> */}
+             <img src={MediShareLogo} alt="MediShare Icon" className="icon" /> 
              <div className="title116">MediShare</div>
     </div>
   </div>
