@@ -29,6 +29,10 @@ function Home() {
     window.location.href='/findmed'
   }
 
+  const getAI = () => {
+    window.location.href='/ai'
+  }
+
   useEffect(() => {
     setImageKey(Math.random());
   }, []);
@@ -242,7 +246,7 @@ function Home() {
                       <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1.5%', border: '1px solid #7C7573' }}>
                         <img src={approach1} style={{width: '80px'}}></img><br/>
                         <h6 style={{color: '#5E5C59', fontFamily: 'Roboto' }}>Explore Medicines</h6>
-                        <h5 className='h5-hover'>Free Medicines</h5>
+                        <button style={{backgroundColor: 'transparent', border: '0'}} onClick={findmed}><h5 className='h5-hover'>Free Medicines</h5></button>
                         <div style={{ maxWidth: '80%', textAlign: 'center', fontFamily: 'Roboto', fontSize: '15px', color: '#56473C', paddingTop: '3%' }}>
                           Free medicines for the marginal population
                         </div>
@@ -250,7 +254,7 @@ function Home() {
                       <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1.5%', border: '1px solid #7C7573' }}>
                         <img src={approach2} style={{width: '80px'}}></img><br/>
                         <h6 style={{color: '#5E5C59', fontFamily: 'Roboto' }}>Help Others</h6>
-                        <h5 className='h5-hover'>Donate Now</h5>
+                        <button style={{backgroundColor: 'transparent', border: '0'}} onClick={donate}><h5 className='h5-hover'>Donate Now</h5></button>
                         <div style={{ maxWidth: '80%', textAlign: 'center', fontFamily: 'Roboto', fontSize: '15px', color: '#56473C', paddingTop: '3%' }}>
                           Donate medicine for those in need
                         </div>
@@ -258,7 +262,7 @@ function Home() {
                       <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1.5%', border: '1px solid #7C7573' }}>
                         <img src={approach3} style={{width: '80px'}}></img><br/>
                         <h6 style={{color: '#5E5C59', fontFamily: 'Roboto' }}>Need Support?</h6>
-                        <h5 className='h5-hover'>Get AI Support</h5>
+                        <button style={{backgroundColor: 'transparent', border: '0'}} onClick={getAI}><h5 className='h5-hover'>Get AI Support</h5></button>
                         <div style={{ maxWidth: '80%', textAlign: 'center', fontFamily: 'Roboto', fontSize: '15px', color: '#56473C', paddingTop: '3%' }}>
                           For any medicine related query
                         </div>
