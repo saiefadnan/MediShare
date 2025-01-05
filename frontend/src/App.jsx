@@ -39,7 +39,15 @@ function App() {
     
   ];
 
-  const hideFooterRoutes = ['/login'];
+  const hideFooterRoutes = [
+    '/login',
+    '/admin/dashboard',
+    '/admin/collection',
+    '/admin/donation',
+    '/admin/review',
+    '/admin/accounts',
+    '/admin/chat',
+  ];
 
   return (
     <StateProvider>
