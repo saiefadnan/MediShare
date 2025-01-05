@@ -11,6 +11,14 @@ const Navbar = () => {
   const home = () => {
     window.location.href = "/";
   } 
+
+  const about = () => {
+    window.location.href = "/about";
+  } 
+
+  const contacts = () => {
+    window.location.href = "/contacts";
+  } 
   return (
     <AppBar position="sticky" sx={{backgroundColor: "#F6EFE4"}}>
       <Toolbar>
@@ -29,8 +37,8 @@ const Navbar = () => {
           <text style={{fontFamily:'Outfit', fontWeight: '600'}}>MediShare</text></span>
         </Typography>
         <Button sx={{ color: 'black' }} onClick={home} style={{fontFamily: 'Outfit', color:'#1E1E1E'}}>Home</Button>
-        <Button sx={{ color: 'black' }} style={{fontFamily: 'Outfit', color:'#1E1E1E'}}>About</Button>
-        <Button sx={{ color: 'black' }} style={{fontFamily: 'Outfit', color:'#1E1E1E'}}>Contacts</Button>
+        <Button onClick={about} sx={{ color: 'black' }} style={{fontFamily: 'Outfit', color:'#1E1E1E'}}>About</Button>
+        <Button onClick={contacts} sx={{ color: 'black' }} style={{fontFamily: 'Outfit', color:'#1E1E1E'}}>Contacts</Button>
         <Button sx={{ color: 'black' }} onClick={login} style={{fontFamily: 'Outfit', color:'#1E1E1E'}}>Login</Button>
       </Toolbar>
     </AppBar>

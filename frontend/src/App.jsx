@@ -6,7 +6,10 @@ import UserRequests from './pages/userRequests';
 import UserRequested from './pages/userRequested';
 import Donation from './pages/Donation';
 import Ai from './pages/Ai';
+import AboutUs from './pages/AboutPage';
 import LoginPage from './pages/Login';
+import Contacts from './pages/ContactsPage.jsx';
+Contacts
 import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
 import Footer from './components/Footer';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
@@ -33,6 +36,7 @@ function App() {
     '/admin/review',
     '/admin/accounts',
     '/admin/chat',
+    
   ];
 
   const hideFooterRoutes = ['/login'];
@@ -53,6 +57,8 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/findMed" element={<FindMedPage />} />
           <Route path="/ai" element={<Ai />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contacts" element={<Contacts/>} />
           <Route path="/admin/*" element={<Admin />} />
           <Route path="/airesult/*" element={< MedicineSearchResults />} />
         </Routes>
