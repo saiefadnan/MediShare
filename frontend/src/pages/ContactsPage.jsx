@@ -27,10 +27,10 @@ function ContactsPage() {
   };
 
   return (
-    <div className="contacts-page">
+    <div className="contacts-page2">
       <h1>Contact Us</h1>
-      <div className="contact-content">
-        <div className="contact-info">
+      <div className="contact-content2">
+        <div className="contact-info2">
           <h2>Get in Touch</h2>
           <p>We're here to help and answer any question you might have. We look forward to hearing from you!</p>
           <ul>
@@ -49,10 +49,10 @@ function ContactsPage() {
           <p>Saturday: 10:00 AM - 2:00 PM</p>
           <p>Sunday: Closed</p>
         </div>
-        <div className="contact-form">
+        <div className="contact-form2">
           <h2>Send Us a Message</h2>
           <form onSubmit={handleSubmit}>
-            <div className="form-group">
+            <div className="form-group2">
               <label htmlFor="name">Name:</label>
               <input
                 type="text"
@@ -63,7 +63,7 @@ function ContactsPage() {
                 required
               />
             </div>
-            <div className="form-group">
+            <div className="form-group2">
               <label htmlFor="email">Email:</label>
               <input
                 type="email"
@@ -74,7 +74,7 @@ function ContactsPage() {
                 required
               />
             </div>
-            <div className="form-group">
+            <div className="form-group2">
               <label htmlFor="message">Message:</label>
               <textarea
                 id="message"
@@ -86,7 +86,7 @@ function ContactsPage() {
             </div>
             <button type="submit">Send Message</button>
           </form>
-          {formStatus && <p className="form-status">{formStatus}</p>}
+          {formStatus && <p className="form-status2">{formStatus}</p>}
         </div>
       </div>
     </div>
