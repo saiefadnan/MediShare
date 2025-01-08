@@ -108,7 +108,7 @@ const DonationTable = () => {
   ];
 
   return (
-        <Box sx={{ height: 750, width: '100%',}}>
+        <Box sx={{ height: 750, width: '100%', margin: '50px auto'}}>
           <DataGrid 
             rows={rows} 
             columns={columns} 

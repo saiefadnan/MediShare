@@ -13,14 +13,14 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const  DonationPortal= () => {
     return ( 
-    <Box component="main" sx={{ display: 'flex',flexDirection:'column', width: '100%'}}>
+    <Box component="main" sx={{ display: 'flex',flexDirection:'column', width: '100%', overflowY: 'hidden'}}>
         <DrawerHeader/>
         <Typography variant="h6" sx={{margin: '20px 0 0 20px', fontWeight: 'bold'}}>Donation</Typography>
-        <DonationTable/>
         <div style={{display: 'flex', width: '100%'}}>
             <DonationPie/>
             <DonationChart/>
-        </div>
+        </div> 
+        <DonationTable/>
     </Box>)
 }
  
