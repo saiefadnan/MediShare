@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import React from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
@@ -11,21 +12,18 @@ const COLORS = ['#006AFF', '#52C93A', '#FF2727'];
 
 const Piechart = () => {
     return ( 
-        <div style={{ 
-            backgroundColor: "#DCEAE3", 
-            minWidth: "400px", 
-            height: "auto" , 
-            margin: '20px auto',
+        <Box sx={{ 
+            border: "1px solid rgba(255, 255, 255, 0.3)", 
+            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+            backdropFilter: "blur(10px)",
+            WebkitBackdropFilter: "blur(10px)", 
+            color: "#333",
+            minWidth: "490px", 
+            height: "400px" , 
+            margin: 'auto',
             padding: '50px',
             borderRadius: '8px'}}>
-            <ResponsiveContainer width="100%" height={300}
-            sx={{ 
-                backgroundColor: "#DCEAE3", 
-                minWidth: "400px", 
-                height: "auto" , 
-                margin: '20px auto',
-                padding: '50px',
-                borderRadius: '8px'}}>
+            <ResponsiveContainer width="100%" height={310} >
                 <PieChart>
                     <Pie
                         data={data}
@@ -46,7 +44,7 @@ const Piechart = () => {
                 <Legend />
                 </PieChart>
         </ResponsiveContainer>
-  </div> 
+  </Box> 
   );
 }
  

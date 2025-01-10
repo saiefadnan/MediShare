@@ -1,4 +1,4 @@
-import { Avatar, Badge, Box, IconButton, Toolbar, styled } from "@mui/material";
+import { Avatar, Badge, Box, IconButton, Toolbar, Typography, styled } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import MuiAppBar from '@mui/material/AppBar';
 import { StateContext } from "../../Contexts/SidebarContext";
@@ -48,7 +48,6 @@ const AdminNavbar = () => {
     }
     const handleFullscreen = ()=>{
         setFullscreen(!fullscreen);
-        console.log(fullscreen);
     }
     const handleDrawer = () => {
         setOpen(!open);
@@ -65,7 +64,7 @@ const AdminNavbar = () => {
     },[fullscreen])
 
     return ( 
-        <AppBar position="fixed" open={open} sx={{backgroundColor: "#F6EFE4"}}>
+        <AppBar position="fixed" open={open} sx={{backgroundColor: "#F6EFE4", }}>
             <Toolbar>
             <IconButton
             color="inherit"
@@ -81,22 +80,36 @@ const AdminNavbar = () => {
             ]}>
             <MenuIcon />
             </IconButton>
-            <Box variant="h5" component="div" sx={{ flexGrow: 1 ,color: 'black', marginLeft: "30px",}}>
+            <Box variant="h5" component="div" sx={{ 
+                flexGrow: 1,
+                color: 'black',
+                marginLeft: "20px", 
+                display: 'flex',
+                alignItems: 'center',}}>
                 <img src={Logo} alt='Logo' style={{marginRight:'5px',width: '50px',height: 'auto',}}/>
-                <text style={{fontFamily:'Outfit', fontWeight: '600', fontSize: '20px'}}>MediShare</text>
+                <Typography 
+                sx={{
+                    fontFamily:'Outfit', 
+                    fontWeight: '600', 
+                    fontSize: '20px',
+                    '@media (max-width: 500px)':{
+                        display: 'none'
+                    }}}>MediShare</Typography>
             </Box>
-            <IconButton onClick={handleToggleScreen}>
-                {fullscreen?<FullscreenExitIcon/>:<FullscreenIcon/> }
-            </IconButton>
-            <IconButton color="black" onClick={handlePanel}>
-                <Badge badgeContent={4} color="error">
-                    <NotificationsIcon/>
-                    {openNotif && <NotificationPanel/>}
-                </Badge>
-            </IconButton>
-            <IconButton color="inherit">
-                <Avatar src="/src/assets/avatar.png"/>
-            </IconButton>
+           
+                <IconButton onClick={handleToggleScreen}>
+                    {fullscreen?<FullscreenExitIcon/>:<FullscreenIcon/> }
+                </IconButton>
+                <IconButton color="black" onClick={handlePanel}>
+                    <Badge badgeContent={4} color="error">
+                        <NotificationsIcon/>
+                        
+                    </Badge>
+                </IconButton>
+                <IconButton color="inherit">
+                    <Avatar src="/src/assets/avatar.png"/>
+                </IconButton>
+                {openNotif && <NotificationPanel Open={[openNotif,setOpenNotif]} />}
             </Toolbar>
         </AppBar> 
     );

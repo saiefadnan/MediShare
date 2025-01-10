@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import React from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
@@ -13,11 +14,10 @@ const ReviewChart = () => {
   ];  
 
   return (
-    <div style={{ 
-        display: 'flex',
-        flexDirection: 'column', 
-        minWidth: '800px', 
-        height: "auto",
+    <Box sx={{ 
+        width: '45%',
+        minWidth: '490px', 
+        height: "400px",
         border: '1px solid white', 
         borderRadius: '8px',
         padding: '20px',
@@ -26,9 +26,9 @@ const ReviewChart = () => {
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)", 
         color: "#333",
-        margin: '50px auto'}}>
+        margin: '20px auto'}}>
       <h3 style={{ color: "#2c3e50"}}>Review by date</h3>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={300} style={{margin: '50px auto'}}>
         <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="day" tick={{ fill: "#6c757d" }} />
@@ -39,7 +39,7 @@ const ReviewChart = () => {
           <Bar dataKey="Present" fill="#595959" name="Positive Review" barSize={20} radius={[8,8,0,0]}/>
         </BarChart>
       </ResponsiveContainer>
-    </div>
+    </Box>
   );
 };
 

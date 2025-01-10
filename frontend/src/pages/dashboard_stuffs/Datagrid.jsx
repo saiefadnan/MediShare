@@ -14,11 +14,10 @@ const Datagrid = () => {
   const progressColor = ['#0095FF','#00E096','#884DFF','#FF8F0D','#979797'];
   const barColor = ['#CDE7FF','#8CFAC7','#C5A8FF','#FFD5A4','#F4F7FE'];
 
-
   const columns = [
     { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'name', headerName: 'Medicine Name', width: 150},
-    { field: 'donation', headerName: 'Donation', type: 'number', width: 300 ,
+    { field: 'name', headerName: 'Medicine Name', width: 120},
+    { field: 'donation', headerName: 'Donation', type: 'number', width: 120 ,
     renderCell: (params)=>(
       <Box sx={{ width: "100%" }}>
           <Typography variant="body2" sx={{ mb: 0.5 }}>
@@ -39,7 +38,7 @@ const Datagrid = () => {
       field: 'collection', 
       headerName: 'Collection', 
       type: 'number', 
-      width: 150,
+      width: 120,
       renderCell:(params)=>(
         <Box sx={{
           width: '80px',
@@ -57,18 +56,22 @@ const Datagrid = () => {
   ];
 
   return (
-    <div style={{ 
-        backgroundColor: "#DCEAE3", 
-        minWidth: '800px',
-        height: "auto" , 
+      <Box sx={{ 
+        border: "1px solid rgba(255, 255, 255, 0.3)", 
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)", 
+        color: "#333",
+        width: '45%',
+        minWidth: '490px',
+        height: "400px" , 
         margin: '20px auto',
-        padding: '20px',
+        padding: '20px 10px',
         borderRadius: '8px'}}>
-        <Box sx={{ height: 400, width: '100%',margin: 'auto',padding: 2}}>
-        <Typography variant="h6">Top Demanding Medicines</Typography>
-        <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} />
+          <Typography variant="h6">Top Demanding Medicines</Typography>
+          <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} sx={{height: '95%',width: '100%',minWidth: '300px'}}/>
         </Box>
-    </div>
+    
   );
 };
 

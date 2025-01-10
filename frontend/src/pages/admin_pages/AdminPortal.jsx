@@ -20,14 +20,13 @@ const AdminPortal = () => {
     return ( 
             <Box component="main" sx={{ display: 'flex',flexDirection:'column', width: '100%'}}>
                 <DrawerHeader/>
-                {/* <DrawerHeader /> */}
                 <Typography variant="h6" sx={{margin: '20px 0 0 20px', fontWeight: 'bold'}}>Admin Portal</Typography>
                 <Cards/>
-                <div style={{display: 'flex', width: '100%'}}>
+                <Box sx={{display: 'flex', flexWrap: 'wrap',width: '100%'}}>
                     <Charts/>
                     <Piechart/>
-                </div>
-                <div style={{display: 'flex', width: '100%'}}>
+                </Box>
+                <div style={{display: 'flex', flexWrap: 'wrap',width: '100%'}}>
                     <Datagrid/>
                     <AdminList/>
                 </div>
