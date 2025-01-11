@@ -40,18 +40,13 @@ function Home() {
   return (
     <div className="Home">
 
-      <motion.section className="hero"
-        variants={fadeIn('down', 0, 0)}
-        initial="hidden"
-        whileInView={"show"}
-        viewport={{once: false, amount: 0.5}}
-      >
+      <section className="hero">
         <div className="hero-content">
           <motion.div className="hero-text"
           variants={fadeIn('right', 0.2, 0)}
           initial="hidden"
           whileInView={"show"}
-          viewport={{once: false, amount: 0.3}}>
+          viewport={{once: true}}>
             <h1>Explore The Power of MediShare</h1>
             <p>Medishare is a non profit organization dedicated to providing essential medical 
             supplies and medications to underprivileged communities around the world</p>
@@ -64,32 +59,28 @@ function Home() {
           variants={fadeIn('left', 0.2, 0)}
           initial="hidden"
           whileInView={"show"}
-          viewport={{once: false, amount: 0.3}}>
+          viewport={{once: true}}>
             <img key={imageKey} src={heroImage} alt="Hero Image" />
           </motion.div>
         </div>
-      </motion.section>
+      </section>
 
-      <motion.section className="impact-section"
-      variants={fadeIn('up', 0, 0)}
-      initial="hidden"
-      whileInView={"show"}
-      viewport={{once: false, amount: 0.5}}>
+      <section className="impact-section">
         <motion.div className='our-impact'
         variants={fadeIn('down', 0, 0)}
         initial="hidden"
         whileInView={"show"}
-        viewport={{once: false, amount: 0.3}}>
+        viewport={{once: true}}>
           <motion.h3
           variants={fadeIn('down', 0.2, 0)}
           initial="hidden"
           whileInView={"show"}
-          viewport={{once: false, amount: 0.3}}>Our Impact</motion.h3>
+          viewport={{once: true}}>Our Impact</motion.h3>
           <motion.Container
           variants={fadeIn('up', 0.2, 0)}
           initial="hidden"
           whileInView={"show"}
-          viewport={{once: false, amount: 0.3}}>
+          viewport={{once: true}}>
             <Row>
               <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <img src={ourImpact1}></img><br/>
@@ -112,29 +103,21 @@ function Home() {
             </Row>
           </motion.Container>
         </motion.div>
-      </motion.section>
+      </section>
 
-      <motion.section className="mission-section"
-      variants={fadeIn('up', 0, 0)}
-      initial="hidden"
-      whileInView={"show"}
-      viewport={{once: false, amount: 0.5}}>
+      <section className="mission-section">
         <motion.div className="our-mission" 
-        variants={fadeIn('down', 0.2, 0)}
+        variants={fadeIn('up', 0.2, 0)}
         initial="hidden"
         whileInView={"show"}
-        viewport={{once: false, amount: 0.3}}
+        viewport={{once: true}}
         >
           <p style={{ fontSize: '15px', color: '#56473C', fontFamily: 'Roboto' }}>
             Empowering Communities
           </p>
-          <motion.h3 style={{ color: '#365445', fontFamily: 'Quando', paddingBottom: '10px' }}
-          variants={fadeIn('up', 0.2, 0)}
-          initial="hidden"
-          whileInView={"show"}
-          viewport={{once: false, amount: 0.3}}>
+          <h3 style={{ color: '#365445', fontFamily: 'Quando', paddingBottom: '10px' }}>
             Our Mission
-          </motion.h3>
+          </h3>
           <span style={{ display: 'block', width: '30%', margin: '0 auto', textAlign: 'center' }}>
             <p style={{ fontSize: '15px', color: '#56473C', fontFamily: 'Roboto', margin: '0' }}>
               At MediShare, we believe that access to essential medical resources is a fundamental human right
@@ -166,13 +149,9 @@ function Home() {
               </Row>
           </Container>
         </motion.div>
-      </motion.section>
+      </section>
 
-      <motion.section className="approach-section"
-      variants={fadeIn('up', 0, 0)}
-      initial="hidden"
-      whileInView={"show"}
-      viewport={{once: false, amount: 0.25}}>
+      <section className="approach-section">
         <div>
           <Container>
             <Row>
@@ -181,31 +160,31 @@ function Home() {
                 variants={fadeIn('right', 0.2, 0)}
                 initial="hidden"
                 whileInView={"show"}
-                viewport={{once: false, amount: 0.25}}></motion.img>
+                viewport={{once: true}}></motion.img>
               </Col>
               <Col style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start', textAlign: 'left', paddingLeft: '10%' }}>
                 <motion.h6 style={{paddingBottom:'3%', fontFamily:'Roboto', color: '#B48675'}}
                 variants={fadeIn('left', 0.2, 0)}
                 initial="hidden"
                 whileInView={"show"}
-                viewport={{once: false, amount: 0.25}}>Partnering for progress</motion.h6>
+                viewport={{once: true}}>Partnering for progress</motion.h6>
                 <motion.h3 style={{paddingBottom:'3%', maxWidth:'55%', fontFamily:'Quando', color:'#393633'}}
                 variants={fadeIn('left', 0.2, 0)}
                 initial="hidden"
                 whileInView={"show"}
-                viewport={{once: false, amount: 0.25}}>Transforming Lives through Compassionate Care</motion.h3>
+                viewport={{once: true}}>Transforming Lives through Compassionate Care</motion.h3>
                 <motion.div style={{ maxWidth: '80%', fontFamily: 'Roboto', fontSize: '15px', color: '#827B76' }}
                 variants={fadeIn('left', 0.2, 0)}
                 initial="hidden"
                 whileInView={"show"}
-                viewport={{once: false, amount: 0.25}}>
+                viewport={{once: true}}>
                   At MediShare, we believe that every individual deserves access to quality healthcare, regardless of their economic or social status. By fostering collaborative partnerships with healthcare providers.
                 </motion.div>
                 <motion.div className="button-container"
                 variants={fadeIn('left', 0.2, 0)}
                 initial="hidden"
                 whileInView={"show"}
-                viewport={{once: false, amount: 0.25}}>
+                viewport={{once: true}}>
                   <button onClick={donate} style={{color:'#FFFFFF', borderRadius:'50px'}}>Donate Now</button>
                 </motion.div>
               </Col>
@@ -213,30 +192,26 @@ function Home() {
             <br/>
 
             <Row style={{paddingTop:'9%'}}>
-              <motion.div className="our-approach"
-              variants={fadeIn('right', 0.2, 0)}
-              initial="hidden"
-              whileInView={"show"}
-              viewport={{once: false, amount: 0.3}}>
+              <div className="our-approach">
                 <motion.p style={{ fontSize: '15px', color: '#B48675', fontFamily: 'Roboto' }}
                 variants={fadeIn('down', 0.2, 0)}
                 initial="hidden"
                 whileInView={"show"}
-                viewport={{once: false, amount: 0.25}}>
+                viewport={{once: true}}>
                   Empowering Communities
                 </motion.p>
                 <motion.h3 style={{ color: '#365445', fontFamily: 'Quando', paddingBottom: '10px' }}
                 variants={fadeIn('down', 0.2, 0)}
                 initial="hidden"
                 whileInView={"show"}
-                viewport={{once: false, amount: 0.25}}>
+                viewport={{once: true}}>
                   Our Approach
                 </motion.h3>
                 <motion.span style={{ display: 'block', width: '30%', margin: '0 auto', textAlign: 'center' }}
                 variants={fadeIn('down', 0.2, 0)}
                 initial="hidden"
                 whileInView={"show"}
-                viewport={{once: false, amount: 0.25}}>
+                viewport={{once: true}}>
                   <p style={{ fontSize: '15px', color: '#7E7772', fontFamily: 'Roboto', margin: '0' }}>
                   MediShare’s innovative approach to medical aid combines the power of technology, strategic partnerships
                   </p>
@@ -277,45 +252,49 @@ function Home() {
                       </Col>
                     </Row>
                 </Container>
-              </motion.div>
+              </div>
             </Row>
           </Container>
         </div>
-      </motion.section>
+      </section>
 
-      <motion.section className='aboutus-section'
-      variants={fadeIn('down', 0, 0)}
-      initial="hidden"
-      whileInView={"show"}
-      viewport={{once: false, amount: 0.5}}>
-        <motion.div className='about-us'
-        variants={fadeIn('down', 0.2, 0)}
-        initial="hidden"
-        whileInView={"show"}
-        viewport={{once: false, amount: 0.5}}>
-          <p style={{ fontSize: '15px', color: '#464135', fontFamily: 'Roboto' }}>
+      <section className='aboutus-section'>
+        <div>
+          <motion.p style={{ fontSize: '15px', color: '#464135', fontFamily: 'Roboto' }}
+          variants={fadeIn('right', 0.4, 0)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{once: true}}>
             Our commitment to you
-          </p>
+          </motion.p>
           <motion.h3 style={{ color: '#393633', fontFamily: 'Quando', paddingBottom: '10px' }}
           variants={fadeIn('right', 0.4, 0)}
           initial="hidden"
           whileInView={"show"}
-          viewport={{once: false, amount: 0.5}}>
+          viewport={{once: true}}>
             Driven by Compassion
           </motion.h3>
-          <span style={{ display: 'block', width: '30%', margin: '0 auto', textAlign: 'center' }}>
+          <motion.span style={{ display: 'block', width: '30%', margin: '0 auto', textAlign: 'center' }}
+          variants={fadeIn('right', 0.4, 0)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{once: true}}>
             <p style={{ fontSize: '15px', color: '#464135', fontFamily: 'Roboto', margin: '0' }}>
               At the heart of MediShare’s mission is a deep commitment to empowering underserved communities and ensuring equitable access to essential medical resources
             </p>
-          </span>
-          <p style={{ fontSize: '15px', color: '#464135', fontFamily: 'Roboto', paddingTop: '1%', cursor: 'pointer' }}>
+          </motion.span>
+          <motion.p style={{ fontSize: '15px', color: '#464135', fontFamily: 'Roboto', paddingTop: '1%', cursor: 'pointer' }}
+          variants={fadeIn('right', 0.4, 0)}
+          initial="hidden"
+          whileInView={"show"}
+          viewport={{once: true}}>
             Get involved
-          </p>
+          </motion.p>
           <motion.div
           variants={fadeIn('left', 0.2, 0)}
           initial="hidden"
           whileInView={"show"}
-          viewport={{once: false, amount: 0.5}}>
+          viewport={{once: true}}>
             <Container style={{paddingTop: '1%'}}>
               <Row>
                 <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -438,14 +417,10 @@ function Home() {
               </Row>
             </Container>
           </motion.div>
-        </motion.div>
-      </motion.section>
+        </div>
+      </section>
 
-      <motion.section className="contact-section"
-      variants={fadeIn('up', 0, 0)}
-      initial="hidden"
-      whileInView={"show"}
-      viewport={{once: true}}>
+      <section className="contact-section">
         <div className="contact-us">
           <Container>
             <Row>
@@ -485,7 +460,7 @@ function Home() {
             </Row>
           </Container>
         </div>
-      </motion.section>
+      </section>
     </div>
   );
 }

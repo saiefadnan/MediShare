@@ -1,29 +1,44 @@
+import {useState} from 'react';
+import { useAuth } from '../Contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import Avatar from '@mui/material/Avatar';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
 import Logo from '../assets/medisharelogo.png'
 
 const Navbar = () => {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleAvatarClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   const login = () => {
-    window.location.href = '/login';
+    navigate('/login');
   }
   const home = () => {
-    window.location.href = "/";
+    navigate('/');
   } 
+  const profile = () => {
+    navigate('/userDashboard');
+  }
+  const admin = () => {
+    navigate('/admin/dashboard');
+  }
   return (
     <AppBar position="sticky" sx={{backgroundColor: "#F6EFE4"}}>
       <Toolbar>
-        {/* <IconButton
-          size="large"
-          edge="start"
-          color="inherit"
-          aria-label="menu"
-          sx={{ mr: 2 , color: 'black'}}
-        >
-          <MenuIcon />
-        </IconButton> */}
-        
         <Typography variant="h5" component="div" sx={{ flexGrow: 1 ,color: 'black', marginLeft: "50px"}}>
           <span style={{display: 'flex', alignItems: 'center'}}><img src={Logo} alt='Logo' style={{marginRight:'5px', width: '3.5%'}}></img>
           <text style={{fontFamily:'Outfit', fontWeight: '600'}}>MediShare</text></span>
@@ -31,7 +46,43 @@ const Navbar = () => {
         <Button sx={{ color: 'black' }} onClick={home} style={{fontFamily: 'Outfit', color:'#1E1E1E'}}>Home</Button>
         <Button sx={{ color: 'black' }} style={{fontFamily: 'Outfit', color:'#1E1E1E'}}>About</Button>
         <Button sx={{ color: 'black' }} style={{fontFamily: 'Outfit', color:'#1E1E1E'}}>Contacts</Button>
-        <Button sx={{ color: 'black' }} onClick={login} style={{fontFamily: 'Outfit', color:'#1E1E1E'}}>Login</Button>
+        {user ? (
+          <>
+            <Avatar
+              sx={{ bgcolor: '#304E42', cursor: 'pointer' }}
+              onClick={handleAvatarClick}
+            >
+              {user.email[0]}
+            </Avatar>
+            <Menu
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+            >
+              <MenuItem onClick={profile}>Profile</MenuItem>
+              <MenuItem onClick={admin}>Admin</MenuItem>
+              <MenuItem onClick={logout}>Logout</MenuItem>
+            </Menu>
+          </>
+        ) : (
+          <Button
+            sx={{ color: 'black' }}
+            onClick={() =>{
+              login();
+            }}
+            style={{ fontFamily: 'Outfit', color: '#1E1E1E' }}
+          >
+            Login
+          </Button>
+        )}
       </Toolbar>
     </AppBar>
   );

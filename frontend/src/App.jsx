@@ -1,7 +1,7 @@
 import Navbar from './components/navbar';
 import Home from './pages/Home';
-import UserDashboard from './pages/userDashboard'; // Import UserDashboard component
-import UserProfile from './pages/userProfile/userProfile'; // Import UserProfile component
+import UserDashboard from './pages/userDashboard';
+import UserProfile from './pages/userProfile/userProfile';
 import UserRequests from './pages/userRequests';
 import UserRequested from './pages/userRequested';
 import Donation from './pages/Donation';
@@ -20,7 +20,6 @@ const Admin = lazy(()=>import('./pages/Admin.jsx'));
 function App() {
   const location = useLocation();
 
-  // Define routes where the Navbar should not be displayed
   const hideNavbarRoutes = [
     '/login',
     '/userDashboard',
@@ -35,12 +34,23 @@ function App() {
     '/admin/chat',
   ];
 
-  const hideFooterRoutes = ['/login'];
+  const hideFooterRoutes = [
+    '/login', 
+    '/admin/dashboard',
+    '/admin/collection',
+    '/admin/donation',
+    '/admin/review',
+    '/admin/accounts',
+    '/admin/chat',
+    '/userDashboard',
+    '/userProfile',
+    '/userRequests', 
+    '/userRequested'
+  ];
 
   return (
     <StateProvider>
     <div className="App">
-      {/* Show Navbar only if the current route is not in the `hideNavbarRoutes` */}
       {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
       <Suspense fallback={<div className='circularunderload-container'><CircularUnderLoad/></div>}>
         <Routes>
