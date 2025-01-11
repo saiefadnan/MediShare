@@ -19,7 +19,9 @@ const SearchUsers = ({open, setOpen}) => {
         open={open}
         onClose={HandleClose}
         aria-labelledby="modal-title"
-        aria-describedby="modal-description">
+        aria-describedby="modal-description"
+        disableScrollLock={true}
+        >
         <Box
             sx={{
                 position: 'absolute',

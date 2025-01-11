@@ -6,12 +6,14 @@ import UserRequests from './pages/userRequests';
 import UserRequested from './pages/userRequested';
 import Donation from './pages/Donation';
 import Ai from './pages/Ai';
+import AboutUs from './pages/AboutPage';
 import LoginPage from './pages/Login';
+import Contacts from './pages/ContactsPage.jsx';
+Contacts
 import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
 import Footer from './components/Footer';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
-import { StateProvider} from './Contexts/SidebarContext.jsx';
 import MedicineSearchResults from './pages/components_MedicineSearchResults';
 import CircularUnderLoad from './components/CircularUnderLoad.jsx';
 const Admin = lazy(()=>import('./pages/Admin.jsx'));
@@ -32,6 +34,7 @@ function App() {
     '/admin/review',
     '/admin/accounts',
     '/admin/chat',
+    
   ];
 
   const hideFooterRoutes = [
@@ -49,7 +52,6 @@ function App() {
   ];
 
   return (
-    <StateProvider>
     <div className="App">
       {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
       <Suspense fallback={<div className='circularunderload-container'><CircularUnderLoad/></div>}>
@@ -63,13 +65,14 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/findMed" element={<FindMedPage />} />
           <Route path="/ai" element={<Ai />} />
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/contacts" element={<Contacts/>} />
           <Route path="/admin/*" element={<Admin />} />
           <Route path="/airesult/*" element={< MedicineSearchResults />} />
         </Routes>
       </Suspense>
       {!hideFooterRoutes.includes(location.pathname) && <Footer/>}
     </div>
-    </StateProvider>
   );
 }
 

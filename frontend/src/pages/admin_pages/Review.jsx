@@ -17,12 +17,13 @@ const Review = () => {
     <DrawerHeader/>
         <Typography variant="h6" sx={{margin: '20px 0 0 20px', fontWeight: 'bold'}}>Users' Review</Typography>
         <ReviewCards/>
-        <div style={{
+        <Box sx={{
             display: 'flex', 
+            flexWrap:'wrap', 
             width: '100%'}}>
              <ReviewBreakdown/>
              <ReviewChart/>
-        </div>
+        </Box>
        
     </Box>);
 }

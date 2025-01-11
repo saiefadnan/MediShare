@@ -48,8 +48,8 @@ const AccountsPortal = () => {
   ];
   
   const columns = [
-    { field: 'name', headerName: 'Account Name', width: 350 },
-    { field: 'status', headerName: 'Status', width: 350,
+    { field: 'name', headerName: 'Account Name', width: 200 },
+    { field: 'status', headerName: 'Status', width: 80,
       renderCell: (params)=>(
         <Box sx={{
           width: '100%', 
@@ -83,13 +83,13 @@ const AccountsPortal = () => {
           borderRadius: '8px',
           backgroundColor: '#EFF4FB',
           '& .MuiLinearProgress-bar': {
-            backgroundColor: '#60C67F',
+            backgroundColor: '#DBC391',
           },
         }}>
         </LinearProgress>
       </Box>
     )},
-    { field: 'edit', headerName: 'Edit', width: 350 ,
+    { field: 'edit', headerName: 'Edit', width: 300 ,
     renderCell: (params)=>(
       <Box>
         <Button 
@@ -97,7 +97,7 @@ const AccountsPortal = () => {
         variant='contained'
         size='small'
         sx={{
-          backgroundColor: '#60C67F'
+          backgroundColor: '#DBC391'
         }}>
           Manage
         </Button>
@@ -113,15 +113,17 @@ const AccountsPortal = () => {
             pageSize={5} 
             rowsPerPageOptions={[10]} 
             sx={{
-              width: '72%',
-              minWidth: '1300px',
-              margin: '20px auto',
-              backgroundColor: "#DCEAE3", 
+              height:'95%',
+              width: '46.2%',
+              minWidth: '500px',
+              margin: '25px auto',
+              backgroundColor: "#FEF4DF", 
+              border: "1px solid rgba(255, 255, 255, 0.3)", 
+              boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
               '.MuiDataGrid-columnHeaders': {
-                backgroundColor: '#60C67F', 
+                backgroundColor: '#DBC391', 
                 padding: '10px',
                 color: 'black',
-                
               },
           }}/>
           {open && 

@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import React from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
@@ -10,12 +11,11 @@ const data = [
 ];
 
 const ReviewBreakdown = () => (
-    <div style={{ 
-        display: 'flex',
-        flexDirection: 'column', 
-        minWidth: '560px', 
-        height: "auto",
-        border: '1px solid white', 
+    <Box style={{ 
+        width: '45%',
+        maxWidth: "560px", 
+        minWidth: "490px", 
+        height: "400px",
         borderRadius: '8px',
         padding: '20px',
         border: "1px solid rgba(255, 255, 255, 0.3)", 
@@ -23,7 +23,7 @@ const ReviewBreakdown = () => (
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)", 
         color: "#333",
-        margin: '50px auto'}}>
+        margin: '20px auto'}}>
         <h3 style={{ color: "#2c3e50"}}>Review Breakdown</h3>
         <ResponsiveContainer width="100%" height={300}>
             <BarChart
@@ -42,7 +42,7 @@ const ReviewBreakdown = () => (
                 <Bar dataKey="count" fill="#E1F537" barSize={20} radius={[0,8,8,0]}/>
             </BarChart>
         </ResponsiveContainer>
-    </div>
+    </Box>
 );
 
 export default ReviewBreakdown;

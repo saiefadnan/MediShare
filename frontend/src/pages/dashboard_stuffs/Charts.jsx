@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import React from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
@@ -13,14 +14,19 @@ const data = [
 
 const Charts = () => {
     return (  
-      <div style={{ 
-        backgroundColor: "#DCEAE3", 
-        minWidth: '800px',
-        height: "auto" , 
+      <Box sx={{ 
+        border: "1px solid rgba(255, 255, 255, 0.3)", 
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)", 
+        color: "#333",
+        width: '45%',
+        minWidth: "490px", 
+        height: "400px" , 
         margin: '20px auto',
-        padding: '50px',
+        padding: '20px',
         borderRadius: '8px'}}>
-        <ResponsiveContainer width="100%" height={300}>
+        <ResponsiveContainer width="100%" height={300} style={{margin: '50px auto'}}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
@@ -31,7 +37,7 @@ const Charts = () => {
           <Line type="monotone" dataKey="collectors" stroke="#387908" />
         </LineChart>
       </ResponsiveContainer> 
-    </div>  );
+    </Box>  );
 }
  
 export default Charts;
