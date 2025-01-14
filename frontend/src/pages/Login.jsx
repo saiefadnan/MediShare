@@ -22,34 +22,71 @@ function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
     if (!email || !password) {
-      alert("Please enter both email and password.");
-      return;
+        alert("Please enter both email and password.");
+        return;
     }
     setIsLoading(true);
     try {
-      await login({ email }); // Simulate API call
-      navigate('/'); // Redirect to home page
+        const response = await fetch('http://localhost:5000/api/user/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
+  
+        const result = await response.json();
+  
+        if (result.success) {
+            await login({ email })
+            alert("Login successful!");
+            navigate('/');
+        } else {
+            alert(result.message || "Login failed!");
+        }
     } catch (error) {
-      alert("Login failed!");
-      console.log(error);
+        console.error("Error logging in:", error);
+        alert("An error occurred while logging in.");
     } finally {
-      setIsLoading(false);
+        setIsLoading(false);
     }
-  };
+  }
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
+
     if (!username || !email || !password || !confirmPassword) {
-      alert("Please fill in all fields.");
-      return;
+        alert("Please fill in all fields.");
+        return;
     }
+
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
-      return;
+        alert("Passwords do not match!");
+        return;
     }
-    // Sign-up logic here
-    alert("Sign-up successful!");
-  };
+
+    try {
+        const response = await fetch('http://localhost:5000/api/user/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, email, password }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            alert("Sign-up successful!");
+            handleLoginClick(); // Redirect to login form
+        } else {
+            alert(result.message || "Sign-up failed!");
+        }
+    } catch (error) {
+        console.error("Error signing up:", error);
+        alert("An error occurred while signing up.");
+    }
+};
 
   const handleCreateAccountClick = () => {
     setFadeClass('fade-out');

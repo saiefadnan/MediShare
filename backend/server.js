@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 })
 
 // Basic route
-app.use('/api/user',user);
+app.use('/api/user', user);
 
 // Start the server
 server.listen(process.env.PORT, () => {
