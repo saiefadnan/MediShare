@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import React from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
@@ -13,15 +14,18 @@ const CollectionChart = () => {
   ];
 
   return (
-    <div style={{ 
-      backgroundColor: "#FFE2E5", 
-      borderRadius: "8px", 
-      padding: "20px",
-      margin: '50px auto',
-      minWidth: "800px", 
-      height: "auto" , }}>
+    <Box sx={{ 
+        backgroundColor: "#FFE2E5", 
+        width: '45%',
+        minWidth: "490px", 
+        height: "400px" , 
+        margin: '50px auto',
+        padding: '20px',
+        borderRadius: '8px',
+        border: "1px solid rgba(255, 255, 255, 0.3)", 
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",}}>
       <h3 style={{ color: "#2c3e50"}}>Collection Comparison</h3>
-      <ResponsiveContainer width="100%" height={300}>
+      <ResponsiveContainer width="100%" height={300} style={{margin: '50px auto'}}>
         <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="day" tick={{ fill: "#6c757d" }} />
@@ -32,7 +36,7 @@ const CollectionChart = () => {
           <Bar dataKey="Present" fill="#28a745" name="Present week" barSize={20} radius={[8,8,0,0]}/>
         </BarChart>
       </ResponsiveContainer>
-    </div>
+    </Box>
   );
 };
 

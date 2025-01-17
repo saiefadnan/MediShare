@@ -1,9 +1,10 @@
 import Notifications from "@mui/icons-material/Notifications";
-import { Divider, Icon, List, ListItem, ListItemText, Menu, Popover, Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, Divider, Icon, List, ListItem, ListItemText, Menu, Popover, Typography } from "@mui/material";
+import { useEffect, useRef } from "react";
 
-const NotificationPanel = () => {
-
+const NotificationPanel = ({Open}) => {
+    const [open,setOpen]= Open;
+    const boxRef = useRef(null);
     const notifications = [
         { id: 1, message: 'New donation received!', timestamp: '2 mins ago' },
         { id: 2, message: 'User profile updated.', timestamp: '10 mins ago' },
@@ -11,40 +12,75 @@ const NotificationPanel = () => {
         { id: 4, message: 'A new request has been submitted.', timestamp: '5 mins ago' },
     ];
 
+    const handleOutsideClick = (e)=>{
+        if(boxRef.current && !boxRef.current.contains(e.target)){
+            setOpen(!open);
+        }
+    }
+
+    useEffect(()=>{
+        document.addEventListener("mousedown", handleOutsideClick);
+        return(()=>{
+            document.removeEventListener("mousedown", handleOutsideClick);
+        })
+    },[])
+
     return (
-            <Popover 
-            open={true}
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+            <Box
+            ref={boxRef}
+            sx={{
+                position:'fixed',
+                right: '50px',
+                top: '55px',
+                border: "1px solid rgba(255, 255, 255, 0.3)", 
+                boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)", 
+                backgroundColor: 'transparent',
+                width: '350px',
+                padding: 1,
+                borderRadius: '8px'
             }}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right'
-            }}
-            PaperProps={{
-                sx: {
-                    width: '350px', // Adjust the size of the Popover
-                    padding: 2,
-                    border: "1px solid rgba(255, 255, 255, 0.3)", 
-                    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-                    backdropFilter: "blur(10px)",
-                    WebkitBackdropFilter: "blur(10px)", 
-                    backgroundColor: 'transparent',
-                    marginLeft: '-85px'
-                }
-                }}>
-                <Typography variant="h6" sx={{ padding: 2 }}>
-                    <Icon>
-                        <Notifications/>
-                    </Icon>
-                    Notifications
-                </Typography>
+            // open={true}
+            // anchorEl={anchorEl}
+            // transformOrigin={{
+            //     vertical: 'top',
+            //     horizontal: 'right',
+            // }}
+            // anchorOrigin={{
+            //     vertical: 'top',
+            //     horizontal: 'right'
+            // }}
+            // slotProps={{
+            //     paper:{
+            //         sx: {
+            //             width: '350px', // Adjust the size of the Popover
+            //             
+            //             border: "1px solid rgba(255, 255, 255, 0.3)", 
+            //             boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+            //             backdropFilter: "blur(10px)",
+            //             WebkitBackdropFilter: "blur(10px)", 
+            //             backgroundColor: 'transparent',
+            //             marginLeft: '-20px',
+            //             zIndex: 1300
+            //         }
+            //     }}}
+            >
+                <Box sx={{display: 'flex', alignItems: 'center', padding: '10px'}}>
+                    <Notifications sx={{color:'black'}}/>
+                    <Typography variant="h6" sx={{ padding: 2, display: 'flex',alignItems: 'center',color: 'black' }}>
+                        Notifications
+                    </Typography> 
+                </Box>
                 <Divider />
                 <List>
                     {notifications.map((notification) => (
                         <ListItem key={notification.id}>
                             <ListItemText
+                                sx={{
+                                    fontWeight : 'bold',
+                                    color: 'black'
+                                }}
                                 primary={notification.message}
                                 secondary={notification.timestamp}
                             />
@@ -56,7 +92,7 @@ const NotificationPanel = () => {
                         No new notifications
                     </Typography>
                 )}
-            </Popover>
+            </Box>
     );
 };
 

@@ -49,8 +49,8 @@ const DonationTable = () => {
   ];
   
   const columns = [
-    { field: 'name', headerName: 'Top Donators', width: 350 },
-    { field: 'status', headerName: 'Status', width: 350,
+    { field: 'name', headerName: 'Top Donators', width: 200 },
+    { field: 'status', headerName: 'Status', width: 80,
       renderCell: (params)=>(
         <Box sx={{
           width: '100%', 
@@ -85,13 +85,13 @@ const DonationTable = () => {
           borderRadius: '8px',
           backgroundColor: '#EFF4FB',
           '& .MuiLinearProgress-bar': {
-            backgroundColor: '#DBC391',
+            backgroundColor: '#60C67F',
           },
         }}>
         </LinearProgress>
       </Box>
     )},
-    { field: 'edit', headerName: 'Edit', width: 350 ,
+    { field: 'edit', headerName: 'Edit', width: 300 ,
     renderCell: (params)=>(
       <Box>
         <Button 
@@ -99,7 +99,7 @@ const DonationTable = () => {
         variant='contained'
         size='small'
         sx={{
-          backgroundColor: '#DBC391'
+          backgroundColor: '#60C67F'
         }}>
           Manage
         </Button>
@@ -108,19 +108,22 @@ const DonationTable = () => {
   ];
 
   return (
-        <Box sx={{ height: 750, width: '100%',}}>
+        <Box sx={{ height: '750px',width: '100%', margin: '50px auto'}}>
           <DataGrid 
             rows={rows} 
             columns={columns} 
             pageSize={5} 
             rowsPerPageOptions={[10]} 
             sx={{
-              width: '72%',
-              minWidth: '1300px',
+              height:'95%',
+              width: '46.2%',
+              minWidth: '500px',
               margin: '20px auto',
-              backgroundColor: "#FEF4DF", 
+              backgroundColor: "#DCEAE3", 
+              border: "1px solid rgba(255, 255, 255, 0.3)", 
+              boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
               '.MuiDataGrid-columnHeaders': {
-                backgroundColor: '#DBC391', 
+                backgroundColor: '#60C67F', 
                 padding: '10px',
                 color: 'black',
                 

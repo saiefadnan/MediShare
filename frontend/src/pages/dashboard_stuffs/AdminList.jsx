@@ -22,21 +22,26 @@ const AdminList = () => {
   }
 
   return (
-    <div style={{ 
-        backgroundColor: "#DCEAE3", 
-        minWidth: '400px',
-        height: "auto" , 
+    <Box sx={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        gap: 2, 
+        border: "1px solid rgba(255, 255, 255, 0.3)", 
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+        backdropFilter: "blur(10px)",
+        WebkitBackdropFilter: "blur(10px)", 
+        color: "#333",
+        minWidth: '490px',
+        height: "400px" , 
         margin: '20px auto',
-        padding: '30px',
+        padding: '20px',
         borderRadius: '8px'}}>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 500, margin: '0 auto' }}>
         <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
             <Typography variant="h6">Other Admins</Typography>
             <IconButton onClick={HandleOpen}>
                 <GridAddIcon/>
             </IconButton>
         </Box>
-        
         {admins.map((admin) => (
             <Card
             key={admin.id}
@@ -46,9 +51,8 @@ const AdminList = () => {
                 justifyContent: 'space-between',
                 padding: 0.5,
                 boxShadow: 3,
-            }}
-            >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            }}>
+            <Box sx={{ display: 'flex', alignItems: 'center'}}>
                 <Avatar src={admin.avatar} alt={admin.name} sx={{ width: 56, height: 56 }} />
                 <CardContent sx={{ padding: 1 , textAlign: 'center',  height: '70px'}}>
                     <Typography variant="h6" sx={{ fontWeight: 'bold'}}>
@@ -68,8 +72,7 @@ const AdminList = () => {
             <SearchUsers
             open = {open}
             setOpen = {setOpen}/>}
-        </Box>
-    </div>
+    </Box>
   );
 };
 

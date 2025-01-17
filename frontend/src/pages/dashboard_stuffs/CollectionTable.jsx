@@ -49,8 +49,8 @@ const CollectionTable = () => {
   ];
   
   const columns = [
-    { field: 'name', headerName: 'Top Collectors', width: 350 },
-    { field: 'status', headerName: 'Status', width: 350,
+    { field: 'name', headerName: 'Top Collectors', width: 200 },
+    { field: 'status', headerName: 'Status', width: 80,
       renderCell: (params)=>(
         <Box sx={{
           width: '100%', 
@@ -90,7 +90,7 @@ const CollectionTable = () => {
         </LinearProgress>
       </Box>
     )},
-    { field: 'edit', headerName: 'Edit', width: 350 ,
+    { field: 'edit', headerName: 'Edit', width: 300 ,
     renderCell: (params)=>(
       <Box>
         <Button 
@@ -107,22 +107,24 @@ const CollectionTable = () => {
   ];
 
   return (
-        <Box sx={{ height: 750, width: '100%',}}>
+        <Box sx={{ height: '750px', width: '100%',margin: '50px auto'}}>
           <DataGrid 
             rows={rows} 
             columns={columns} 
-            pageSize={5} 
-            rowsPerPageOptions={[10]} 
+            pageSize={4} 
+            rowsPerPageOptions={[8]} 
             sx={{
-              width: '72%',
-              minWidth: '1300px',
+              height:'95%',
+              width: '46.2%',
+              minWidth: '500px',
               margin: '20px auto',
               backgroundColor: "#FFE2E5", 
+              border: "1px solid rgba(255, 255, 255, 0.3)", 
+              boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
               '.MuiDataGrid-columnHeaders': {
                 backgroundColor: '#D17A8C', 
                 padding: '10px',
                 color: 'black',
-                
               },
           }}/>
           {open && 
