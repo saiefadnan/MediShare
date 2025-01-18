@@ -5,6 +5,7 @@ const cors = require('cors');
 const http = require('http');
 const server = http.createServer(app)
 const user = require('./routes/userRoute');
+const admin = require('./routes/adminRoute');
 
 app.use(cors());
 app.use(express.static('public'))
@@ -16,6 +17,7 @@ app.use((req, res, next) => {
 
 // Basic route
 app.use('/api/user', user);
+app.use('/api/admin',admin);
 
 // Start the server
 server.listen(process.env.PORT, () => {
