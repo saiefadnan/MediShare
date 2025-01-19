@@ -30,7 +30,7 @@ const NotificationPanel = ({Open}) => {
             ref={boxRef}
             sx={{
                 position:'fixed',
-                right: '5px',
+                right: '2%',
                 top: '55px',
                 border: "1px solid rgba(255, 255, 255, 0.3)", 
                 boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",

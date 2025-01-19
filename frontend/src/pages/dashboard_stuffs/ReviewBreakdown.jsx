@@ -1,23 +1,35 @@
 import { Box, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import React, { useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import useFetch from "../../hooks/useFetch";
 
-const data = [
-{ rating: "5",  count: 20000    },
-{ rating: "4",  count: 8000   }, 
-{ rating: "3", count: 5000,   },
-{ rating: "2",count: 2000,    }, 
-{ rating: "1", count: 10000,  },
-];
+// const data = [
+// { rating: "5",  count: 20000    },
+// { rating: "4",  count: 8000   }, 
+// { rating: "3", count: 5000,   },
+// { rating: "2",count: 2000,    }, 
+// { rating: "1", count: 10000,  },
+// ];
 
 
 const ReviewBreakdown = () =>{
     const currentYear = new Date().getFullYear();
     const years = Array.from({length: 10},(_,i)=>currentYear-i);
     const [selectedYear, setSelectedYear] = useState(currentYear);
+    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/user-rating',{year: selectedYear});
+
     const handleYear = (e)=>{
-    setSelectedYear(e.target.value);
+        setSelectedYear(e.target.value);
     }
+
+    if(isPending) {
+        return <Typography>Loading...</Typography>;
+    }
+    
+    if(error) {
+        return <Typography color="error">Error: {error}</Typography>;
+    }
+    
     return(
     <Box style={{ 
         width: '45%',
