@@ -9,9 +9,11 @@ const Donation = () => {
   const [formData, setFormData] = useState({
     medicineName: '',
     genericName: '',
+    companyName: '',
+    diseaseName: '',
     quantity: '',
     expiryDate: '',
-    location: '',
+   // location: '',
     latitude: null,
     longitude: null,
     medicineImage: null
@@ -20,8 +22,9 @@ const Donation = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const { medicineName, genericName, quantity, expiryDate, latitude, longitude, medicineImage } = formData;
+    try { 
+
+      const { medicineName, genericName,companyName,diseaseName, quantity, expiryDate, latitude, longitude, medicineImage } = formData;
 
       const response = await fetch('http://localhost:5000/api/donation/donate-medicine', {
         method: 'POST',
@@ -31,6 +34,8 @@ const Donation = () => {
         body: JSON.stringify({
           medicineName,
           genericName,
+          companyName,
+          diseaseName,
           quantity,
           expiryDate,
           latitude,
@@ -51,6 +56,8 @@ const Donation = () => {
         setFormData({
           medicineName: '',
           genericName: '',
+          companyName: '',
+          diseaseName: '',
           quantity: '',
           expiryDate: '',
           location: '',
@@ -172,6 +179,26 @@ const Donation = () => {
                     name="genericName"
                     placeholder="EX: PARACETAMOL"
                     value={formData.genericName}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>COMPANY NAME</label>
+                  <input
+                    type="text"
+                    name="companyName"
+                    placeholder="EX: Beximco"
+                    value={formData.companyName}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <label>PROBABLE DISEASE</label>
+                  <input
+                    type="text"
+                    name="diseaseName"
+                    placeholder="EX: COMMON COLD"
+                    value={formData.diseaseName}
                     onChange={handleChange}
                   />
                 </div>

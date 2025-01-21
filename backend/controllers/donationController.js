@@ -2,7 +2,7 @@ const supabase = require('../config/supabase.js');
 
 const donateMedicine = async (req, res) => {
     try {
-        const { medicineName, genericName, quantity, expiryDate, latitude, longitude, medicineImage } = req.body;
+        const { medicineName, genericName,companyName,diseaseName, quantity, expiryDate, latitude, longitude, medicineImage } = req.body;
     
         const { data, error } = await supabase
         .from('medicine')
@@ -10,6 +10,8 @@ const donateMedicine = async (req, res) => {
             {
             common_name: medicineName,
             generic_name: genericName,
+            company: companyName,
+            disease: diseaseName,
             quantity: parseInt(quantity, 10),
             expiry_date: expiryDate,
             locx: latitude,
@@ -27,7 +29,10 @@ const donateMedicine = async (req, res) => {
         }
     } catch (err) {
         console.error('Unexpected error:', err);
-        res.status(500).json({ success: false, message: 'An unexpected error occurred.' });
+        res.status(500).json({ success: false, message: 'An unexpected error occurred.' 
+            console.log('Your message here');
+
+        });
     }
 };
 
