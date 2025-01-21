@@ -2,7 +2,7 @@ const supabase = require('../config/supabase.js');
 
 const donateMedicine = async (req, res) => {
     try {
-        const { medicineName, genericName, quantity, expiryDate, latitude, longitude, medicineImage } = req.body;
+        const { medicineName, genericName, quantity, expiryDate, latitude, longitude, medicineImage, status, donorId } = req.body;
     
         const { data, error } = await supabase
         .from('medicine')
@@ -15,6 +15,8 @@ const donateMedicine = async (req, res) => {
             locx: latitude,
             locy: longitude,
             med_image: medicineImage ? medicineImage.name : null,
+            status: status,
+            donor_id: donorId,
             },
         ]);
     
