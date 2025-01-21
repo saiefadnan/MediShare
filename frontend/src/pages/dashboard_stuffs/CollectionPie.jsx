@@ -1,5 +1,5 @@
-import { Box } from '@mui/material';
-import React from 'react';
+import { Box, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import React, { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const data = [
@@ -11,16 +11,38 @@ const data = [
 const COLORS = ['#006AFF', '#52C93A', '#FF2727'];
 
 const CollectionPie = () => {
+    const currentYear = new Date().getFullYear();
+    const years = Array.from({length: 10},(_,i)=>currentYear-i);
+    const [selectedYear, setSelectedYear] = useState(currentYear);
+    const handleYear = (e)=>{
+    setSelectedYear(e.target.value);
+    }
     return ( 
         <Box sx={{ 
             backgroundColor: "#FFE2E5", 
-            minWidth: "490px", 
-            height: "400px" , 
+            minWidth: "380px", 
+            height: "480px" , 
             margin: '50px auto',
-            padding: '50px',
+            padding: '20px',
             borderRadius: '8px',
             border: "1px solid rgba(255, 255, 255, 0.3)", 
-            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",}}>
+            boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+        }}>
+        <Typography variant="h6" >PieChart</Typography>
+        <Box sx={{display: "flex",alignItems: "center", gap: 2}}>
+            <InputLabel>Year </InputLabel>
+            <Select
+            sx={{height: '45px'}}
+            value={selectedYear}
+            onChange={handleYear}
+            label="Year">
+            {years.map((year)=>(
+                <MenuItem key={year} value={year}>
+                {year}
+                </MenuItem>
+            ))}
+            </Select>
+        </Box>
             <ResponsiveContainer width="100%" height={310}>
                 <PieChart>
                     <Pie

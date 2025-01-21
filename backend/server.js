@@ -5,19 +5,52 @@ const cors = require('cors');
 const http = require('http');
 const server = http.createServer(app)
 const user = require('./routes/userRoute');
+<<<<<<< HEAD
 const search = require('./routes/searchRoute');
+=======
+const admin = require('./routes/adminRoute');
+const donateMedicine = require('./routes/donationRoute');
+const session = require('express-session');
+const passport = require('passport');
+const passportSetup = require('./config/passport');
+>>>>>>> 4faed35bde4bb06bb4c402d7db5e58cf13d7d7b4
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+  methods: "GET, POST, PUT, DELETE",
+  credentials: true,
+}));
 app.use(express.static('public'))
 app.use(express.json())
 /*app.use((req, res, next) => {
   console.log(req.path, req.method)
   next()
+<<<<<<< HEAD
 })*/
 
 // Basic route
 app.use('/api/user', user);
 app.use('/api', search);
+=======
+})
+app.use(session({
+  secret: ['key1', 'key2'],
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: false,
+    maxAge: 24 * 60 * 60 * 1000,
+    sameSite: 'lax'
+  }
+}));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Basic route
+app.use('/api/user', user);
+app.use('/api/admin',admin);
+app.use('/api/donation', donateMedicine);
+>>>>>>> 4faed35bde4bb06bb4c402d7db5e58cf13d7d7b4
 
 // Start the server
 server.listen(process.env.PORT, () => {

@@ -12,7 +12,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Link } from 'react-router-dom';
-import { StateContext } from '../../Contexts/SidebarContext';
+// import { StateContext } from '../../Contexts/SidebarContext';
 import signoutIcon from '../../assets/signout.png'
 import heartIcon from '../../assets/heartLogo.png'
 import dashboardIcon from '../../assets/dashboard.png'
@@ -24,23 +24,25 @@ import accountsIcon from '../../assets/accounts.png'
 const drawerWidth = 240;
 
 const openedMixin = (theme) => ({
-  width: drawerWidth,
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
   }),
   overflowX: 'hidden',
   backgroundColor: '#43755c',
-  color: ' #D2D2D2'
+  color: ' #D2D2D2',
+  width: drawerWidth,
 });
 
 const closedMixin = (theme) => ({
+  // transform: 'translateX(-100%)',
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: 0,
+  // `calc(${theme.spacing(7)} + 1px)`,
   [theme.breakpoints.up('sm')]: {
     width: `calc(${theme.spacing(8)} + 1px)`,
   },
@@ -83,8 +85,10 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
   }),
 );
 
-const Sidebar = ()=> {
-  const {open, setOpen} = useContext(StateContext);
+const Sidebar = ({Open})=> {
+  const [open,setOpen] = Open;
+  // const {open, setOpen} = useContext(StateContext);
+  //const [open, setOpen] = useState(false);
   const theme = useTheme();
   const handleDrawer = () => {
     setOpen(!open);

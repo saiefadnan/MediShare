@@ -63,13 +63,21 @@ const Datagrid = () => {
         WebkitBackdropFilter: "blur(10px)", 
         color: "#333",
         width: '45%',
-        minWidth: '490px',
+        minWidth: '380px',
         height: "400px" , 
         margin: '20px auto',
         padding: '20px 10px',
-        borderRadius: '8px'}}>
-          <Typography variant="h6">Top Demanding Medicines</Typography>
-          <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} sx={{height: '95%',width: '100%',minWidth: '300px'}}/>
+        borderRadius: '8px',
+        '@media (max-width: 400px)':{
+          minWidth: "calc(100% - 5px)", 
+        }}}>
+          <Typography variant="h6" >Top Demanding Medicines</Typography>
+          <DataGrid rows={rows} columns={columns} pageSize={5} rowsPerPageOptions={[5]} sx={{height: '95%',width: '100%',
+          minWidth: '300px',
+        '@media (max-width: 400px)':{
+          minWidth: "100%", 
+          padding: '0',
+        }}}/>
         </Box>
     
   );

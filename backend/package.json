@@ -4,8 +4,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+<<<<<<< HEAD
     "start": "node server.js",        
   "dev": "nodemon server.js"       
+=======
+    "start": "nodemon server.js"
+>>>>>>> 4faed35bde4bb06bb4c402d7db5e58cf13d7d7b4
   },
   "keywords": [],
   "author": "",
@@ -14,12 +18,19 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.47.10",
     "bcrypt": "^5.1.1",
+    "cookie-session": "^2.1.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+<<<<<<< HEAD
     "punycode": "^2.3.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
+=======
+    "express-session": "^1.18.1",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0"
+>>>>>>> 4faed35bde4bb06bb4c402d7db5e58cf13d7d7b4
   }
 }

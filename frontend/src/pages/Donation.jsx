@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import '../styles/donation.css';
-
 import L from 'leaflet'; // Import Leaflet for the map
 import 'leaflet/dist/leaflet.css';
 
@@ -18,9 +17,53 @@ const Donation = () => {
     medicineImage: null
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+
+    try {
+      const { medicineName, genericName, quantity, expiryDate, latitude, longitude, medicineImage } = formData;
+
+      const response = await fetch('http://localhost:5000/api/donation/donate-medicine', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          medicineName,
+          genericName,
+          quantity,
+          expiryDate,
+          latitude,
+          longitude,
+          medicineImage,
+        }),
+      });
+
+      const data = await response.json();
+      const { error } = data;
+
+      if (error) {
+        console.error('Error inserting data:', error.message);
+        alert('There was an issue submitting the data.');
+      } else {
+        console.log('Data inserted successfully:', data);
+        alert('Donation submitted successfully!');
+        setFormData({
+          medicineName: '',
+          genericName: '',
+          quantity: '',
+          expiryDate: '',
+          location: '',
+          latitude: null,
+          longitude: null,
+          medicineImage: null,
+        });
+        setImagePreview('/placeholder.svg');
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      alert('An unexpected error occurred.');
+    }
   };
 
   const handleChange = (e) => {
@@ -41,6 +84,13 @@ const Donation = () => {
         ...prevState,
         [name]: value,
       }));
+    }
+  };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData({ ...formData, medicineImage: file });
+      setImagePreview(URL.createObjectURL(file)); // Show a preview of the image
     }
   };
   const [imagePreview, setImagePreview] = useState('/placeholder.svg'); // Initialize imagePreview

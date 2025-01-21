@@ -1,21 +1,41 @@
-import { Box } from "@mui/material";
-import React from "react";
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
+import { Box, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import React, { useState } from "react";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import useFetch from "../../hooks/useFetch";
 
-const data = [
-{ rating: "5",  count: 20000    },
-{ rating: "4",  count: 8000   }, 
-{ rating: "3", count: 5000,   },
-{ rating: "2",count: 2000,    }, 
-{ rating: "1", count: 10000,  },
-];
+// const data = [
+// { rating: "5",  count: 20000    },
+// { rating: "4",  count: 8000   }, 
+// { rating: "3", count: 5000,   },
+// { rating: "2",count: 2000,    }, 
+// { rating: "1", count: 10000,  },
+// ];
 
-const ReviewBreakdown = () => (
+
+const ReviewBreakdown = () =>{
+    const currentYear = new Date().getFullYear();
+    const years = Array.from({length: 10},(_,i)=>currentYear-i);
+    const [selectedYear, setSelectedYear] = useState(currentYear);
+    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/user-rating',{year: selectedYear});
+
+    const handleYear = (e)=>{
+        setSelectedYear(e.target.value);
+    }
+
+    if(isPending) {
+        return <Typography>Loading...</Typography>;
+    }
+    
+    if(error) {
+        return <Typography color="error">Error: {error}</Typography>;
+    }
+    
+    return(
     <Box style={{ 
         width: '45%',
         maxWidth: "560px", 
-        minWidth: "490px", 
-        height: "400px",
+        minWidth: "380px", 
+        height: "480px",
         borderRadius: '8px',
         padding: '20px',
         border: "1px solid rgba(255, 255, 255, 0.3)", 
@@ -23,8 +43,26 @@ const ReviewBreakdown = () => (
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)", 
         color: "#333",
-        margin: '20px auto'}}>
-        <h3 style={{ color: "#2c3e50"}}>Review Breakdown</h3>
+        margin: '20px auto',
+        '@media (max-width: 400px)':{
+            minWidth: "calc(100% - 5px)", 
+            padding: '0',
+          }}}>
+        <Typography variant="h6" >Review Breakdown</Typography>
+        <Box sx={{display: "flex",alignItems: "center", gap: 2}}>
+            <InputLabel>Year </InputLabel>
+            <Select
+            sx={{height: '45px'}}
+            value={selectedYear}
+            onChange={handleYear}
+            label="Year">
+            {years.map((year)=>(
+                <MenuItem key={year} value={year}>
+                {year}
+                </MenuItem>
+            ))}
+            </Select>
+        </Box>
         <ResponsiveContainer width="100%" height={300}>
             <BarChart
                 layout="vertical"
@@ -43,6 +81,6 @@ const ReviewBreakdown = () => (
             </BarChart>
         </ResponsiveContainer>
     </Box>
-);
+)};
 
 export default ReviewBreakdown;

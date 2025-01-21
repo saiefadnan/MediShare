@@ -101,15 +101,15 @@
   
 .login-button {
     text-align: center;
-    width: 50%;
+    width: 100%;
     padding: 0.75rem;
-    background-color: #D2B8A4;
+    background-color: #deb99d;
     color: white;
     border: none;
     border-radius: 6px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.4s;
+    transition: background-color 0.5s;
     position: relative;
     margin: 0 auto;
     display: block;
@@ -190,5 +190,75 @@
       opacity: 0;
     }
   }
+
+  .alert-container69 {
+    position: fixed;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: fit-content;
+    max-width: 90%;
+    animation: slide-down 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  
+  .alert-container69.exit {
+    animation: slide-up 0.6s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+  }
+  
+  @keyframes slide-down {
+    0% {
+      top: -100px;
+      opacity: 0;
+    }
+    60% {
+      top: 20px;
+      opacity: 1;
+    }
+    100% {
+      top: 10px;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes slide-up {
+    0% {
+      top: 10px;
+      opacity: 1;
+    }
+    40% {
+      top: 20px;
+      opacity: 1;
+    }
+    100% {
+      top: -100px;
+      opacity: 0;
+    }
+  }
+
+  .separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .separator::before,
+  .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .separator::before {
+    margin-right: 10px;
+  }
+  
+  .separator::after {
+    margin-left: 10px;
+  }
+  
+  
+  
   
   

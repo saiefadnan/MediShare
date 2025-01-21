@@ -1,7 +1,7 @@
 import { Avatar, Badge, Box, IconButton, Toolbar, Typography, styled } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import MuiAppBar from '@mui/material/AppBar';
-import { StateContext } from "../../Contexts/SidebarContext";
+// import { StateContext } from "../../Contexts/SidebarContext";
 import Logo from '../../assets/medisharelogo.png'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationPanel from "./NotificationPanel";
@@ -9,35 +9,56 @@ import { useContext, useEffect, useState } from "react";
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 
-const AdminNavbar = () => {
+const AdminNavbar = ({Open}) => {
     const drawerWidth = 240;
-    const {open, setOpen} = useContext(StateContext);
+    const [open, setOpen] = Open;
+    // const {open, setOpen} = useContext(StateContext);
     const [openNotif,setOpenNotif] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
 
+    // const AppBar = styled(MuiAppBar, {
+    // shouldForwardProp: (prop) => prop !== 'open',})(({ theme }) => ({
+    //     zIndex: theme.zIndex.drawer + 1,
+    //     height: '65px',
+    //     transition: theme.transitions.create(['width', 'margin'], {
+    //     easing: theme.transitions.easing.sharp,
+    //     duration: theme.transitions.duration.leavingScreen,
+    //     }),
+    //     variants: [
+    //     {
+    //         props: ({ open }) => open,
+    //         style: {
+    //         marginLeft: drawerWidth,
+    //         width: `calc(100% - ${drawerWidth}px)`,
+    //         height: '65px',
+    //         transition: theme.transitions.create(['width', 'margin'], {
+    //             easing: theme.transitions.easing.sharp,
+    //             duration: theme.transitions.duration.enteringScreen,
+    //         }),
+    //         },
+    //     },
+    //     ],
+    // }));
+
     const AppBar = styled(MuiAppBar, {
-    shouldForwardProp: (prop) => prop !== 'open',})(({ theme }) => ({
+        shouldForwardProp: (prop) => prop !== 'open', // Prevent forwarding the `open` prop to the DOM
+      })(({ theme, open }) => ({
         zIndex: theme.zIndex.drawer + 1,
         height: '65px',
         transition: theme.transitions.create(['width', 'margin'], {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.leavingScreen,
         }),
-        variants: [
-        {
-            props: ({ open }) => open,
-            style: {
-            marginLeft: drawerWidth,
-            width: `calc(100% - ${drawerWidth}px)`,
-            height: '65px',
-            transition: theme.transitions.create(['width', 'margin'], {
-                easing: theme.transitions.easing.sharp,
-                duration: theme.transitions.duration.enteringScreen,
-            }),
-            },
-        },
-        ],
-    }));
+        ...(open && {
+          marginLeft: drawerWidth,
+          width: `calc(100% - ${drawerWidth}px)`,
+          transition: theme.transitions.create(['width', 'margin'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+        }),
+      }));
+      
     const handleToggleScreen = ()=>{
         if(document.fullscreenElement){
             document.exitFullscreen();
@@ -73,7 +94,7 @@ const AdminNavbar = () => {
             edge="start"
             sx={[
             {
-                marginRight: 5,
+                marginRight: 1,
                 color: 'black'
             },
             open && { display: 'none' },
@@ -83,18 +104,16 @@ const AdminNavbar = () => {
             <Box variant="h5" component="div" sx={{ 
                 flexGrow: 1,
                 color: 'black',
-                marginLeft: "20px", 
                 display: 'flex',
-                alignItems: 'center',}}>
+                alignItems: 'center',
+                }}>
                 <img src={Logo} alt='Logo' style={{marginRight:'5px',width: '50px',height: 'auto',}}/>
                 <Typography 
                 sx={{
                     fontFamily:'Outfit', 
                     fontWeight: '600', 
                     fontSize: '20px',
-                    '@media (max-width: 500px)':{
-                        display: 'none'
-                    }}}>MediShare</Typography>
+                    }}>MediShare</Typography>
             </Box>
            
                 <IconButton onClick={handleToggleScreen}>
