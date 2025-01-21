@@ -1,5 +1,5 @@
-import { Box } from '@mui/material';
-import React from 'react';
+import { Box, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import React, { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const data = [
@@ -11,6 +11,12 @@ const data = [
 const COLORS = ['#006AFF', '#52C93A', '#FF2727'];
 
 const Piechart = () => {
+    const currentYear = new Date().getFullYear();
+    const years = Array.from({length: 10},(_,i)=>currentYear-i);
+    const [selectedYear, setSelectedYear] = useState(currentYear);
+    const handleYear = (e)=>{
+    setSelectedYear(e.target.value);
+    }
     return ( 
         <Box sx={{ 
             border: "1px solid rgba(255, 255, 255, 0.3)", 
@@ -18,11 +24,30 @@ const Piechart = () => {
             backdropFilter: "blur(10px)",
             WebkitBackdropFilter: "blur(10px)", 
             color: "#333",
-            minWidth: "490px", 
-            height: "400px" , 
+            minWidth: "380px", 
+            height: "480px" , 
             margin: 'auto',
-            padding: '50px',
-            borderRadius: '8px'}}>
+            padding: '20px',
+            borderRadius: '8px',
+            '@media (max-width: 400px)':{
+                minWidth: "calc(100% - 5px)", 
+                padding: '0',
+              }}}>
+            <Typography variant="h6">PieChart</Typography>
+            <Box sx={{display: "flex",alignItems: "center", gap: 2}}>
+                <InputLabel>Year </InputLabel>
+                <Select
+                sx={{height: '45px'}}
+                value={selectedYear}
+                onChange={handleYear}
+                label="Year">
+                {years.map((year)=>(
+                    <MenuItem key={year} value={year}>
+                    {year}
+                    </MenuItem>
+                ))}
+                </Select>
+            </Box>
             <ResponsiveContainer width="100%" height={310} >
                 <PieChart>
                     <Pie

@@ -1,5 +1,5 @@
-import { Box } from "@mui/material";
-import React from "react";
+import { Box, InputLabel, MenuItem, Select, Typography } from "@mui/material";
+import React, { useState } from "react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
 const CollectionChart = () => {
@@ -13,18 +13,42 @@ const CollectionChart = () => {
     { day: "Sunday", Previous: 20000, Present: 17000 },
   ];
 
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({length: 10},(_,i)=>currentYear-i);
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+  const handleYear = (e)=>{
+    setSelectedYear(e.target.value);
+  }
   return (
     <Box sx={{ 
         backgroundColor: "#FFE2E5", 
         width: '45%',
         minWidth: "490px", 
-        height: "400px" , 
+        height: "480px" , 
         margin: '50px auto',
         padding: '20px',
         borderRadius: '8px',
         border: "1px solid rgba(255, 255, 255, 0.3)", 
-        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",}}>
-      <h3 style={{ color: "#2c3e50"}}>Collection Comparison</h3>
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+        '@media (max-width: 400px)':{
+          minWidth: "calc(100% - 5px)", 
+          padding: '0',
+        }}}>
+      <Typography variant="h6" >Collection Comparison</Typography>
+      <Box sx={{display: "flex",alignItems: "center", gap: 2}}>
+        <InputLabel>Year </InputLabel>
+        <Select
+        sx={{height: '45px'}}
+        value={selectedYear}
+        onChange={handleYear}
+        label="Year">
+          {years.map((year)=>(
+            <MenuItem key={year} value={year}>
+              {year}
+            </MenuItem>
+          ))}
+        </Select>
+      </Box>
       <ResponsiveContainer width="100%" height={300} style={{margin: '50px auto'}}>
         <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" />

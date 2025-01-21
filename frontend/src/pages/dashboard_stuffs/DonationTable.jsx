@@ -49,7 +49,7 @@ const DonationTable = () => {
   ];
   
   const columns = [
-    { field: 'name', headerName: 'Top Donators', width: 200 },
+    { field: 'name', headerName: 'Top Donators', width: 25 },
     { field: 'status', headerName: 'Status', width: 80,
       renderCell: (params)=>(
         <Box sx={{
