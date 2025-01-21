@@ -24,14 +24,10 @@ app.use((req, res, next) => {
   next()
 })
 
-// Basic route
-app.use('/api/user', user);
-app.use('/api', search);
-
 app.use(session({
   secret: ['key1', 'key2'],
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   cookie: {
     secure: false,
     maxAge: 24 * 60 * 60 * 1000,
@@ -45,6 +41,8 @@ app.use(passport.session());
 app.use('/api/user', user);
 app.use('/api/admin',admin);
 app.use('/api/donation', donateMedicine);
+app.use('/api/user', user);
+app.use('/api', search);
 
 // Start the server
 server.listen(process.env.PORT, () => {
