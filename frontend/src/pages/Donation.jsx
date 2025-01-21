@@ -3,6 +3,7 @@ import '../styles/donation.css';
 
 import L from 'leaflet'; // Import Leaflet for the map
 import 'leaflet/dist/leaflet.css';
+import supabase from '../../../backend/config/supabase.js';
 
 
 
@@ -18,9 +19,46 @@ const Donation = () => {
     medicineImage: null
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+
+    try {
+      const { data, error } = await supabase
+        .from('medicine') // Replace with your actual table name
+        .insert([
+          {
+            common_name: formData.medicineName,
+            generic_name: formData.genericName,
+            quantity: parseInt(formData.quantity, 10),
+            expiry_date: formData.expiryDate,
+            locx: formData.latitude,
+            locy: formData.longitude,
+            med_image: formData.medicineImage ? formData.medicineImage.name : null,
+          },
+        ]);
+
+      if (error) {
+        console.error('Error inserting data:', error.message);
+        alert('There was an issue submitting the data.');
+      } else {
+        console.log('Data inserted successfully:', data);
+        alert('Donation submitted successfully!');
+        setFormData({
+          medicineName: '',
+          genericName: '',
+          quantity: '',
+          expiryDate: '',
+          location: '',
+          latitude: null,
+          longitude: null,
+          medicineImage: null,
+        });
+        setImagePreview('/placeholder.svg');
+      }
+    } catch (err) {
+      console.error('Unexpected error:', err);
+      alert('An unexpected error occurred.');
+    }
   };
 
   const handleChange = (e) => {
@@ -41,6 +79,13 @@ const Donation = () => {
         ...prevState,
         [name]: value,
       }));
+    }
+  };
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData({ ...formData, medicineImage: file });
+      setImagePreview(URL.createObjectURL(file)); // Show a preview of the image
     }
   };
   const [imagePreview, setImagePreview] = useState('/placeholder.svg'); // Initialize imagePreview
