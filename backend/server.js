@@ -6,6 +6,7 @@ const http = require('http');
 const server = http.createServer(app)
 const user = require('./routes/userRoute');
 const admin = require('./routes/adminRoute');
+const donateMedicine = require('./routes/donationRoute');
 const session = require('express-session');
 const passport = require('passport');
 const passportSetup = require('./config/passport');
@@ -37,6 +38,7 @@ app.use(passport.session());
 // Basic route
 app.use('/api/user', user);
 app.use('/api/admin',admin);
+app.use('/api/donation', donateMedicine);
 
 // Start the server
 server.listen(process.env.PORT, () => {

@@ -1,9 +1,7 @@
 import { useState, useEffect } from 'react';
 import '../styles/donation.css';
-
 import L from 'leaflet'; // Import Leaflet for the map
 import 'leaflet/dist/leaflet.css';
-import supabase from '../../../backend/config/supabase.js';
 
 
 
@@ -23,19 +21,26 @@ const Donation = () => {
     e.preventDefault();
 
     try {
-      const { data, error } = await supabase
-        .from('medicine') // Replace with your actual table name
-        .insert([
-          {
-            common_name: formData.medicineName,
-            generic_name: formData.genericName,
-            quantity: parseInt(formData.quantity, 10),
-            expiry_date: formData.expiryDate,
-            locx: formData.latitude,
-            locy: formData.longitude,
-            med_image: formData.medicineImage ? formData.medicineImage.name : null,
-          },
-        ]);
+      const { medicineName, genericName, quantity, expiryDate, latitude, longitude, medicineImage } = formData;
+
+      const response = await fetch('http://localhost:5000/api/donation/donate-medicine', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          medicineName,
+          genericName,
+          quantity,
+          expiryDate,
+          latitude,
+          longitude,
+          medicineImage,
+        }),
+      });
+
+      const data = await response.json();
+      const { error } = data;
 
       if (error) {
         console.error('Error inserting data:', error.message);
