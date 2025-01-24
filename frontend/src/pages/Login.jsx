@@ -41,7 +41,7 @@ function LoginPage() {
         const result = await response.json();
   
         if (result.success) {
-            await login({ email })
+            await login(result.user)
             setAlert({ type: 'success', message: 'Login successful!' });
             navigate('/');
         } else {
