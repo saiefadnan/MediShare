@@ -12,6 +12,7 @@ import Contacts from './pages/ContactsPage.jsx';
 Contacts
 import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
 import Footer from './components/Footer';
+import GoogleCallback from './components/googleCallback';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import MedicineSearchResults from './pages/components_MedicineSearchResults';
@@ -34,7 +35,7 @@ function App() {
     '/admin/review',
     '/admin/accounts',
     '/admin/chat',
-    
+    '/auth/google/callback',
   ];
 
   const hideFooterRoutes = [
@@ -48,7 +49,8 @@ function App() {
     '/userDashboard',
     '/userProfile',
     '/userRequests', 
-    '/userRequested'
+    '/userRequested',
+    '/auth/google/callback',
   ];
 
   return (
@@ -69,6 +71,7 @@ function App() {
           <Route path="/contacts" element={<Contacts/>} />
           <Route path="/admin/*" element={<Admin />} />
           <Route path="/airesult/*" element={< MedicineSearchResults />} />
+          <Route path="/auth/google/callback" element={< GoogleCallback />} />
         </Routes>
       </Suspense>
       {!hideFooterRoutes.includes(location.pathname) && <Footer/>}

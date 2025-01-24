@@ -8,16 +8,18 @@ import Review from "./admin_pages/Review";
 import { Box, CssBaseline } from "@mui/material";
 import Sidebar from "./dashboard_stuffs/Sidebar";
 import AdminNavbar from "./dashboard_stuffs/AdminNavbar";
-import { StateProvider } from "../Contexts/SidebarContext";
+// import { StateProvider } from "../Contexts/SidebarContext";
+import { useState } from "react";
 
 const Admin = () => {
+    const [open, setOpen] = useState(false);
     return (
-        <StateProvider>
+        // <StateProvider>
         <div className="page91">
             <Box sx={{ display: 'flex', height: '100%'}}>
                 <CssBaseline />
-                <AdminNavbar/>
-                <Sidebar/>
+                <AdminNavbar Open = {[open , setOpen]}/>
+                <Sidebar Open = {[open , setOpen]}/>
                 <Routes>
                     <Route path='/' element={<Navigate to={'/admin/dashboard'}/>}/>
                     <Route path='/dashboard' element={<AdminPortal/>}/>
@@ -29,7 +31,7 @@ const Admin = () => {
                 </Routes> 
             </Box>
         </div>
-        </StateProvider>
+        // </StateProvider>
     );
 }
  

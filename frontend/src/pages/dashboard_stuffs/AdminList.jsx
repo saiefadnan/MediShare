@@ -31,11 +31,12 @@ const AdminList = () => {
         backdropFilter: "blur(10px)",
         WebkitBackdropFilter: "blur(10px)", 
         color: "#333",
-        minWidth: '490px',
+        minWidth: '380px',
         height: "400px" , 
         margin: '20px auto',
         padding: '20px',
-        borderRadius: '8px'}}>
+        borderRadius: '8px',
+        '@media (max-width: 400px)':{minWidth: "calc(100% - 5px)",}}}>
         <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
             <Typography variant="h6">Other Admins</Typography>
             <IconButton onClick={HandleOpen}>
@@ -52,13 +53,15 @@ const AdminList = () => {
                 padding: 0.5,
                 boxShadow: 3,
             }}>
-            <Box sx={{ display: 'flex', alignItems: 'center'}}>
+            <Box sx={{ display: 'flex', alignItems: 'center', minWidth: '50px'}}>
                 <Avatar src={admin.avatar} alt={admin.name} sx={{ width: 56, height: 56 }} />
                 <CardContent sx={{ padding: 1 , textAlign: 'center',  height: '70px'}}>
-                    <Typography variant="h6" sx={{ fontWeight: 'bold'}}>
-                        {admin.name}
+                    <Typography variant="h6" sx={{ fontWeight: 'bold',
+                    '@media (max-width: 200px)':{display: 'none'}}}>
+                    {admin.name}
                     </Typography>
-                    <Typography variant="subtitle1" color="text.secondary">
+                    <Typography variant="subtitle1" color="text.secondary"
+                    sx={{'@media (max-width: 200px)':{display: 'none'}}}>
                         {admin.role}
                     </Typography>
                 </CardContent>

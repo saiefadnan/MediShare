@@ -71,11 +71,11 @@ function handleClose() {
                     <h2>Medicine Details</h2>
                     <hr/>
                     <p>Generic Name:{props.title}</p>
-                    <p>Quantity:05</p>
-                    <p>Location:Khulna</p>
-                    <p>Company:Beximco</p>
-                    <p>Common Dieases:Fever,cold</p>
-                    <p>Description:Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odio vero nulla quasi explicabo consequuntur voluptatem, odit quam vel praesentium!</p>
+                    <p>Quantity:{props.qty}</p>
+                    <p>Location:{props.location}</p>
+                    <p>Company:{props.company}</p>
+                    <p>Common Dieases:{props.disease}</p>
+                   
                     <button onClick={handleClose}>Close</button>
                     </div>
 
