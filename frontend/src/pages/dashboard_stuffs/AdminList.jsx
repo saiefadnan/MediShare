@@ -7,6 +7,7 @@ import avatar3 from '../dashboard_stuffs/Icons/avatar3.png'
 import { GridAddIcon } from '@mui/x-data-grid';
 import SearchUsers from './SearchUsers';
 import { Button } from 'react-bootstrap';
+import useFetch from '../../hooks/useFetch';
 
 const AdminList = () => {
   const admins = [
@@ -16,10 +17,19 @@ const AdminList = () => {
   ];
 
   const [open, setOpen] = useState(false);
+  const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/query-admins');
   const HandleOpen = ()=>{
     console.log('asdsa');
     setOpen(!open);
   }
+
+//   if(isPending) {
+//     return <Typography>Loading...</Typography>;
+// }
+
+//     if(error) {
+//         return <Typography color="error">Error: {error}</Typography>;
+//     }
 
   return (
     <Box sx={{ 
@@ -36,6 +46,7 @@ const AdminList = () => {
         margin: '20px auto',
         padding: '20px',
         borderRadius: '8px',
+        
         '@media (max-width: 400px)':{minWidth: "calc(100% - 5px)",}}}>
         <Box sx={{display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
             <Typography variant="h6">Other Admins</Typography>
@@ -43,22 +54,25 @@ const AdminList = () => {
                 <GridAddIcon/>
             </IconButton>
         </Box>
-        {admins.map((admin) => (
+        <Box sx={{overflowY: 'auto'}}>
+        {!error && isPending && <Typography>Loading...</Typography>}
+        {error && <Typography color="error">Error: {error}</Typography>}
+        {data?.map((admin,index) => (
             <Card
-            key={admin.id}
+            key={index}
             sx={{
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                padding: 0.5,
-                boxShadow: 3,
+                padding: 0.3,
+                boxShadow: 3,marginBottom: '10px'
             }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', minWidth: '50px'}}>
-                <Avatar src={admin.avatar} alt={admin.name} sx={{ width: 56, height: 56 }} />
+            <Box sx={{ display: 'flex', alignItems: 'center', minWidth: '50px', }}>
+                <Avatar src={admin.image_url} alt={admin.name} sx={{ width: 56, height: 56 }} />
                 <CardContent sx={{ padding: 1 , textAlign: 'center',  height: '70px'}}>
                     <Typography variant="h6" sx={{ fontWeight: 'bold',
                     '@media (max-width: 200px)':{display: 'none'}}}>
-                    {admin.name}
+                    {admin.username}
                     </Typography>
                     <Typography variant="subtitle1" color="text.secondary"
                     sx={{'@media (max-width: 200px)':{display: 'none'}}}>
@@ -71,6 +85,7 @@ const AdminList = () => {
             </IconButton>
             </Card>
         ))}
+        </Box>
         {open && 
             <SearchUsers
             open = {open}

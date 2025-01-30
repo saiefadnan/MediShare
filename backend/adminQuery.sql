@@ -18,5 +18,6 @@ COUNT(CASE WHEN rating>=3 THEN 1 END),
 COUNT(CASE WHEN rating<=2 THEN 1 END)
 FROM "userRating"
 WHERE EXTRACT(YEAR FROM "time") = input_year
-GROUP BY month;
+GROUP BY month, EXTRACT(MONTH FROM "time")
+ORDER BY EXTRACT(MONTH FROM "time");
 $$ language sql;

@@ -8,13 +8,18 @@ import NotificationPanel from "./NotificationPanel";
 import { useContext, useEffect, useState } from "react";
 import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
+import axios from "axios";
+import { useAuth } from "../../Contexts/AuthContext";
 
 const AdminNavbar = ({Open}) => {
+   const {user} = useAuth();
+    const [image, setImage] = useState(null);
     const drawerWidth = 240;
     const [open, setOpen] = Open;
     // const {open, setOpen} = useContext(StateContext);
     const [openNotif,setOpenNotif] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
+
 
     // const AppBar = styled(MuiAppBar, {
     // shouldForwardProp: (prop) => prop !== 'open',})(({ theme }) => ({
@@ -39,6 +44,28 @@ const AdminNavbar = ({Open}) => {
     //     },
     //     ],
     // }));
+
+    const handleSelectImage = async(event)=>{
+        const file = event.target.files[0];
+        if (file) {
+          const imageUrl = URL.createObjectURL(file); // Preview image
+          setImage(imageUrl);
+        }
+        
+        const formData = new FormData();
+        formData.append("image", file); 
+        formData.append("email", user.email);
+
+        try {
+        const response = await axios.post("http://localhost:5000/api/admin/image-upload", formData, {
+            headers: { "Content-Type": "multipart/form-data" }, 
+        });
+
+        console.log("File uploaded successfully:", response.data);
+        } catch (error) {
+        console.error("Error uploading file:", error);
+        }
+  };
 
     const AppBar = styled(MuiAppBar, {
         shouldForwardProp: (prop) => prop !== 'open', // Prevent forwarding the `open` prop to the DOM
@@ -99,7 +126,7 @@ const AdminNavbar = ({Open}) => {
             },
             open && { display: 'none' },
             ]}>
-            <MenuIcon />
+                <MenuIcon />
             </IconButton>
             <Box variant="h5" component="div" sx={{ 
                 flexGrow: 1,
@@ -113,25 +140,33 @@ const AdminNavbar = ({Open}) => {
                     fontFamily:'Outfit', 
                     fontWeight: '600', 
                     fontSize: '20px',
-                    }}>MediShare</Typography>
+                }}>MediShare</Typography>
             </Box>
            
-                <IconButton onClick={handleToggleScreen}>
-                    {fullscreen?<FullscreenExitIcon/>:<FullscreenIcon/> }
-                </IconButton>
-                <IconButton color="black" onClick={handlePanel}>
-                    <Badge badgeContent={4} color="error">
-                        <NotificationsIcon/>
-                        
-                    </Badge>
-                </IconButton>
-                <IconButton color="inherit">
-                    <Avatar src="/src/assets/avatar.png"/>
-                </IconButton>
-                {openNotif && <NotificationPanel Open={[openNotif,setOpenNotif]} />}
-            </Toolbar>
-        </AppBar> 
-    );
+            <IconButton onClick={handleToggleScreen}>
+                {fullscreen?<FullscreenExitIcon/>:<FullscreenIcon/> }
+            </IconButton>
+            <IconButton color="black" onClick={handlePanel}>
+                <Badge badgeContent={4} color="error">
+                    <NotificationsIcon/> 
+                </Badge>
+            </IconButton>
+        <input
+            type="file"
+            accept="image/*"
+            style={{ display: "none" }}
+            id="file-input"
+            onChange={handleSelectImage}
+        />
+      <label htmlFor="file-input">
+        <IconButton component="span" color="inherit">
+          <Avatar src={image} sx={{ width: 50, height: 50 }} />
+        </IconButton>
+    </label>
+        {openNotif && <NotificationPanel Open={[openNotif,setOpenNotif]} />}
+        </Toolbar>
+    </AppBar> 
+);
 }
  
 export default AdminNavbar;

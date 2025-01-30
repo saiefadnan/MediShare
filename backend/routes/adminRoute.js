@@ -1,10 +1,21 @@
 const express =  require('express');
-const { userRating, ratingChart } = require('../controllers/adminController');
+const multer = require('multer');
+const { userRating, ratingChart, queryUsers, userDetails, storeUserinfo, queryAdmins, uploadImage} = require('../controllers/adminController');
+const { route } = require('./userRoute');
 const router = express.Router();
+
+const storage = multer.memoryStorage(); 
+const upload = multer({ storage });
+
 
 
 router.post('/user-rating',userRating);
 router.post('/rating-chart',ratingChart);
+router.post('/query-users',queryUsers);
+router.post('/userinfo', userDetails);
+router.post('/save-userinfo', storeUserinfo);
+router.post('/query-admins', queryAdmins);
+router.post('/image-upload', upload.single('image'), uploadImage);
 
 module.exports = router;
 
