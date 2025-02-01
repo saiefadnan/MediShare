@@ -1,7 +1,8 @@
 import React, { useState, useRef } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Cropper } from "react-cropper";
 import "cropperjs/dist/cropper.css";
+import axios from "axios"; // Import axios for API calls
 
 import "../../styles/sidebarUser.css";
 import "./userProfile.css";
@@ -10,8 +11,17 @@ export default function ProfileEditor() {
   const [profileImage, setProfileImage] = useState(null);
   const [imageToCrop, setImageToCrop] = useState(null);
   const cropperRef = useRef(null);
-  const location = useLocation();
   const navigate = useNavigate();
+
+  // States to hold form data
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+  const [addressLine1, setAddressLine1] = useState("");
+  const [addressLine2, setAddressLine2] = useState("");
+  const [division, setDivision] = useState("dhaka");
+  const [zipCode, setZipCode] = useState("");
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -23,6 +33,7 @@ export default function ProfileEditor() {
       reader.readAsDataURL(file);
     }
   };
+  
 
   const handleCrop = () => {
     const cropper = cropperRef.current?.cropper;
@@ -35,6 +46,73 @@ export default function ProfileEditor() {
 
   const handleCancelCrop = () => {
     setImageToCrop(null); // Cancel cropping and close the modal
+  };
+
+  // Function to handle form submission
+  const handleSaveChanges = async () => {
+    // Validate form data
+    if (!firstName || !lastName || !email) {
+      alert("Please fill in the required fields: First Name, Last Name, and Email.");
+      return;
+    }
+  
+    const formData = new FormData();
+    formData.append("firstName", firstName);
+    formData.append("lastName", lastName);
+    formData.append("email", email);
+    formData.append("contactNumber", contactNumber);
+    formData.append("addressLine1", addressLine1);
+    formData.append("addressLine2", addressLine2);
+    formData.append("division", division);
+    formData.append("zipCode", zipCode);
+    
+    // Append the profile image to FormData if it's available
+    if (profileImage) {
+      // Convert base64 to Blob for upload
+      const byteString = atob(profileImage.split(',')[1]);
+      const arrayBuffer = new ArrayBuffer(byteString.length);
+      const uintArray = new Uint8Array(arrayBuffer);
+  
+      for (let i = 0; i < byteString.length; i++) {
+        uintArray[i] = byteString.charCodeAt(i);
+      }
+  
+      const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });  // Keep as 'image/jpeg' for JPG or 'image/png' for PNG
+      formData.append("profilePicture", blob, "profile-image.jpg");
+    }
+  
+    try {
+      // Sending the data to the backend (replace with your API URL)
+      const response = await axios.put("http://localhost:5000/api/profile", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+  
+      if (response.data.success) {
+        alert("Profile updated successfully!");
+        navigate('/userDashboard'); // Redirect to dashboard or desired page after success
+      } else {
+        alert("Error: " + response.data.message);
+      }
+    } catch (error) {
+      console.error("There was an error updating the profile:", error);
+      alert("Error updating profile.");
+    }
+  };
+  
+
+  // Helper function to convert base64 to blob
+  const dataURLtoBlob = (dataURL) => {
+    const byteString = atob(dataURL.split(',')[1]);
+    const arrayBuffer = new ArrayBuffer(byteString.length);
+    const uintArray = new Uint8Array(arrayBuffer);
+
+    for (let i = 0; i < byteString.length; i++) {
+      uintArray[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([arrayBuffer], { type: 'image/jpeg' });
   };
 
   return (
@@ -59,7 +137,6 @@ export default function ProfileEditor() {
               <i className="fa-solid fa-book"></i> Activity
             </a>
           </li>
-         
           <li>
             <a href="/userRequests">
               <i className="fa-solid fa-inbox"></i> Requests
@@ -70,9 +147,7 @@ export default function ProfileEditor() {
               <i className="fa-solid fa-comment-medical"></i> Requested
             </a>
           </li>
-
           <li className="divider"></li>
-
           <li className="menu-header">Manage</li>
           <li>
             <a href="/userProfile">
@@ -80,10 +155,9 @@ export default function ProfileEditor() {
             </a>
           </li>
         </ul>
-
         <button className="sign-out" onClick={() => window.location.href = '/login'}>
-    <i className="fa-solid fa-right-from-bracket"></i> Sign Out
-  </button>
+          <i className="fa-solid fa-right-from-bracket"></i> Sign Out
+        </button>
       </div>
 
       {/* Main Content */}
@@ -117,7 +191,8 @@ export default function ProfileEditor() {
                 type="text"
                 id="firstName"
                 className="medium-textbox"
-                defaultValue="John"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
               />
             </div>
             <div className="form-group116">
@@ -126,7 +201,8 @@ export default function ProfileEditor() {
                 type="text"
                 id="lastName"
                 className="medium-textbox"
-                defaultValue="Smith"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
               />
             </div>
           </div>
@@ -142,7 +218,8 @@ export default function ProfileEditor() {
               type="email"
               id="email"
               className="medium-textbox"
-              defaultValue="johnsmith@gmail.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
           </div>
 
@@ -152,7 +229,8 @@ export default function ProfileEditor() {
               type="tel"
               id="phone"
               className="medium-textbox"
-              defaultValue="01678901234"
+              value={contactNumber}
+              onChange={(e) => setContactNumber(e.target.value)}
             />
           </div>
         </div>
@@ -167,7 +245,8 @@ export default function ProfileEditor() {
                 type="text"
                 id="addressLine1"
                 className="large-textbox"
-                defaultValue="House-120, Road-4, Avenue-3, Mirpur DOHS"
+                value={addressLine1}
+                onChange={(e) => setAddressLine1(e.target.value)}
               />
             </div>
             <div className="form-group116">
@@ -175,7 +254,8 @@ export default function ProfileEditor() {
               <select
                 id="division"
                 className="small-textbox"
-                defaultValue="dhaka"
+                value={division}
+                onChange={(e) => setDivision(e.target.value)}
               >
                 <option value="dhaka">Dhaka</option>
                 <option value="chittagong">Chittagong</option>
@@ -192,6 +272,8 @@ export default function ProfileEditor() {
                 type="text"
                 id="addressLine2"
                 className="large-textbox"
+                value={addressLine2}
+                onChange={(e) => setAddressLine2(e.target.value)}
               />
             </div>
 
@@ -201,7 +283,8 @@ export default function ProfileEditor() {
                 type="text"
                 id="zipCode"
                 className="small-textbox"
-                defaultValue="1216"
+                value={zipCode}
+                onChange={(e) => setZipCode(e.target.value)}
               />
             </div>
           </div>
@@ -210,7 +293,7 @@ export default function ProfileEditor() {
         {/* Buttons */}
         <div className="button-group">
           <button className="cancel-button">Cancel</button>
-          <button className="save-button">Save Changes</button>
+          <button className="save-button" onClick={handleSaveChanges}>Save Changes</button>
         </div>
       </div>
 
