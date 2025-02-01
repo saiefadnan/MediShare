@@ -23,7 +23,7 @@ const updateProfile = async (req, res) => {
       .eq('email', email)
       .single();
 
-    if (fetchError) {
+    if (fetchError && fetchError.message !== 'PGRST116') {
       console.error('Error fetching current profile data:', fetchError);
       throw fetchError;
     }
