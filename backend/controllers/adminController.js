@@ -127,6 +127,21 @@ const userRating = async (req, res) => {
     }
   }
 
+  const fetchImage = async(req, res)=>{
+    try{
+        const { id }=req.body;
+        const { data, error } = await supabase
+        .from("userInfo")
+        .select("image_url")
+        .eq("id", id);
+        const [image] = data;
+        if(error) return res.status(400).json({ error: error.message });
+        res.status(200).json(image);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }
+  }
+
 module.exports ={
     userRating,
     ratingChart,
@@ -134,5 +149,6 @@ module.exports ={
     userDetails,
     storeUserinfo,
     queryAdmins,
-    uploadImage
+    uploadImage,
+    fetchImage
 }

@@ -10,15 +10,22 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import axios from "axios";
 import { useAuth } from "../../Contexts/AuthContext";
+import useFetch from "../../hooks/useFetch";
 
 const AdminNavbar = ({Open}) => {
-   const {user} = useAuth();
+    const {user} = useAuth();
+    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/fetch-image',{id: user?.id});
+    console.log(data?.image_url)
     const [image, setImage] = useState(null);
     const drawerWidth = 240;
     const [open, setOpen] = Open;
     // const {open, setOpen} = useContext(StateContext);
     const [openNotif,setOpenNotif] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
+    
+    useEffect(()=>{
+        setImage(data);
+    },[data])
 
 
     // const AppBar = styled(MuiAppBar, {
@@ -160,7 +167,7 @@ const AdminNavbar = ({Open}) => {
         />
       <label htmlFor="file-input">
         <IconButton component="span" color="inherit">
-          <Avatar src={image} sx={{ width: 50, height: 50 }} />
+          <Avatar src={image} alt="avatar" sx={{ width: 50, height: 50 }} />
         </IconButton>
     </label>
         {openNotif && <NotificationPanel Open={[openNotif,setOpenNotif]} />}
