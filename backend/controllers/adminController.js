@@ -84,6 +84,7 @@ const userRating = async (req, res) => {
         .select("username, role, image_url")
         .neq("role", "user");
 
+        console.log(data);
         if(error) return res.status(400).json({ error: error.message });
         res.status(200).json(data);
     }catch(err){
