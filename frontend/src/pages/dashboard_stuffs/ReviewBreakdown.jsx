@@ -22,13 +22,13 @@ const ReviewBreakdown = () =>{
         setSelectedYear(e.target.value);
     }
 
-    if(isPending) {
-        return <Typography>Loading...</Typography>;
-    }
+    // if(isPending) {
+    //     return <Typography>Loading...</Typography>;
+    // }
     
-    if(error) {
-        return <Typography color="error">Error: {error}</Typography>;
-    }
+    // if(error) {
+    //     return <Typography color="error">Error: {error}</Typography>;
+    // }
     
     return(
     <Box style={{ 
@@ -63,6 +63,8 @@ const ReviewBreakdown = () =>{
             ))}
             </Select>
         </Box>
+        {!error && isPending && <Typography>Loading...</Typography>}
+        {error && <Typography color="error">Error: {error}</Typography>}
         <ResponsiveContainer width="100%" height={300}>
             <BarChart
                 layout="vertical"

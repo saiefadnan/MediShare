@@ -29,13 +29,13 @@ const ReviewChart = () => {
         setSelectedYear(e.target.value);
     }
 
-    if(isPending) {
-        return <Typography>Loading...</Typography>;
-    }
+    // if(isPending) {
+    //     return <Typography>Loading...</Typography>;
+    // }
     
-    if(error) {
-        return <Typography color="error">Error: {error}</Typography>;
-    }
+    // if(error) {
+    //     return <Typography color="error">Error: {error}</Typography>;
+    // }
   return (
     <Box sx={{ 
         width: '45%',
@@ -68,6 +68,8 @@ const ReviewChart = () => {
           ))}
         </Select>
       </Box>
+      {!error && isPending && <Typography>Loading...</Typography>}
+      {error && <Typography color="error">Error: {error}</Typography>}
       <ResponsiveContainer width="100%" height={300} style={{margin: '50px auto'}}>
         <BarChart data={data} margin={{ top: 20, right: 30, left: 0, bottom: 0 }}>
           <CartesianGrid strokeDasharray="3 3" />
