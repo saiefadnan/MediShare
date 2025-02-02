@@ -97,6 +97,10 @@ function LoginPage() {
     console.log("Google login clicked");
   };
 
+  const handleForgotPassword = () => {
+    navigate('/forgotPassword');
+  };
+
   const handleCreateAccountClick = () => {
     setFadeClass('fade-out');
     setTimeout(() => {
@@ -212,7 +216,7 @@ function LoginPage() {
               </button>
               <div className="links-container">
                 <p onClick={handleCreateAccountClick}>Create an account</p>
-                <p>Forgot password</p>
+                <p onClick={handleForgotPassword}>Forgot password</p>
               </div>
               <div className="separator">
                 <span style={{color: '#6B7280'}}>or with</span>
