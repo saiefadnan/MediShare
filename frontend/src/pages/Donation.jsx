@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useAuth } from '../Contexts/AuthContext';
 import '../styles/donation.css';
 import L from 'leaflet'; // Import Leaflet for the map
 import 'leaflet/dist/leaflet.css';
@@ -6,6 +7,7 @@ import 'leaflet/dist/leaflet.css';
 
 
 const Donation = () => {
+  const { user } = useAuth()
   const [formData, setFormData] = useState({
     medicineName: '',
     genericName: '',
@@ -23,6 +25,9 @@ const Donation = () => {
     e.preventDefault();
 
     try { 
+      const status='available'
+      const donorId = user.id
+      console.log("ID: ", donorId)
 
       const { medicineName, genericName,companyName,diseaseName, quantity, expiryDate, latitude, longitude, medicineImage } = formData;
 
@@ -41,6 +46,8 @@ const Donation = () => {
           latitude,
           longitude,
           medicineImage,
+          status,
+          donorId,
         }),
       });
 
