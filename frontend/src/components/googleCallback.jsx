@@ -7,20 +7,17 @@ const GoogleCallback = () => {
   const { login } = useAuth();
 
   useEffect(() => {
-    // Function to fetch user data after OAuth redirect
     const fetchUserData = async () => {
         console.log('fetchUserData');
       try {
         const response = await fetch('http://localhost:5000/api/user/google/success', {
-          credentials: 'include' // Important for cookies/session
+          credentials: 'include'
         });
         
         if (response.ok) {
           const data = await response.json();
           if (data.success && data.user) {
-            // Update AuthContext with Google user data
             login(data.user);
-            // Redirect to home or dashboard
             window.location.href = '/';
           }
         }

@@ -59,8 +59,9 @@ const Navbar = () => {
             <Avatar
               sx={{ bgcolor: '#304E42', cursor: 'pointer' }}
               onClick={handleAvatarClick}
+              src={user.image_url ? user.image_url : undefined}
             >
-              {user.email[0]}
+              {!user.image_url && user.username[0]}
             </Avatar>
             <Menu
               anchorEl={anchorEl}
@@ -76,7 +77,7 @@ const Navbar = () => {
               }}
             >
               <MenuItem onClick={profile}>Profile</MenuItem>
-              <MenuItem onClick={admin}>Admin</MenuItem>
+              {user.role === 'admin' && <MenuItem onClick={admin}>Admin</MenuItem>}
               <MenuItem onClick={logout}>Logout</MenuItem>
             </Menu>
           </>

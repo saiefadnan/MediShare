@@ -14,7 +14,6 @@ router.get(
   '/google/callback',
   passport.authenticate('google', {
     successRedirect: 'http://localhost:3000/auth/google/callback',
-    //failureRedirect: 'http://localhost:3000/login'
     failureRedirect: '/google/failed',
     failureFlash: true
   })
@@ -27,7 +26,8 @@ router.get('/google/success', (req, res) => {
     const userData = {
       id: req.user.id,
       email: req.user.emails[0].value,
-      name: req.user.displayName,
+      username: req.user.displayName,
+      image_url: req.user.photos[0].value
     };
     console.log('userData: ', userData);
     res.status(200).json({ 
