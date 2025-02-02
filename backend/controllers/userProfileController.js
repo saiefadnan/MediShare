@@ -1,6 +1,7 @@
 const multer = require('multer');
 const supabase = require('../config/supabase.js');
 const path = require('path');
+const { profile } = require('console');
 
 // Set up Multer Storage
 const storage = multer.memoryStorage();
@@ -8,16 +9,16 @@ const upload = multer({ storage: storage });
 
 // Upload Profile Picture to Supabase Storage and Save URL
 const updateProfile = async (req, res) => {
-  const { firstName, lastName, email, contactNumber, addressLine1, addressLine2, division, zipCode } = req.body;
+  const { firstName, lastName, email, contactNumber, addressLine1, addressLine2, division, zipCode,userId } = req.body;
   const profilePicture = req.file; // This is the uploaded image from the frontend
   
   // Log the data to check if everything is coming through correctly
-  console.log('Received data:', req.body);
-  console.log('Received file:', req.file);
+  
+  
   
   try {
     // Get the current profile picture URL (if any) from the database
-    const { data: currentData, error: fetchError } = await supabase
+    /*const { data: currentData, error: fetchError } = await supabase
       .from('updateprofile')
       .select('profile_picture_url')
       .eq('email', email)
@@ -26,10 +27,10 @@ const updateProfile = async (req, res) => {
     if (fetchError && fetchError.message !== 'PGRST116') {
       console.error('Error fetching current profile data:', fetchError);
       throw fetchError;
-    }
+    }*/
 
     // If a profile picture exists, delete the old one from Supabase Storage
-    if (currentData && currentData.profile_picture_url) {
+    /*if (currentData && currentData.profile_picture_url) {
       // Extract the file name from the current profile picture URL
       const oldFileName = path.basename(currentData.profile_picture_url); // Extract the file name from URL (e.g., 'profile-pictures/john_doe.jpg')
       console.log('Old file name:', oldFileName);
@@ -44,7 +45,7 @@ const updateProfile = async (req, res) => {
         console.error('Error deleting old profile picture:', deleteError);
         throw deleteError;
       }
-    }
+    }*/
 
     // If a profile picture is uploaded, upload to Supabase Storage
     if (profilePicture) {
@@ -60,6 +61,7 @@ const updateProfile = async (req, res) => {
           upsert: true,
           contentType: mimeType // Set MIME type explicitly
         });
+        console.log('Uploaded image data:', data);
 
       if (error) {
         console.error('Supabase upload error:', error);
@@ -70,7 +72,7 @@ const updateProfile = async (req, res) => {
       const publicUrl = supabase
         .storage
         .from('profile-pictures')
-        .getPublicUrl(fileName).publicURL;
+        .getPublicUrl(fileName).data.publicUrl;
 
       console.log('Uploaded image public URL:', publicUrl);
 
@@ -86,7 +88,8 @@ const updateProfile = async (req, res) => {
           address_line_2: addressLine2,
           division: division,
           zip_code: zipCode,
-          profile_picture_url: publicUrl,  // Save the URL to the profile picture
+          profile_picture_url: publicUrl,
+          id:userId  // Save the URL to the profile picture
         }]);
 
       if (updateError) {
@@ -113,6 +116,8 @@ const updateProfile = async (req, res) => {
           address_line_2: addressLine2,
           division: division,
           zip_code: zipCode,
+          profile_picture_url: publicUrl, // Set the profile picture URL to null
+          id:userId 
         }]);
 
       if (updateError) {

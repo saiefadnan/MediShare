@@ -1,3 +1,5 @@
+import { useAuth } from '../../Contexts/AuthContext.jsx';
+
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Cropper } from "react-cropper";
@@ -8,6 +10,9 @@ import "../../styles/sidebarUser.css";
 import "./userProfile.css";
 
 export default function ProfileEditor() {
+  const {user}=useAuth();
+  const userId=user?.id;
+
   const [profileImage, setProfileImage] = useState(null);
   const [imageToCrop, setImageToCrop] = useState(null);
   const cropperRef = useRef(null);
@@ -65,6 +70,7 @@ export default function ProfileEditor() {
     formData.append("addressLine2", addressLine2);
     formData.append("division", division);
     formData.append("zipCode", zipCode);
+    formData.append("userId", userId);
     
     // Append the profile image to FormData if it's available
     if (profileImage) {
