@@ -17,7 +17,8 @@ const donateMedicine = async (req, res) => {
             locx: latitude,
             locy: longitude,
             med_image: medicineImage ? medicineImage.name : null,
-            },
+            status: 'Available',
+            },  
         ]);
     
         if (error) {
@@ -30,7 +31,7 @@ const donateMedicine = async (req, res) => {
     } catch (err) {
         console.error('Unexpected error:', err);
         res.status(500).json({ success: false, message: 'An unexpected error occurred.' 
-            console.log('Your message here');
+           
 
         });
     }
