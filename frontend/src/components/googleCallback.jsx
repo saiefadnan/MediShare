@@ -1,27 +1,47 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useAuth } from '../Contexts/AuthContext';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 
 const GoogleCallback = () => {
   const { login } = useAuth();
+  const calledRef = useRef(false);
 
   useEffect(() => {
-    // Function to fetch user data after OAuth redirect
+    if (calledRef.current) return;
+    calledRef.current = true;
     const fetchUserData = async () => {
         console.log('fetchUserData');
       try {
         const response = await fetch('http://localhost:5000/api/user/google/success', {
-          credentials: 'include' // Important for cookies/session
+          credentials: 'include'
         });
         
         if (response.ok) {
           const data = await response.json();
           if (data.success && data.user) {
-            // Update AuthContext with Google user data
-            login(data.user);
-            // Redirect to home or dashboard
-            window.location.href = '/';
+            const response = await fetch('http://localhost:5000/api/user/signup', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                username: data.user.username,
+                email: data.user.email,
+                password: null, gateway: 'google',
+                image_url: data.user.image_url
+              }),
+            });
+  
+            const result = await response.json();
+            if (result.success) {
+              console.log('User signed up successfully:', result.user);
+              login(result.user);
+              window.location.href = '/';
+            } else {
+              console.error('Error signing up user:', result.message);
+              window.location.href = '/login';
+            }
           }
         }
       } catch (error) {

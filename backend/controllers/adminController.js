@@ -64,7 +64,7 @@ const userRating = async (req, res) => {
   const storeUserinfo = async(req, res)=>{
     try{
         const {email, username, status, role} = req.body;
-        console.log(req.body);
+        // console.log(req.body);
         const { data, error } = await supabase
         .from("userInfo")
         .update({username, status, role})
@@ -84,6 +84,7 @@ const userRating = async (req, res) => {
         .select("username, role, image_url")
         .neq("role", "user");
 
+        //console.log(data);
         if(error) return res.status(400).json({ error: error.message });
         res.status(200).json(data);
     }catch(err){
@@ -101,7 +102,7 @@ const userRating = async (req, res) => {
         const fileName = `${Date.now()}.${fileExt}`; 
         const filePath = `profile-pictures/${fileName}`; 
 
-        console.log(filePath);
+        // console.log(filePath);
         const { data, error } = await supabase.storage
         .from("profile-pictures") // Storage bucket name
         .upload(filePath, file.buffer, { contentType: file.mimetype });
@@ -127,6 +128,49 @@ const userRating = async (req, res) => {
     }
   }
 
+  const fetchImage = async(req, res)=>{
+    try{
+        const { id }=req.body;
+        const { data, error } = await supabase
+        .from("userInfo")
+        .select("image_url")
+        .eq("id", id);
+        const [image] = data;
+        if(error) return res.status(400).json({ error: error.message });
+        res.status(200).json(image);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }
+  }
+  const freqChart = async(req, res)=>{
+    try{
+        const { year }=req.body;
+        console.log(year);
+
+        const { data, error } = await supabase.rpc('get_freq_chartdata',{input_year: year})
+        console.log(data);
+        if(error) return res.status(400).json({ error: error.message });
+        res.status(200).json(data);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }
+  }
+
+  const pieChart = async(req,res)=>{
+    try{
+        const { year }=req.body;
+        console.log(year);
+
+        const { data, error } = await supabase.rpc('get_piedata',{input_year: year})
+        console.log(data);
+        const [piedata] = data;
+        if(error) return res.status(400).json({ error: error.message });
+        res.status(200).json(piedata);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }
+  }
+
 module.exports ={
     userRating,
     ratingChart,
@@ -134,5 +178,8 @@ module.exports ={
     userDetails,
     storeUserinfo,
     queryAdmins,
-    uploadImage
+    uploadImage,
+    fetchImage,
+    freqChart,
+    pieChart
 }

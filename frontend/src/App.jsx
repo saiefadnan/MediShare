@@ -9,7 +9,8 @@ import Ai from './pages/Ai';
 import AboutUs from './pages/AboutPage';
 import LoginPage from './pages/Login';
 import Contacts from './pages/ContactsPage.jsx';
-Contacts
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
 import Footer from './components/Footer';
 import GoogleCallback from './components/googleCallback';
@@ -25,6 +26,8 @@ function App() {
 
   const hideNavbarRoutes = [
     '/login',
+    '/forgotPassword',
+    '/reset-password/:token',
     '/userDashboard',
     '/userProfile',
     '/userRequests',
@@ -39,7 +42,9 @@ function App() {
   ];
 
   const hideFooterRoutes = [
-    '/login', 
+    '/login',
+    '/forgotPassword',
+    '/reset-password/:token',
     '/admin/dashboard',
     '/admin/collection',
     '/admin/donation',
@@ -72,6 +77,8 @@ function App() {
           <Route path="/admin/*" element={<Admin />} />
           <Route path="/airesult/*" element={< MedicineSearchResults />} />
           <Route path="/auth/google/callback" element={< GoogleCallback />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
         </Routes>
       </Suspense>
       {!hideFooterRoutes.includes(location.pathname) && <Footer/>}

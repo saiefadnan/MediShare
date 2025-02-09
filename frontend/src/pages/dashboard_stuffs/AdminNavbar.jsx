@@ -10,15 +10,20 @@ import FullscreenIcon from '@mui/icons-material/Fullscreen';
 import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import axios from "axios";
 import { useAuth } from "../../Contexts/AuthContext";
+import useFetch from "../../hooks/useFetch";
 
 const AdminNavbar = ({Open}) => {
-   const {user} = useAuth();
+    const {user} = useAuth();
+    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/fetch-image',{id: user?.id});
     const [image, setImage] = useState(null);
     const drawerWidth = 240;
     const [open, setOpen] = Open;
-    // const {open, setOpen} = useContext(StateContext);
     const [openNotif,setOpenNotif] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
+    
+    useEffect(()=>{
+        setImage(data?.image_url);
+    },[data])
 
 
     // const AppBar = styled(MuiAppBar, {
@@ -124,8 +129,7 @@ const AdminNavbar = ({Open}) => {
                 marginRight: 1,
                 color: 'black'
             },
-            open && { display: 'none' },
-            ]}>
+            open && { display: 'none' }]}>
                 <MenuIcon />
             </IconButton>
             <Box variant="h5" component="div" sx={{ 
@@ -142,7 +146,6 @@ const AdminNavbar = ({Open}) => {
                     fontSize: '20px',
                 }}>MediShare</Typography>
             </Box>
-           
             <IconButton onClick={handleToggleScreen}>
                 {fullscreen?<FullscreenExitIcon/>:<FullscreenIcon/> }
             </IconButton>
@@ -160,7 +163,7 @@ const AdminNavbar = ({Open}) => {
         />
       <label htmlFor="file-input">
         <IconButton component="span" color="inherit">
-          <Avatar src={image} sx={{ width: 50, height: 50 }} />
+          <Avatar src={user.image_url ? user.image_url : image} alt="avatar" sx={{ width: 50, height: 50 }} />
         </IconButton>
     </label>
         {openNotif && <NotificationPanel Open={[openNotif,setOpenNotif]} />}

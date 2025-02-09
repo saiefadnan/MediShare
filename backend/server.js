@@ -5,9 +5,7 @@ const cors = require('cors');
 const http = require('http');
 const server = http.createServer(app)
 const user = require('./routes/userRoute');
-
 const search = require('./routes/searchRoute');
-
 const admin = require('./routes/adminRoute');
 const donateMedicine = require('./routes/donationRoute');
 const session = require('express-session');
@@ -23,15 +21,11 @@ app.use(cors({
 }));
 app.use(express.static('public'))
 app.use(express.json())
-/*app.use((req, res, next) => {
+app.use((req, res, next) => {
   console.log(req.path, req.method)
   next()
 
-})*/
-
-// Basic route
-app.use('/api/user', user);
-app.use('/api', search);
+})
 
 
 app.use(session({
@@ -47,13 +41,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Basic route
-
+// Basic routes
 app.use('/api/admin',admin);
 app.use('/api/donation', donateMedicine);
-
-
-
 app.use('/api/user', user);
 app.use('/api', search);
 app.use('/api', userProfileRoute);

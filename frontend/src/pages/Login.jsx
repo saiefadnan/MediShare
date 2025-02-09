@@ -74,7 +74,7 @@ function LoginPage() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, email, password }),
+            body: JSON.stringify({ username, email, password, gateway: 'local', image_url: null }),
         });
 
         const result = await response.json();
@@ -95,6 +95,10 @@ function LoginPage() {
     e.preventDefault();
     window.location.href = 'http://localhost:5000/api/user/google';
     console.log("Google login clicked");
+  };
+
+  const handleForgotPassword = () => {
+    navigate('/forgotPassword');
   };
 
   const handleCreateAccountClick = () => {
@@ -212,7 +216,7 @@ function LoginPage() {
               </button>
               <div className="links-container">
                 <p onClick={handleCreateAccountClick}>Create an account</p>
-                <p>Forgot password</p>
+                <p onClick={handleForgotPassword}>Forgot password</p>
               </div>
               <div className="separator">
                 <span style={{color: '#6B7280'}}>or with</span>

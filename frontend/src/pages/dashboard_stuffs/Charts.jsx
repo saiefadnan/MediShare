@@ -1,8 +1,9 @@
 import { Box, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import useFetch from "../../hooks/useFetch";
 
-const data = [
+const data1 = [
   { name: 'JAN', donators: 4000, collectors: 2400 },
   { name: 'FEB', donators: 3000, collectors: 1398 },
   { name: 'MAR', donators: 2000, collectors: 9800 },
@@ -18,10 +19,11 @@ const data = [
 ];
 
 const Charts = () => {
-
   const currentYear = new Date().getFullYear();
-  const years = Array.from({length: 10},(_,i)=>currentYear-i);
   const [selectedYear, setSelectedYear] = useState(currentYear);
+  const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/chart=donators&collectors',{year: selectedYear});
+  console.log(data);
+  const years = Array.from({length: 10},(_,i)=>currentYear-i);
   const handleYear = (e)=>{
     setSelectedYear(e.target.value);
   }
@@ -57,10 +59,12 @@ const Charts = () => {
             ))}
           </Select>
         </Box>
+        {!error && isPending && <Typography>Loading...</Typography>}
+        {error && <Typography color="error">Error: {error}</Typography>}
         <ResponsiveContainer width="100%" height={300} style={{margin: '50px auto'}}>
         <LineChart data={data}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
+          <XAxis dataKey="month" />
           <YAxis />
           <Tooltip />
           <Legend />
