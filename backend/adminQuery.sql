@@ -209,15 +209,13 @@ RETURNS TABLE(stocked_meds INT, expired_meds INT) AS $$
 $$ LANGUAGE sql;
 
 
+create type avg_and_user_count as (avg_rating numeric, total_reviews integer, total_users integer);
 
-CREATE OR REPLACE FUNCTION get_average_rating(user_id INT)
-RETURNS NUMERIC AS $$
-DECLARE
-  avg_rating NUMERIC;
-BEGIN
-  SELECT COALESCE(AVG(rating), 0) INTO avg_rating
-  FROM "public"."userRating"
-  WHERE "user_id" = user_id;
-  RETURN avg_rating;
-END;
-$$ LANGUAGE plpgsql;
+create or replace function get_review_data () RETURNS avg_and_user_count as $$
+  SELECT 
+    round(COALESCE(AVG(rating), 0), 2) AS avg_rating,
+    (SELECT count(*) FROM "userRating") AS total_reviews,
+    (SELECT count(*) FROM "userInfo") AS total_users
+  FROM "userRating";
+$$ LANGUAGE sql;
+
