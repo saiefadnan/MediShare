@@ -1,12 +1,7 @@
 import { Box, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import React, { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
-const data = [
-  { name: 'Donators', value: 4000 },
-  { name: 'Collectors', value: 3000 },
-  { name: 'Others', value: 2000 },
-];
+import useFetch from "../../hooks/useFetch";
 
 const COLORS = ['#006AFF', '#52C93A', '#FF2727'];
 
@@ -14,6 +9,15 @@ const DonationPie = () => {
     const currentYear = new Date().getFullYear();
     const years = Array.from({length: 10},(_,i)=>currentYear-i);
     const [selectedYear, setSelectedYear] = useState(currentYear);
+    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/donation-pie',{year: selectedYear});
+    const pieData = data
+        ? [
+            { name: "Donation", value: data.donation },
+            { name: "Expired", value: data.expired },
+            { name: "Others", value: data.others },
+        ]
+        : [];
+    // console.log(data);
     const handleYear = (e)=>{
     setSelectedYear(e.target.value);
     }
@@ -28,7 +32,7 @@ const DonationPie = () => {
             border: "1px solid rgba(255, 255, 255, 0.3)", 
             boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
         }}>
-        <Typography variant="h6" >PieChart</Typography>
+        <Typography variant="h6" >Donation Analysis</Typography>
         <Box sx={{display: "flex",alignItems: "center", gap: 2}}>
             <InputLabel>Year </InputLabel>
             <Select
@@ -46,7 +50,7 @@ const DonationPie = () => {
             <ResponsiveContainer width="100%" height={310}>
                 <PieChart>
                     <Pie
-                        data={data}
+                        data={pieData}
                         dataKey="value"
                         nameKey="name"
                         cx="50%"
@@ -56,7 +60,7 @@ const DonationPie = () => {
                         fill="#8884d8"
                         label
                     >
-                        {data.map((entry, index) => (
+                        {pieData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index]} />
                         ))}
                     </Pie>

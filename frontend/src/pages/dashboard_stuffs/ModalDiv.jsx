@@ -1,16 +1,24 @@
 import { Avatar, Box, Button, Checkbox, Divider, FormControl, FormControlLabel, FormGroup, Modal, Radio, RadioGroup, Rating, TextField, Typography } from "@mui/material";
 import avatar1 from './Icons/image.png'
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useFetch from "../../hooks/useFetch";
 
-const ModalDiv = ({open, setOpen}) => {
+const ModalDiv = ({Open,Id,Status,Name}) => {
+    const [open, setOpen]=Open;
+    const [id,setId]=Id;
+    const [status, setStatus]= Status;
+    const [name, setName] = Name;
     const HandleClose=()=>{
         setOpen(!open);
     }
-    const [name, setName] = useState("User_01");
-    const [status, setStatus] = useState("Limited");
-    const [id, setId] = useState("202214091");
-    const [rating, setRating] = useState(4);
+    const [rating, setRating] = useState(0);
+    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/fetch-rating',{user_id: id});
 
+    useEffect(()=>{
+        console.log(data);
+        data?.rating?setRating(data.rating):setRating(0);
+    },[data])
+    console.log(data);
     return ( 
     <Modal
         open={open}
@@ -63,8 +71,8 @@ const ModalDiv = ({open, setOpen}) => {
                 value={status}
                 onChange={(e)=>setStatus(e.target.value)}
                 row>
-                    <FormControlLabel value="Regular" control={<Radio />} label="Regular" />
-                    <FormControlLabel value="Limited" control={<Radio />} label="Limited" />
+                    <FormControlLabel value="active" control={<Radio />} label="Regular" />
+                    <FormControlLabel value="restricted" control={<Radio />} label="Limited" />
                 </RadioGroup>
                 <Typography component="legend">Rating</Typography>
                 <Rating

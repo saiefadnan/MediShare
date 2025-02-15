@@ -23,7 +23,7 @@ const Admin = () => {
                 <Routes>
                     <Route path='/' element={<Navigate to={'/admin/dashboard'}/>}/>
                     <Route path='/dashboard' element={<AdminPortal/>}/>
-                    <Route path='/collection'  element={<CollectionPortal/>}/>
+                    {/* <Route path='/collection'  element={<CollectionPortal/>}/> */}
                     <Route path='/donation'  element={<DonationPortal/>}/>
                     <Route path='/chat'  element={<Chat/>}/>
                     <Route path='/accounts'  element={<AccountsPortal/>}/>

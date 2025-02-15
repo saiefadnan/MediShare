@@ -117,7 +117,7 @@ const AdminNavbar = ({Open}) => {
     },[fullscreen])
 
     return ( 
-        <AppBar position="fixed" open={open} sx={{backgroundColor: "#F6EFE4", }}>
+        <AppBar position="fixed" open={open} sx={{backgroundColor: "#F6EFE4" }}>
             <Toolbar>
             <IconButton
             color="inherit"
