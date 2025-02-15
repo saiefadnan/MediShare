@@ -12,7 +12,7 @@ const session = require('express-session');
 const passport = require('passport');
 const passportSetup = require('./config/passport');
 const userProfileRoute = require('./routes/userProfileRoute');
-
+const userDashboardRoutes = require('./routes/userDashboardRoute');
 
 app.use(cors({
   origin: 'http://localhost:3000',
@@ -42,11 +42,15 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Basic routes
+
 app.use('/api/admin',admin);
 app.use('/api/donation', donateMedicine);
 app.use('/api/user', user);
 app.use('/api', search);
 app.use('/api', userProfileRoute);
+
+app.use('/api/userDashboard', userDashboardRoutes);
+=======
 app.post('/chat', async (req, res) => {
   try {
       const { message } = req.body;
@@ -69,6 +73,7 @@ app.post('/chat', async (req, res) => {
       res.status(500).json({ error: error.message });
   }
 });
+
 
 
 // Start the server
