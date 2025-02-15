@@ -48,7 +48,12 @@ app.use('/api/donation', donateMedicine);
 app.use('/api/user', user);
 app.use('/api', search);
 app.use('/api', userProfileRoute);
+
 app.use('/api/userDashboard', userDashboardRoutes);
+
+
+
+//app.use('/api/userDashboard', userDashboardRoutes);
 
 app.post('/chat', async (req, res) => {
   try {
