@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -9,6 +9,8 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { useAuth } from '../Contexts/AuthContext.jsx';
+import axios from 'axios';
 import '../styles/userDash.css'; 
 import heartIcon from '../assets/icons8-medicine-48.png';
 import parcelIcon from '../assets/icons8-parcel-48.png';
@@ -17,12 +19,20 @@ import MediShareLogo from '../assets/medisharelogo.png';
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 function UserDashboard() {
-  const [nextKey, setNextKey] = useState(4); // Start after the last uniqueKey in the initial state
-  const [items, setItems] = useState([
-    { uniqueKey: 1, id: 1, name: 'Napa Extra', qty: 11, expiry: '05 Dec 24' },
-    { uniqueKey: 2, id: 2, name: 'Paracetamol', qty: 20, expiry: '10 Jan 25' },
-    { uniqueKey: 3, id: 3, name: 'Ibuprofen', qty: 15, expiry: '15 Feb 25' },
-  ]);
+
+  const { user } = useAuth();
+  const email = user?.email; 
+  const userId = user?.id;  
+  const [nextKey, setNextKey] = useState(4); 
+  const [items, setItems] = useState([]);
+  const [donationsData, setDonationsData] = useState({ donated: 0, received: 0 });
+  const [userData, setUserData] = useState(null);
+  //const [nextKey, setNextKey] = useState(4); // Start after the last uniqueKey in the initial state
+  //const [items, setItems] = useState([
+    //{ uniqueKey: 1, id: 1, name: 'Napa Extra', qty: 11, expiry: '05 Dec 24' },
+    //{ uniqueKey: 2, id: 2, name: 'Paracetamol', qty: 20, expiry: '10 Jan 25' },
+   // { uniqueKey: 3, id: 3, name: 'Ibuprofen', qty: 15, expiry: '15 Feb 25' },
+  //]);
   
 
  /* const [moreItems, setMoreItems] = useState([
@@ -34,6 +44,63 @@ function UserDashboard() {
   const [editingItemId, setEditingItemId] = useState(null);
   const [editValues, setEditValues] = useState({ id: '', name: '', qty: '' });
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        
+        const response = await axios.post("http://localhost:5000/api/userDashboard/dashboardData", { email });
+        if (response.data.success) {
+          setUserData(response.data.data);
+        }
+
+        
+        const donationsResponse = await axios.post("http://localhost:5000/api/userDashboard/donationsData", { email });
+        if (donationsResponse.data.success) {
+          setDonationsData(prevData => ({
+            ...prevData,
+            donated: donationsResponse.data.data.donated, 
+            received: donationsResponse.data.data.received 
+          }));
+          console.log("Donations Data: ", donationsResponse.data.data);
+        }
+
+        const availableMedicinesResponse = await axios.post("http://localhost:5000/api/userDashboard/availableMedicinesData", { email });
+        if (availableMedicinesResponse.data.success) {
+          const availableData = availableMedicinesResponse.data.data;
+          setDonationsData(prevData => ({
+            ...prevData,
+            totalAvailable: [availableData.December, availableData.January, availableData.February] // Set the data for the red bar
+          }));
+        }
+
+       
+        const monthlyReceivedResponse = await axios.post("http://localhost:5000/api/userDashboard/monthlyReceivedData", { email });
+        if (monthlyReceivedResponse.data.success) {
+          const receivedData = monthlyReceivedResponse.data.data;
+          setDonationsData(prevData => ({
+            ...prevData,
+            totalReceived: [receivedData.December, receivedData.January, receivedData.February] 
+          }));
+        }
+
+        
+        const receivedResponse = await axios.post("http://localhost:5000/api/userDashboard/receivedDataForUser", { email });
+        if (receivedResponse.data.success) {
+          setUserData(prevData => ({
+            ...prevData,
+            received: receivedResponse.data.data 
+          }));
+        }
+  
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+  
+    fetchData();
+  }, [email]);
+
+  
 
   const handleLoadMore = () => {
     const newItems = [
@@ -88,18 +155,18 @@ function UserDashboard() {
 
   // Data for the Chart
   const data = {
-    labels: ['January', 'February', 'March'],
+    labels: ['December', 'January', 'February'],
     datasets: [
       {
         label: 'Donations',
-        data: [23, 15, 30],
+        data: donationsData.totalAvailable,
         backgroundColor: '#ff6b6b',
         borderColor: '#ff6b6b',
         borderRadius: 5,
       },
       {
         label: 'Received',
-        data: [12, 19, 22],
+        data: donationsData.totalReceived,
         backgroundColor: '#9c88ff',
         borderColor: '#9c88ff',
         borderRadius: 5,
@@ -128,9 +195,9 @@ function UserDashboard() {
     {/* Sidebar */}
 <div className="sidebar">
   <div className="profile">
-    <img src="https://via.placeholder.com/80" alt="Profile" />
-    <h2>John Smith</h2>
-    <p>johnsmith@gmail.com</p>
+    <img src={userData?.profile_picture_url || "https://via.placeholder.com/80"} alt="Profile" />
+    <h2>{userData?.first_name} {userData?.last_name}</h2>
+    <p>{userData?.email}</p>
   </div>
 
   {/* Sidebar Menu */}
@@ -184,12 +251,12 @@ function UserDashboard() {
         <div className="dashboard-cards">
           <div className="dashboard-card donated">
             <img src={heartIcon} alt="Heart Icon" className="heart-icon" />
-            <h3>8</h3>
+            <h3>{donationsData.donated}</h3>
             <p>Donated</p>
           </div>
           <div className="dashboard-card received">
             <img src={parcelIcon} alt="Parcel Icon" className="parcel-icon" />
-            <h3>3</h3>
+            <h3>{donationsData.received}</h3>
             <p>Received</p>
           </div>
         </div>
