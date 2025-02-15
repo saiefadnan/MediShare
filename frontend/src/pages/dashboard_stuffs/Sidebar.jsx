@@ -95,7 +95,7 @@ const Sidebar = ({Open})=> {
   const handleDrawer = () => {
     setOpen(!open);
   };
-  const Menu = ['DashBoard',/*'Collection'*/,'Donation'];
+  const Menu = ['DashBoard',/*'Collection'*/,'Impact Analytics'];
   const Manage = ['Accounts', "Users' Review", 'Sign out'];
 
   return (

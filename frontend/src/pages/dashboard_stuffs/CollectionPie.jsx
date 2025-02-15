@@ -37,7 +37,7 @@ const CollectionPie = () => {
             border: "1px solid rgba(255, 255, 255, 0.3)", 
             boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
         }}>
-        <Typography variant="h6" >Collection Analysis</Typography>
+        <Typography variant="h6" >Collection Analytics</Typography>
         <Box sx={{display: "flex",alignItems: "center", gap: 2}}>
             <InputLabel>Year </InputLabel>
             <Select
