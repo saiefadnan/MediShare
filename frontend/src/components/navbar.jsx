@@ -47,7 +47,7 @@ const Navbar = () => {
   return (
     <AppBar position="sticky" sx={{backgroundColor: "#F6EFE4"}}>
       <Toolbar>
-        <Typography variant="h5" component="div" sx={{ flexGrow: 1 ,color: 'black', marginLeft: "50px"}}>
+        <Typography variant="h5" component="div" sx={{ flexGrow: 1 ,color: 'black', marginLeft: "50px"}} onClick={home} style={{cursor: 'pointer'}}>
           <span style={{display: 'flex', alignItems: 'center'}}><img src={Logo} alt='Logo' style={{marginRight:'5px', width: '3.5%'}}></img>
           <text style={{fontFamily:'Outfit', fontWeight: '600'}}>MediShare</text></span>
         </Typography>

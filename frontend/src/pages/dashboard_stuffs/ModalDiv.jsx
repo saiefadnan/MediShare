@@ -1,16 +1,38 @@
 import { Avatar, Box, Button, Checkbox, Divider, FormControl, FormControlLabel, FormGroup, Modal, Radio, RadioGroup, Rating, TextField, Typography } from "@mui/material";
-import avatar1 from './Icons/image.png'
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import useFetch from "../../hooks/useFetch";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 
-const ModalDiv = ({open, setOpen}) => {
+const ModalDiv = ({Open,Id,Status,Name,Image,updateUserStatus}) => {
+    const [open, setOpen]=Open;
+    const [id,setId]=Id;
+    const [status, setStatus]= Status;
+    const [name, setName] = Name;
+    const [image, setImage] = Image;
+    console.log(status);
     const HandleClose=()=>{
         setOpen(!open);
     }
-    const [name, setName] = useState("User_01");
-    const [status, setStatus] = useState("Limited");
-    const [id, setId] = useState("202214091");
-    const [rating, setRating] = useState(4);
+    const HandleUpdate=async()=>{
+            try{
+                const response = await axios.post('http://localhost:5000/api/admin/update-userinfo', { user_id: id, status: status });
+                if(response?.data?.message==="update successful"){
+                    toast.success("status updated!");
+                    updateUserStatus(id,status);
+                }
+            }catch(err){
+                console.error('Error fetching suggestions:', err);
+            }
+    }
+    const [rating, setRating] = useState(0);
+    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/fetch-rating',{user_id: id});
 
+    useEffect(()=>{
+        console.log(data);
+        data?.rating?setRating(data.rating):setRating(0);
+    },[data])
+    console.log(data);
     return ( 
     <Modal
         open={open}
@@ -32,12 +54,13 @@ const ModalDiv = ({open, setOpen}) => {
                 p: 4,
                 borderRadius: 1,
             }}>
+                <Toaster/>
             <Typography id="modal-title" variant="h6" component="h2">
                 User's Info
             </Typography>
             <Divider sx={{backgroundColor: '#E0E0E0'}}/>
             <FormControl component="fieldset" sx={{width: '100%',}}>
-                <Avatar src={avatar1} 
+                <Avatar src={image} 
                 sx={{
                     height: '100px',
                     width: '100px',
@@ -57,14 +80,15 @@ const ModalDiv = ({open, setOpen}) => {
                     variant="standard"
                     size="small"
                     fullWidth
-                    sx={{mb: 2}}/>
+                    sx={{mb: 2}}
+                    rea/>
                 <Typography component="legend">Status</Typography>
                 <RadioGroup
                 value={status}
                 onChange={(e)=>setStatus(e.target.value)}
                 row>
-                    <FormControlLabel value="Regular" control={<Radio />} label="Regular" />
-                    <FormControlLabel value="Limited" control={<Radio />} label="Limited" />
+                    <FormControlLabel value="active" control={<Radio />} label="Regular" />
+                    <FormControlLabel value="restricted" control={<Radio />} label="Limited" />
                 </RadioGroup>
                 <Typography component="legend">Rating</Typography>
                 <Rating
@@ -73,8 +97,9 @@ const ModalDiv = ({open, setOpen}) => {
                     onChange={(event, newValue) => {
                         setRating(newValue);
                     }}
-                    sx={{mb: 2}}/>
-                <Button variant="contained" color='primary' onClick={HandleClose} sx={{ mb: 2 ,alignSelf: 'end'}}>
+                    sx={{mb: 2}}
+                    readOnly/>
+                <Button variant="contained" color='primary' onClick={HandleUpdate} sx={{ mb: 2 ,alignSelf: 'end'}}>
                     Save
                 </Button>
             </FormControl>

@@ -279,3 +279,66 @@
   margin: 0 auto;
   font-family: 'Roboto', serif;
 }
+
+/* Scroll to top button */
+.ScrollToTop {
+  width: 50px;
+  height: 50px;
+  border-radius: 20%;
+  background-color: #1b4552;
+  border: none;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  cursor: pointer;
+  transition-duration: 0.3s;
+  overflow: hidden;
+  position: fixed;;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.svgIcon69 {
+  width: 12px;
+  transition-duration: 0.3s;
+}
+
+.svgIcon69 path {
+  fill: #e9e9e9;
+}
+
+.ScrollToTop:hover {
+  width: 140px;
+  border-radius: 15px;
+  transition-duration: 0.3s;
+  background-color: #1b4552;
+  align-items: center;
+}
+
+.ScrollToTop:hover .svgIcon69 {
+  /* width: 20px; */
+  transition-duration: 0.3s;
+  transform: translateY(-200%);
+}
+
+.ScrollToTop::before {
+  position: absolute;
+  bottom: -20px;
+  content: "Back to Top";
+  color: #e9e9e9;
+  /* transition-duration: .3s; */
+  font-size: 0px;
+}
+
+.ScrollToTop:hover::before {
+  font-family: 'Roboto', sans-serif;
+  font-size: 15px;
+  opacity: 1;
+  bottom: unset;
+  /* transform: translateY(-30px); */
+  transition-duration: 0.3s;
+}
+

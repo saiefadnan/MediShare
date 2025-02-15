@@ -117,7 +117,7 @@ const AdminNavbar = ({Open}) => {
     },[fullscreen])
 
     return ( 
-        <AppBar position="fixed" open={open} sx={{backgroundColor: "#F6EFE4", }}>
+        <AppBar position="fixed" open={open} sx={{backgroundColor: "#F6EFE4" }}>
             <Toolbar>
             <IconButton
             color="inherit"
@@ -149,11 +149,11 @@ const AdminNavbar = ({Open}) => {
             <IconButton onClick={handleToggleScreen}>
                 {fullscreen?<FullscreenExitIcon/>:<FullscreenIcon/> }
             </IconButton>
-            <IconButton color="black" onClick={handlePanel}>
+            {/* <IconButton color="black" onClick={handlePanel}>
                 <Badge badgeContent={4} color="error">
                     <NotificationsIcon/> 
                 </Badge>
-            </IconButton>
+            </IconButton> */}
         <input
             type="file"
             accept="image/*"

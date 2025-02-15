@@ -62,6 +62,8 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
   ({ theme }) => ({
+    minHeight:'100vh',
+    // filter: 'invert(1)',
     width: drawerWidth,
     flexShrink: 0,
     whiteSpace: 'nowrap',
@@ -93,7 +95,7 @@ const Sidebar = ({Open})=> {
   const handleDrawer = () => {
     setOpen(!open);
   };
-  const Menu = ['DashBoard','Collection','Donation'];
+  const Menu = ['DashBoard',/*'Collection'*/,'Impact Analytics'];
   const Manage = ['Accounts', "Users' Review", 'Sign out'];
 
   return (
