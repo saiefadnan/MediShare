@@ -173,7 +173,7 @@ const userRating = async (req, res) => {
   const dataGrid = async(req, res)=>{
     try{
         const {year, limit}=req.body;
-        //const { data, error } = await supabase.rpc('get_datagrid',{input_year: year, input_limit: limit})
+        const { data, error } = await supabase.rpc('get_datagrid',{input_year: year, input_limit: limit})
         //console.log(data);
         if(error) return res.status(400).json({ error: error.message });
         res.status(200).json(data);
@@ -256,8 +256,7 @@ const userRating = async (req, res) => {
         .update({ status: status })
         .eq("id", user_id);
         if(error) return res.status(400).json({ error: error.message });
-        //const [value]=data;
-        res.status(200).json(value);
+        res.status(200).json({message: "update successful"});
     }catch(err){
         res.status(500).json({ error: 'Something went wrong!' });
     }    
