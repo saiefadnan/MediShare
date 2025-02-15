@@ -1,6 +1,5 @@
 import { useAuth } from '../../Contexts/AuthContext.jsx';
-
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Cropper } from "react-cropper";
 import "cropperjs/dist/cropper.css";
@@ -11,7 +10,7 @@ import "./userProfile.css";
 
 export default function ProfileEditor() {
   const {user}=useAuth();
-  const userId=user?.id;
+  const userId=user.id;
 
   const [profileImage, setProfileImage] = useState(null);
   const [imageToCrop, setImageToCrop] = useState(null);
