@@ -1,15 +1,29 @@
 import { Avatar, Box, Button, Checkbox, Divider, FormControl, FormControlLabel, FormGroup, Modal, Radio, RadioGroup, Rating, TextField, Typography } from "@mui/material";
-import avatar1 from './Icons/image.png'
 import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 
-const ModalDiv = ({Open,Id,Status,Name}) => {
+const ModalDiv = ({Open,Id,Status,Name,Image,updateUserStatus}) => {
     const [open, setOpen]=Open;
     const [id,setId]=Id;
     const [status, setStatus]= Status;
     const [name, setName] = Name;
+    const [image, setImage] = Image;
+    console.log(status);
     const HandleClose=()=>{
         setOpen(!open);
+    }
+    const HandleUpdate=async()=>{
+            try{
+                const response = await axios.post('http://localhost:5000/api/admin/update-userinfo', { user_id: id, status: status });
+                if(response?.data?.message==="update successful"){
+                    toast.success("status updated!");
+                    updateUserStatus(id,status);
+                }
+            }catch(err){
+                console.error('Error fetching suggestions:', err);
+            }
     }
     const [rating, setRating] = useState(0);
     const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/fetch-rating',{user_id: id});
@@ -40,12 +54,13 @@ const ModalDiv = ({Open,Id,Status,Name}) => {
                 p: 4,
                 borderRadius: 1,
             }}>
+                <Toaster/>
             <Typography id="modal-title" variant="h6" component="h2">
                 User's Info
             </Typography>
             <Divider sx={{backgroundColor: '#E0E0E0'}}/>
             <FormControl component="fieldset" sx={{width: '100%',}}>
-                <Avatar src={avatar1} 
+                <Avatar src={image} 
                 sx={{
                     height: '100px',
                     width: '100px',
@@ -65,7 +80,8 @@ const ModalDiv = ({Open,Id,Status,Name}) => {
                     variant="standard"
                     size="small"
                     fullWidth
-                    sx={{mb: 2}}/>
+                    sx={{mb: 2}}
+                    rea/>
                 <Typography component="legend">Status</Typography>
                 <RadioGroup
                 value={status}
@@ -81,8 +97,9 @@ const ModalDiv = ({Open,Id,Status,Name}) => {
                     onChange={(event, newValue) => {
                         setRating(newValue);
                     }}
-                    sx={{mb: 2}}/>
-                <Button variant="contained" color='primary' onClick={HandleClose} sx={{ mb: 2 ,alignSelf: 'end'}}>
+                    sx={{mb: 2}}
+                    readOnly/>
+                <Button variant="contained" color='primary' onClick={HandleUpdate} sx={{ mb: 2 ,alignSelf: 'end'}}>
                     Save
                 </Button>
             </FormControl>

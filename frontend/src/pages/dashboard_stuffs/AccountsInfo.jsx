@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Avatar, Box, Button, LinearProgress} from '@mui/material';
 import check from './Icons/check.png'
@@ -7,17 +7,31 @@ import ModalDiv from './ModalDiv';
 import useFetch from '../../hooks/useFetch';
 
 const AccountsPortal = () => {
+  const [info, setInfo]= useState({});
   const [open, setOpen]= useState(false);
   const [name, setName]= useState(null);
+  const [image, setImage]= useState(null);
   const [status, setStatus] = useState(null);
   const [id, setId]= useState(0);
   const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/user-data');
-  const HandleOpen = (id, status, name)=>{
+  useEffect(()=>{
+    setInfo(data);
+  },[data])
+  const HandleOpen = (id, status, name, image)=>{
     setOpen(!open);
     setId(id);
     setStatus(status);
     setName(name);
+    setImage(image);
   }
+
+  const updateUserStatus = (userId, newStatus) => {
+    setInfo(prevData =>
+      prevData.map(user =>
+        user.id === userId ? { ...user, status: newStatus } : user
+      )
+    );
+  };
   
   const columns = [
     { field: 'image_url', headerName: 'Avatar', width: 200,
@@ -101,7 +115,7 @@ const AccountsPortal = () => {
     renderCell: (params)=>(
       <Box>
         <Button 
-        onClick={()=>HandleOpen(params.value, params.row.status, params.row.username)}
+        onClick={()=>HandleOpen(params.value, params.row.status, params.row.username,params.row.image_url)}
         variant='contained'
         size='small'
         sx={{
@@ -116,7 +130,7 @@ const AccountsPortal = () => {
   return (
         <Box sx={{ height: 750, width: '100%',}}>
           <DataGrid 
-            rows={data} 
+            rows={info} 
             columns={columns} 
             pageSize={5} 
             rowsPerPageOptions={[10]} 
@@ -140,6 +154,8 @@ const AccountsPortal = () => {
             Id={[id, setId]}
             Status={[status, setStatus]}
             Name={[name, setName]}
+            Image={[image, setImage]}
+            updateUserStatus={updateUserStatus}
           />}
         </Box>
   );

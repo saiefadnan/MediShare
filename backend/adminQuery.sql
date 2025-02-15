@@ -182,3 +182,42 @@ $$
     GROUP BY u.id, u.username, u.email, u.image_url, u.status, tc.don_cont, tc.col_cont
     ORDER BY donation_contribution DESC, collection_contribution ASC;
 $$ language sql;
+
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-P5F57XFR');</script>
+<!-- End Google Tag Manager -->
+
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-P5F57XFR"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+
+CREATE OR REPLACE FUNCTION calculate_medicine_stats()
+RETURNS TABLE(stocked_meds INT, expired_meds INT) AS $$
+  SELECT
+    COALESCE(SUM(CASE WHEN status = 'available' THEN quantity ELSE 0 END), 0) AS stocked_meds,
+    COALESCE(SUM(CASE WHEN expiry_date < CURRENT_DATE THEN quantity ELSE 0 END), 0) AS expired_meds
+  FROM medicine;
+$$ LANGUAGE sql;
+
+
+
+CREATE OR REPLACE FUNCTION get_average_rating(user_id INT)
+RETURNS NUMERIC AS $$
+DECLARE
+  avg_rating NUMERIC;
+BEGIN
+  SELECT COALESCE(AVG(rating), 0) INTO avg_rating
+  FROM "public"."userRating"
+  WHERE "user_id" = user_id;
+  RETURN avg_rating;
+END;
+$$ LANGUAGE plpgsql;

@@ -4,8 +4,11 @@ import heart from '../dashboard_stuffs/Icons/heart.png'
 import history from '../dashboard_stuffs/Icons/history.png'
 import saving from '../dashboard_stuffs/Icons/saving.png'
 import time from '../dashboard_stuffs/Icons/time.png'
+import useFetch from '../../hooks/useFetch';
 
 const Cards = () => {
+    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/dashcards');
+    console.log(data);
     return ( 
         <Box sx={{ 
             display: 'flex', 
@@ -25,15 +28,15 @@ const Cards = () => {
                 <Typography variant="h6">
                     <img src={heart} style={{padding: '0px 10px 0px 0px'}}></img>
                     Stocked Meds</Typography>
-                <Typography variant="h5" sx={{ fontWeight: 'bold' }}>Total 12,200</Typography>
+                <Typography variant="h5" sx={{ fontWeight: 'bold' }}>Total {data?.stocked_meds}</Typography>
             </Card>
             <Card sx={{ padding: '20px', backgroundColor: ' #FFF4DE', height: '130px', width: '280px', margin: '20px auto'}}>
                 <Typography variant="h6">
                     <img src={time} style={{padding: '0px 10px 0px 0px'}}></img>
                     Expired Meds</Typography>
-                <Typography variant="h5" sx={{ fontWeight: 'bold', }}>Total 12,200</Typography>
+                <Typography variant="h5" sx={{ fontWeight: 'bold', }}>Total {data?.expired_meds}</Typography>
             </Card>
-            <Card sx={{ padding: '20px', backgroundColor: ' #DCFCE7', height: '130px', width: '280px', margin: '20px auto'}}>
+            {/* <Card sx={{ padding: '20px', backgroundColor: ' #DCFCE7', height: '130px', width: '280px', margin: '20px auto'}}>
                 <Typography variant="h6">
                 <img src={saving} style={{padding: '0px 10px 0px 0px'}}></img>
                 Success Rate</Typography>
@@ -44,7 +47,7 @@ const Cards = () => {
                 <img src={history} style={{padding: '0px 10px 0px 0px'}}></img>
                     Popularity</Typography>
                 <Typography variant="h5" sx={{ fontWeight: 'bold' }}>43%</Typography>
-            </Card>
+            </Card> */}
         </Box>
      );
 }

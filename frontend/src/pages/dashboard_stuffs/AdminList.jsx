@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, IconButton, Box, Avatar } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import avatar1 from '../dashboard_stuffs/Icons/avatar1.png'
-import avatar2 from '../dashboard_stuffs/Icons/avatar2.png'
-import avatar3 from '../dashboard_stuffs/Icons/avatar3.png'
 import { GridAddIcon } from '@mui/x-data-grid';
 import SearchUsers from './SearchUsers';
-import { Button } from 'react-bootstrap';
 import useFetch from '../../hooks/useFetch';
 
 const AdminList = () => {

@@ -1,5 +1,4 @@
 const supabase = require('../config/supabase.js');
-const { param } = require('../routes/userRoute.js');
 
 const userRating = async (req, res) => {
     try {
@@ -174,8 +173,8 @@ const userRating = async (req, res) => {
   const dataGrid = async(req, res)=>{
     try{
         const {year, limit}=req.body;
-        const { data, error } = await supabase.rpc('get_datagrid',{input_year: year, input_limit: limit})
-        console.log(data);
+        //const { data, error } = await supabase.rpc('get_datagrid',{input_year: year, input_limit: limit})
+        //console.log(data);
         if(error) return res.status(400).json({ error: error.message });
         res.status(200).json(data);
     }catch(err){
@@ -186,9 +185,9 @@ const userRating = async (req, res) => {
   const donationPie = async(req,res)=>{
     try{
         const { year }=req.body;
-        console.log(year);
+        //console.log(year);
         const { data, error } = await supabase.rpc('get_donation_piedata',{input_year: year})
-        console.log(data);
+        //console.log(data);
         const [piedata] = data;
         if(error) return res.status(400).json({ error: error.message });
         res.status(200).json(piedata);
@@ -199,9 +198,9 @@ const userRating = async (req, res) => {
   const collectionPie = async(req,res)=>{
     try{
         const { year }=req.body;
-        console.log(year);
+        //console.log(year);
         const { data, error } = await supabase.rpc('get_collection_piedata',{input_year: year})
-        console.log(data);
+        //console.log(data);
         const [piedata] = data;
         if(error) return res.status(400).json({ error: error.message });
         res.status(200).json(piedata);
@@ -214,7 +213,7 @@ const userRating = async (req, res) => {
     try{
         const { data, error } = await supabase.rpc('get_weekly_comparison_data');
         if(error) return res.status(400).json({ error: error.message });
-        console.log(data);
+        //console.log(data);
         res.status(200).json(data);
     }catch(err){
         res.status(500).json({ error: 'Something went wrong!' });
@@ -225,7 +224,7 @@ const userRating = async (req, res) => {
     try{
         const { data, error } = await supabase.rpc('get_user_data');
         if(error) return res.status(400).json({ error: error.message });
-        console.log(data);
+        //console.log(data);
         res.status(200).json(data);
     }catch(err){
         res.status(500).json({ error: 'Something went wrong!' });
@@ -241,8 +240,46 @@ const userRating = async (req, res) => {
         .eq("user_id", user_id);
         if(error) return res.status(400).json({ error: error.message });
         const [value]=data;
-        console.log(value);
+        //console.log(value);
         res.status(200).json(value);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }    
+  }
+
+  const updateUserinfo = async(req, res)=>{
+    try{
+        const {user_id, status}=req.body;
+        //console.log(user_id,status);
+        const { data, error } = await supabase
+        .from("userInfo")
+        .update({ status: status })
+        .eq("id", user_id);
+        if(error) return res.status(400).json({ error: error.message });
+        //const [value]=data;
+        res.status(200).json(value);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }    
+  }
+
+  const dashCards = async(req, res)=>{
+    try{
+        const { data, error } = await supabase.rpc('calculate_medicine_stats');
+        if(error) return res.status(400).json({ error: error.message });
+        const [value]=data;
+        res.status(200).json(value);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }    
+  }
+
+  const reviewCards = async(req, res)=>{
+    try{
+        let { data, error } = await supabase.rpc('get_review_data');
+        if(error) return res.status(400).json({ error: error.message });
+        console.log(data);
+        res.status(200).json(data);
     }catch(err){
         res.status(500).json({ error: 'Something went wrong!' });
     }    
@@ -265,5 +302,8 @@ module.exports ={
     collectionPie,
     comparisonData,
     userData,
-    fetchRating
+    fetchRating,
+    updateUserinfo,
+    dashCards,
+    reviewCards
 }

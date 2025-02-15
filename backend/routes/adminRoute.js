@@ -1,6 +1,6 @@
 const express =  require('express');
 const multer = require('multer');
-const { userRating, ratingChart, queryUsers, userDetails, storeUserinfo, queryAdmins, uploadImage, fetchImage, freqChart, pieChart, dataGrid, donationPie, collectionPie, comparisonData, userData, editUser, fetchRating} = require('../controllers/adminController');
+const { userRating, ratingChart, queryUsers, userDetails, storeUserinfo, queryAdmins, uploadImage, fetchImage, freqChart, pieChart, dataGrid, donationPie, collectionPie, comparisonData, userData, editUser, fetchRating, updateUserinfo, dashCards, reviewCards} = require('../controllers/adminController');
 const { route } = require('./userRoute');
 const router = express.Router();
 
@@ -25,6 +25,10 @@ router.post('/collection-pie',collectionPie);
 router.post('/comparison-data',comparisonData);
 router.post('/user-data',userData);
 router.post('/fetch-rating',fetchRating);
+router.post('/update-userinfo', updateUserinfo);
+router.post('/dashcards',dashCards)
+router.post('/reviewcards',reviewCards)
+
 
 module.exports = router;
 
