@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { fadeIn   } from '../variants';
+import { useAuth } from '../Contexts/AuthContext'; 
 import '../styles/home.css';
 import heroImage from '../assets/humanitarian-help-animate.svg';
 import ourImpact1 from '../assets/donation.png';
@@ -21,25 +22,63 @@ import abrar from '../assets/abrar.jpeg';
 import contact from '../assets/contact.svg';
 
 function Home() {
+  const { user } = useAuth();
   const [imageKey, setImageKey] = useState(Math.random());
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
   const donate = () => {
-    window.location.href='/donation'
+    if(user){
+      window.location.href='/donation'
+    }else{
+      window.location.href='/login'
+    }
+  }
+  const contacts = () => {
+    window.location.href='/contacts'
   }
   const findmed = () => {
-    window.location.href='/findmed'
+    if(user){
+      window.location.href='/findmed'
+    }else{
+      window.location.href='/login'
+    }
   }
 
   const getAI = () => {
-    window.location.href='/ai'
+    if(user){
+      window.location.href='/ai'
+    }else{
+      window.location.href='/login'
+    }
   }
+
+  const aboutUs = () => {
+    window.location.href='/about'
+  }
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   useEffect(() => {
     setImageKey(Math.random());
+
+    const handleScroll = () => {
+      if (window.scrollY > 200) {
+        setShowScrollToTop(true);
+      } else {
+        setShowScrollToTop(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   return (
     <div className="Home">
-
       <section className="hero">
         <div className="hero-content">
           <motion.div className="hero-text"
@@ -245,7 +284,7 @@ function Home() {
                       <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: '1.5%', border: '1px solid #7C7573' }}>
                         <img src={approach4} style={{width: '80px'}}></img><br/>
                         <h6 style={{color: '#5E5C59', fontFamily: 'Roboto' }}>About Us</h6>
-                        <h5 className='h5-hover'>Learn More</h5>
+                        <button style={{backgroundColor: 'transparent', border: '0'}} onClick={aboutUs}><h5 className='h5-hover'>Learn More</h5></button>
                         <div style={{ maxWidth: '80%', textAlign: 'center', fontFamily: 'Roboto', fontSize: '15px', color: '#56473C', paddingTop: '3%' }}>
                           Empowering communities, Transforming lives
                         </div>
@@ -447,7 +486,7 @@ function Home() {
                 initial="hidden"
                 whileInView={"show"}
                 viewport={{once: true}}>
-                  <button onClick={donate} style={{color:'#FFFFFF', borderRadius:'50px'}}>Get in Touch</button>
+                  <button onClick={contacts} style={{color:'#FFFFFF', borderRadius:'50px'}}>Get in Touch</button>
                 </motion.div>
               </Col>
               <Col style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
@@ -461,6 +500,17 @@ function Home() {
           </Container>
         </div>
       </section>
+
+      {showScrollToTop && (
+        <button className="ScrollToTop" onClick={scrollToTop}>
+          <svg viewBox="0 0 384 512" className="svgIcon69">
+            <path
+              d="M214.6 41.4c-12.5-12.5-32.8-12.5-45.3 0l-160 160c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 141.2V448c0 17.7 14.3 32 32 32s32-14.3 32-32V141.2L329.4 246.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3l-160-160z"
+            ></path>
+          </svg>
+        </button>
+      )}
+
     </div>
   );
 }

@@ -14,6 +14,7 @@ import ResetPassword from './pages/ResetPassword';
 import FindMedPage from './pages/findMedPage/FindMedPage.jsx';
 import Footer from './components/Footer';
 import GoogleCallback from './components/googleCallback';
+import JoinUs from './pages/JoinUs';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import MedicineSearchResults from './pages/components_MedicineSearchResults';
@@ -60,7 +61,7 @@ function App() {
 
   return (
     <div className="App">
-      {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
+      {!hideNavbarRoutes.some(route => new RegExp(`^${route.replace(/:token/, ".*")}$`).test(location.pathname)) && <Navbar />}
       <Suspense fallback={<div className='circularunderload-container'><CircularUnderLoad/></div>}>
         <Routes>
           <Route path="/" element={<Home/>} />
@@ -79,9 +80,10 @@ function App() {
           <Route path="/auth/google/callback" element={< GoogleCallback />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/joinUs" element={<JoinUs />} />
         </Routes>
       </Suspense>
-      {!hideFooterRoutes.includes(location.pathname) && <Footer/>}
+      {!hideFooterRoutes.some(route => new RegExp(`^${route.replace(/:token/, ".*")}$`).test(location.pathname)) && <Footer />}
     </div>
   );
 }

@@ -3,7 +3,6 @@ import { useCallback, useState } from "react";
 import axios from "axios";
 import debounce from 'lodash.debounce'
 import toast, { Toaster } from 'react-hot-toast';
-import SearchIcon from '@mui/icons-material/Search';
 
 
 const SearchUsers = ({open, setOpen,}) => {

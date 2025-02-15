@@ -50,6 +50,30 @@ app.use('/api', search);
 app.use('/api', userProfileRoute);
 app.use('/api/userDashboard', userDashboardRoutes);
 
+app.post('/chat', async (req, res) => {
+  try {
+      const { message } = req.body;
+      const apiKey = process.env.GEMINI_API_KEY;
+
+      const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`,
+          {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                  contents: [{ role: 'user', parts: [{ text: message }] }]
+              })
+          }
+      );
+
+      const data = await response.json();
+      res.json(data);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+
 
 // Start the server
 server.listen(process.env.PORT, () => {

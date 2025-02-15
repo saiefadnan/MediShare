@@ -20,46 +20,56 @@ const Donation = () => {
     longitude: null,
     medicineImage: null
   });
-
+  const handleChange2 = (e) => {
+    const { name, value, files } = e.target;
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: files ? files[0] : value,
+    }));
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    try { 
-      const status='available'
-      const donorId = user.id
-      console.log("ID: ", donorId)
-
-      const { medicineName, genericName,companyName,diseaseName, quantity, expiryDate, latitude, longitude, medicineImage } = formData;
-
+    const { medicineName, genericName, companyName, diseaseName, quantity, expiryDate, latitude, longitude, medicineImage } = formData;
+  
+    // Validation check
+    if (!medicineName || !genericName || !companyName || !diseaseName || !quantity || !expiryDate || !latitude || !longitude || !medicineImage) {
+      alert('Please fill in all fields.');
+      return;
+    }
+  
+    try {
+      const donorId = user.id;
+      const status = 'Available';
+  
+      // Create FormData object to send image as a file
+      const formDataToSend = new FormData();
+      formDataToSend.append('medicineName', medicineName);
+      formDataToSend.append('genericName', genericName);
+      formDataToSend.append('companyName', companyName);
+      formDataToSend.append('diseaseName', diseaseName);
+      formDataToSend.append('quantity', quantity);
+      formDataToSend.append('expiryDate', expiryDate);
+      formDataToSend.append('latitude', latitude);
+      formDataToSend.append('longitude', longitude);
+      formDataToSend.append('medicineImage', medicineImage); // Append image file
+      formDataToSend.append('status', status);
+      formDataToSend.append('donorId', donorId);
+  
+      // Send the POST request
       const response = await fetch('http://localhost:5000/api/donation/donate-medicine', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          medicineName,
-          genericName,
-          companyName,
-          diseaseName,
-          quantity,
-          expiryDate,
-          latitude,
-          longitude,
-          medicineImage,
-          status,
-          donorId,
-        }),
+        body: formDataToSend, // Send FormData instead of JSON
       });
-
+  
       const data = await response.json();
-      const { error } = data;
-
-      if (error) {
-        console.error('Error inserting data:', error.message);
+      if (!response.ok) {
+        console.error('Error inserting data:', data.message);
         alert('There was an issue submitting the data.');
       } else {
         console.log('Data inserted successfully:', data);
         alert('Donation submitted successfully!');
+  
+        // Reset form data
         setFormData({
           medicineName: '',
           genericName: '',
@@ -67,39 +77,42 @@ const Donation = () => {
           diseaseName: '',
           quantity: '',
           expiryDate: '',
-          location: '',
           latitude: null,
           longitude: null,
           medicineImage: null,
         });
+  
         setImagePreview('/placeholder.svg');
       }
     } catch (err) {
       console.error('Unexpected error:', err);
-      alert('An unexpected error occurred.');
+      alert('An unexpected error occurred: ' + err.message);
     }
   };
+  
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
+
     if (name === 'medicineImage' && files.length > 0) {
-      const file = files[0];
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result); // Update imagePreview
+        const file = files[0];
+
+        // Show image preview
+        setImagePreview(URL.createObjectURL(file));
+
+        // Store the file in formData state
         setFormData((prevState) => ({
-          ...prevState,
-          [name]: file,
+            ...prevState,
+            medicineImage: file, // Store file directly
         }));
-      };
-      reader.readAsDataURL(file);
     } else {
-      setFormData((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
     }
-  };
+};
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
