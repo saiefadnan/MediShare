@@ -50,7 +50,6 @@ app.use('/api', search);
 app.use('/api', userProfileRoute);
 
 app.use('/api/userDashboard', userDashboardRoutes);
-=======
 app.post('/chat', async (req, res) => {
   try {
       const { searchQuery } = req.body;
