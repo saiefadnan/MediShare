@@ -160,7 +160,7 @@ export default function FindMedPage() {
     function disableSuggesion() {
         setTimeout(() => {
             setSuggesionOn(false);
-        }, 100);
+        }, 1000);
 
     }
 
@@ -252,7 +252,7 @@ export default function FindMedPage() {
 
 
                         <input id='disease' type="text" placeholder="Disease" value={disease} onChange={(e) => setDisease(e.target.value)} />
-                        <input id='company' type="text" placeholder="Company" value={company} onChange={(e) => setDisease(e.target.value)} />
+                        <input id='company' type="text" placeholder="Company" value={company} onChange={(e) => setCompany(e.target.value)} />
                         <label htmlFor="earliest-expiry-date">Earliest Expiry Date</label>
                         <input type="date" id='earliest-expiry-date' value={disease} onChange={(e) => setExpiryDate(e.target.value)} placeholder="Earliest Expiry Date" />
                         <button type='submit'>Filter</button>
@@ -268,7 +268,7 @@ export default function FindMedPage() {
                                 userId={userId}
                                 medId={med.med_id}
                                 donorId={med.donor_id}
-                                imgSrc={images[index % images.length]} // Use modulo for cycling through images
+                                imgSrc={med.med_image||images[index % images.length]} // Use modulo for cycling through images
                                 title={med.common_name}
                                 qty={med.quantity}
                                 expiryDate={med.expiry_date}

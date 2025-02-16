@@ -116,7 +116,7 @@ const request=async(req,res)=>{
         console.error(userError);
         return res.status(500).json({message:"Internal Server Error"});
     }
-    console.log(userStatus[0].status);
+    
     if(userStatus[0].status==='active'){
         try {
             const fileName = sanitizeFilename(file.originalname);

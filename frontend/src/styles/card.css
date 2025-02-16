@@ -157,7 +157,7 @@ button:hover{
     text-align: left;
     margin: auto;
     position: relative;
-    bottom: 15px;
+    bottom: 3px;
     left: -7px;
     cursor: pointer;
     
@@ -180,7 +180,7 @@ button:hover{
 
 .request-form span{
     position:absolute;
-    top: 148px;
+    top: 90px;
     color: #5b5b5b;
     z-index: 1;
     right: 40px;
