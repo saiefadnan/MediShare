@@ -1,5 +1,6 @@
 const supabase=require('../config/supabase');
 const multer=require('multer');
+const axios =require('axios') 
 const path=require('path');
 const upload=multer();
 
@@ -27,6 +28,7 @@ const search=async(req,res)=>{
        
             
         const { data, error } = await query;
+       
         
         
         if(error) {
@@ -35,6 +37,9 @@ const search=async(req,res)=>{
             return res.status(400).json({ error: error.message });
             
           }
+         
+
+
           
         res.status(200).json(data)
         
@@ -50,9 +55,29 @@ const filterSearch=async (req,res)=>{
 
     let query=supabase.from('medicine').select('*');
 
-    if(location){
-        query=query.ilike('location',`%${location}%`);
+    if (location) {
+        // Convert location name to coordinates using OpenStreetMap
+        try {
+            const geoResponse = await axios.get(`https://nominatim.openstreetmap.org/search`, {
+                params: { q: location, format: "json", limit: 1, "accept-language": "en" },
+            });
+
+            if (geoResponse.data.length > 0) {
+                const { lat, lon } = geoResponse.data[0];
+
+                // Find medicines near this location (approximate)
+                query = query
+                    .lt("locx", parseFloat(lat) + 0.1) // Latitude upper bound
+                    .gt("locx", parseFloat(lat) - 0.1) // Latitude lower bound
+                    .lt("locy", parseFloat(lon) + 0.1) // Longitude upper bound
+                    .gt("locy", parseFloat(lon) - 0.1); // Longitude lower bound
+            }
+        } catch (error) {
+            console.error("Error fetching coordinates", error);
+            return res.status(500).json({ error: "Failed to process location" });
+        }
     }
+
     if(disease){
         query=query.ilike('disease',`%${disease}%`);
     }
@@ -85,59 +110,109 @@ const request=async(req,res)=>{
     const file=req.file;
     
   
+   try {
+    const {data:userStatus,error:userError}=await supabase.from('userInfo').select('status').eq('id',requester_id);
+    if(userError){
+        console.error(userError);
+        return res.status(500).json({message:"Internal Server Error"});
+    }
+    console.log(userStatus[0].status);
+    if(userStatus[0].status==='active'){
+        try {
+            const fileName = sanitizeFilename(file.originalname);
+            const filePath = `prescription/${fileName}`;
+            
+            
+            const {data:UploadData,error:err}=await supabase.storage.from('prescription_bucket').upload(filePath,file.buffer,{
+                contentType:file.mimetype,
+                upsert:true,
+            });
+            
+            if(err){
+                console.error("here:",err);
+                
+                res.status(500).json({message:"Invalid Information"});
+                return;
+    
+            }
+            
+            const fileUrl= supabase.storage.from('prescription_bucket').getPublicUrl(filePath).data.publicUrl;
+               
+            const query=supabase
+            .from('medicine_request')
+            .insert([
+                {
+                    requester_id:requester_id,
+                    med_id:med_id,
+                    donor_id:donor_id,
+                    prescription_image:fileUrl,
+                    reason:reason,
+                    quantity:quantity
+                },
+            ]); 
+            const {data,error}=await query; 
+    
+            if(error){
+                console.error(error);
+                res.status(400).json({message:"Invalid Information"});
+                return;
+            }
+    
+            res.status(200).json({message:"Request Submitted Successfully"});
+            
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({message:"Internal Server Error"});
+            
+        }
+    }else{
+        console.log("restricted by admin!");
+         res.status(400).json({message:"You have been restricted by admin"});
+    }
+    
+   } catch (error) {
+        console.error(error);
+        res.status(500).json({message:"Internal Server Error"});
+   }
    
-   
+
+    
+}
+
+
+//location api
+
+const getLocation= async (req, res) => {
+    const { lat, lon } = req.query;
+
+    if (!lat || !lon) {
+        return res.status(400).json({ error: "Latitude and Longitude are required" });
+    }
 
     try {
-        const fileName = sanitizeFilename(file.originalname);
-        const filePath = `prescription/${fileName}`;
-        
-        console.log("file buffer",filePath);
-        const {data:UploadData,error:err}=await supabase.storage.from('prescription_bucket').upload(filePath,file.buffer,{
-            contentType:file.mimetype,
-            upsert:true,
-        });
-        
-        if(err){
-            console.error("here:",err);
-            
-            res.status(500).json({error:"Invalid Information"});
-            return;
-
-        }
-        
-        const fileUrl= supabase.storage.from('prescription_bucket').getPublicUrl(filePath).data.publicUrl;
-        console.log(fileUrl);    
-        const query=supabase
-        .from('medicine_request')
-        .insert([
-            {
-                requester_id:requester_id,
-                med_id:med_id,
-                donor_id:donor_id,
-                prescription_image:fileUrl,
-                reason:reason,
-                quantity:quantity
+       
+        const response = await axios.get(`https://nominatim.openstreetmap.org/reverse`, {
+            params: {
+                lat,
+                lon,
+                format: 'json'
             },
-        ]); 
-        const {data,error}=await query; 
+            headers: {
+                'Accept-Language': 'en'  // Forces response in English
+            }
+        });
 
-        if(error){
-            console.error(error);
-            res.status(400).json({error:"Invalid Information"});
-            return;
-        }
-
-        res.status(200).json({message:"Request Submitted Successfully"});
-        
+        const locationName = response.data.display_name;
+        res.json({ location: locationName });
     } catch (error) {
-        console.error(error);
-        
+        res.status(500).json({ error: "Failed to fetch location" });
     }
-}
+};
+
 
 module.exports={
     search,
     request,
-    filterSearch
+    filterSearch,
+    getLocation
 }
