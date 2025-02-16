@@ -1,5 +1,5 @@
 /*triggers */
-
+/*1 */
 CREATE OR REPLACE FUNCTION update_userinfo_username()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -15,6 +15,11 @@ CREATE TRIGGER trigger_update_username
 AFTER INSERT OR UPDATE ON public.updateprofile
 FOR EACH ROW
 EXECUTE FUNCTION update_userinfo_username();
+
+
+/*2 */
+
+
 
 /*useractivity, inventory*/
 
