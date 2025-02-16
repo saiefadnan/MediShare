@@ -1,6 +1,7 @@
 import { Box, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import React, { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import useFetch from "../../hooks/useFetch";
 
 const data = [
   { name: 'Donators', value: 4000 },
@@ -14,6 +15,14 @@ const CollectionPie = () => {
     const currentYear = new Date().getFullYear();
     const years = Array.from({length: 10},(_,i)=>currentYear-i);
     const [selectedYear, setSelectedYear] = useState(currentYear);
+    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/collection-pie',{year: selectedYear});
+    const pieData = data
+        ? [
+            { name: "Collection", value: data.collection },
+            { name: "Pending", value: data.pending },
+            { name: "Others", value: data.others },
+        ]
+        : [];
     const handleYear = (e)=>{
     setSelectedYear(e.target.value);
     }
@@ -28,7 +37,7 @@ const CollectionPie = () => {
             border: "1px solid rgba(255, 255, 255, 0.3)", 
             boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
         }}>
-        <Typography variant="h6" >PieChart</Typography>
+        <Typography variant="h6" >Collection Analytics</Typography>
         <Box sx={{display: "flex",alignItems: "center", gap: 2}}>
             <InputLabel>Year </InputLabel>
             <Select
@@ -46,7 +55,7 @@ const CollectionPie = () => {
             <ResponsiveContainer width="100%" height={310}>
                 <PieChart>
                     <Pie
-                        data={data}
+                        data={pieData}
                         dataKey="value"
                         nameKey="name"
                         cx="50%"
@@ -56,7 +65,7 @@ const CollectionPie = () => {
                         fill="#8884d8"
                         label
                     >
-                        {data.map((entry, index) => (
+                        {pieData.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index]} />
                         ))}
                     </Pie>

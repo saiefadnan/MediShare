@@ -1,19 +1,30 @@
 import { Box, InputLabel, MenuItem, Select, Typography } from "@mui/material";
 import React, { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import useFetch from "../../hooks/useFetch";
 
-const data = [
-  { name: 'Pending', value: 4000 },
-  { name: 'Success', value: 3000 },
-  { name: 'Failure', value: 2000 },
-];
+// const data = [
+//   { name: 'Pending', value: 4000 },
+//   { name: 'Success', value: 3000 },
+//   { name: 'Failure', value: 2000 },
+// ];
 
 const COLORS = ['#006AFF', '#52C93A', '#FF2727'];
-
+ 
 const Piechart = () => {
     const currentYear = new Date().getFullYear();
     const years = Array.from({length: 10},(_,i)=>currentYear-i);
     const [selectedYear, setSelectedYear] = useState(currentYear);
+    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/piechart',{year: selectedYear});
+    console.log(data);
+    
+    const pieData = data
+        ? [
+            { name: "Pending", value: data.pending },
+            { name: "Success", value: data.success },
+            { name: "Failure", value: data.failure },
+        ]
+        : [];
     const handleYear = (e)=>{
     setSelectedYear(e.target.value);
     }
@@ -51,7 +62,7 @@ const Piechart = () => {
             <ResponsiveContainer width="100%" height={310} >
                 <PieChart>
                     <Pie
-                        data={data}
+                        data={pieData}
                         dataKey="value"
                         nameKey="name"
                         cx="50%"
@@ -59,9 +70,8 @@ const Piechart = () => {
                         outerRadius={100}
                         innerRadius={50}
                         fill="#8884d8"
-                        label
-                    >
-                        {data.map((entry, index) => (
+                        label>
+                        {pieData?.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index]} />
                         ))}
                     </Pie>

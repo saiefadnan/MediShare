@@ -1,5 +1,4 @@
 import { useState } from "react";
-import axios from "axios";
 import "../styles/login.css";
 
 function ForgotPassword() {
@@ -14,18 +13,28 @@ function ForgotPassword() {
     setSuccess('');
     try {
       console.log("Sending POST request to /api with email:", email);
-      const response = await axios.post('http://localhost:5000/api/user/forgot-password', { email });
-      console.log("Response received:", response.data);
-      setSuccess(response.data.message);
+      const response = await fetch('http://localhost:5000/api/user/forgot-password', { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+      const data = await response.json();
+      if (data.success) {
+        setSuccess(data.message);
+      } else {
+        setError(data.error || 'An unexpected error occurred');
+      }
     } catch (error) {
       console.error("Error occurred:", error);
       setError(error.response?.data?.error || "An unexpected error occurred");
     }
   };
 
-    const handleLoginClick = () => {
+  const handleLoginClick = () => {
         window.location.href = '/login';
-    };
+  };
 
   return (
     <div 

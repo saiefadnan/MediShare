@@ -1,35 +1,17 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, IconButton, Box, Avatar } from '@mui/material';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import avatar1 from '../dashboard_stuffs/Icons/avatar1.png'
-import avatar2 from '../dashboard_stuffs/Icons/avatar2.png'
-import avatar3 from '../dashboard_stuffs/Icons/avatar3.png'
 import { GridAddIcon } from '@mui/x-data-grid';
 import SearchUsers from './SearchUsers';
-import { Button } from 'react-bootstrap';
 import useFetch from '../../hooks/useFetch';
 
 const AdminList = () => {
-  const admins = [
-    { id: 1, name: 'Sam Alt', role: 'Admin', avatar: avatar1 },
-    { id: 2, name: 'Jane Doe', role: 'Admin', avatar: avatar2 },
-    { id: 3, name: 'John Smith', role: 'Moderator', avatar: avatar3 },
-  ];
-
   const [open, setOpen] = useState(false);
   const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/query-admins');
   const HandleOpen = ()=>{
     console.log('asdsa');
     setOpen(!open);
   }
-
-//   if(isPending) {
-//     return <Typography>Loading...</Typography>;
-// }
-
-//     if(error) {
-//         return <Typography color="error">Error: {error}</Typography>;
-//     }
 
   return (
     <Box sx={{ 

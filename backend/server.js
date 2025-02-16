@@ -5,16 +5,14 @@ const cors = require('cors');
 const http = require('http');
 const server = http.createServer(app)
 const user = require('./routes/userRoute');
-
 const search = require('./routes/searchRoute');
-
 const admin = require('./routes/adminRoute');
 const donateMedicine = require('./routes/donationRoute');
 const session = require('express-session');
 const passport = require('passport');
 const passportSetup = require('./config/passport');
 const userProfileRoute = require('./routes/userProfileRoute');
-
+const userDashboardRoutes = require('./routes/userDashboardRoute');
 
 app.use(cors({
   origin: 'http://localhost:3000',
@@ -25,9 +23,17 @@ app.use(express.static('public'))
 app.use(express.json())
 
 
+
 // Basic route
 app.use('/api/user', user);
 app.use('/api', search);
+
+app.use((req, res, next) => {
+  console.log(req.path, req.method)
+  next()
+
+})
+
 
 app.use(session({
   secret: ['key1', 'key2'],
@@ -42,12 +48,50 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+app.use('/api/admin',admin);
+app.use('/api/donation', donateMedicine);
+
+
+// Basic routes
+
 app.use('/api/admin',admin);
 app.use('/api/donation', donateMedicine);
 
 app.use('/api/user', user);
 app.use('/api', search);
 app.use('/api', userProfileRoute);
+
+
+
+app.use('/api/userDashboard', userDashboardRoutes);
+
+app.post('/chat', async (req, res) => {
+  try {
+      const { message } = req.body;
+      const apiKey = process.env.GEMINI_API_KEY;
+
+      const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`,
+          {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                  contents: [{ role: 'user', parts: [{ text: message }] }]
+              })
+          }
+      );
+
+      const data = await response.json();
+      res.json(data);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
+
+
+
+// Start the server
 
 server.listen(process.env.PORT, () => {
   console.log(`Server is running on http://localhost:${process.env.PORT}`);

@@ -4,13 +4,13 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 
 const CollectionChart = () => {
   const data = [
-    { day: "Monday", Previous: 15000, Present: 14000 },
-    { day: "Tuesday", Previous: 20000, Present: 18000 },
+    { day: "Monday", Previous: 15000, Present: 14000    },
+    { day: "Tuesday", Previous: 20000, Present: 18000   },
     { day: "Wednesday", Previous: 10000, Present: 25000 },
-    { day: "Thursday", Previous: 15000, Present: 14000 },
-    { day: "Friday", Previous: 12000, Present: 15000 },
-    { day: "Saturday", Previous: 18000, Present: 20000 },
-    { day: "Sunday", Previous: 20000, Present: 17000 },
+    { day: "Thursday", Previous: 15000, Present: 14000  },
+    { day: "Friday", Previous: 12000, Present: 15000    },
+    { day: "Saturday", Previous: 18000, Present: 20000  },
+    { day: "Sunday", Previous: 20000, Present: 17000    },
   ];
 
   const currentYear = new Date().getFullYear();

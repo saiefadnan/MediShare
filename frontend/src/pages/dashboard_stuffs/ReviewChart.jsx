@@ -29,13 +29,6 @@ const ReviewChart = () => {
         setSelectedYear(e.target.value);
     }
 
-    // if(isPending) {
-    //     return <Typography>Loading...</Typography>;
-    // }
-    
-    // if(error) {
-    //     return <Typography color="error">Error: {error}</Typography>;
-    // }
   return (
     <Box sx={{ 
         width: '45%',

@@ -74,7 +74,7 @@ function LoginPage() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ username, email, password }),
+            body: JSON.stringify({ username, email, password, gateway: 'local', image_url: null }),
         });
 
         const result = await response.json();

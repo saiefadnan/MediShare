@@ -64,7 +64,7 @@ const userRating = async (req, res) => {
   const storeUserinfo = async(req, res)=>{
     try{
         const {email, username, status, role} = req.body;
-        console.log(req.body);
+        // console.log(req.body);
         const { data, error } = await supabase
         .from("userInfo")
         .update({username, status, role})
@@ -84,7 +84,7 @@ const userRating = async (req, res) => {
         .select("username, role, image_url")
         .neq("role", "user");
 
-        console.log(data);
+        //console.log(data);
         if(error) return res.status(400).json({ error: error.message });
         res.status(200).json(data);
     }catch(err){
@@ -102,7 +102,7 @@ const userRating = async (req, res) => {
         const fileName = `${Date.now()}.${fileExt}`; 
         const filePath = `profile-pictures/${fileName}`; 
 
-        console.log(filePath);
+        // console.log(filePath);
         const { data, error } = await supabase.storage
         .from("profile-pictures") // Storage bucket name
         .upload(filePath, file.buffer, { contentType: file.mimetype });
@@ -128,6 +128,163 @@ const userRating = async (req, res) => {
     }
   }
 
+  const fetchImage = async(req, res)=>{
+    try{
+        const { id }=req.body;
+        const { data, error } = await supabase
+        .from("userInfo")
+        .select("image_url")
+        .eq("id", id);
+        const [image] = data;
+        if(error) return res.status(400).json({ error: error.message });
+        res.status(200).json(image);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }
+  }
+  const freqChart = async(req, res)=>{
+    try{
+        const { year }=req.body;
+        console.log(year);
+
+        const { data, error } = await supabase.rpc('get_freq_chartdata',{input_year: year})
+        console.log(data);
+        if(error) return res.status(400).json({ error: error.message });
+        res.status(200).json(data);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }
+  }
+
+  const pieChart = async(req,res)=>{
+    try{
+        const { year }=req.body;
+        console.log(year);
+        const { data, error } = await supabase.rpc('get_piedata',{input_year: year})
+        console.log(data);
+        const [piedata] = data;
+        if(error) return res.status(400).json({ error: error.message });
+        res.status(200).json(piedata);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }
+  }
+
+  const dataGrid = async(req, res)=>{
+    try{
+        const {year, limit}=req.body;
+        const { data, error } = await supabase.rpc('get_datagrid',{input_year: year, input_limit: limit})
+        //console.log(data);
+        if(error) return res.status(400).json({ error: error.message });
+        res.status(200).json(data);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }
+  }
+
+  const donationPie = async(req,res)=>{
+    try{
+        const { year }=req.body;
+        //console.log(year);
+        const { data, error } = await supabase.rpc('get_donation_piedata',{input_year: year})
+        //console.log(data);
+        const [piedata] = data;
+        if(error) return res.status(400).json({ error: error.message });
+        res.status(200).json(piedata);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }
+  }
+  const collectionPie = async(req,res)=>{
+    try{
+        const { year }=req.body;
+        //console.log(year);
+        const { data, error } = await supabase.rpc('get_collection_piedata',{input_year: year})
+        //console.log(data);
+        const [piedata] = data;
+        if(error) return res.status(400).json({ error: error.message });
+        res.status(200).json(piedata);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }
+  }
+
+  const comparisonData = async(req,res)=>{
+    try{
+        const { data, error } = await supabase.rpc('get_weekly_comparison_data');
+        if(error) return res.status(400).json({ error: error.message });
+        //console.log(data);
+        res.status(200).json(data);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }
+  }
+
+  const userData = async(req, res)=>{
+    try{
+        const { data, error } = await supabase.rpc('get_user_data');
+        if(error) return res.status(400).json({ error: error.message });
+        //console.log(data);
+        res.status(200).json(data);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }    
+  }
+
+  const fetchRating = async(req, res)=>{
+    try{
+        const {user_id}=req.body;
+        const { data, error } = await supabase
+        .from("userRating")
+        .select("rating")
+        .eq("user_id", user_id);
+        if(error) return res.status(400).json({ error: error.message });
+        const [value]=data;
+        //console.log(value);
+        res.status(200).json(value);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }    
+  }
+
+  const updateUserinfo = async(req, res)=>{
+    try{
+        const {user_id, status}=req.body;
+        //console.log(user_id,status);
+        const { data, error } = await supabase
+        .from("userInfo")
+        .update({ status: status })
+        .eq("id", user_id);
+        if(error) return res.status(400).json({ error: error.message });
+        res.status(200).json({message: "update successful"});
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }    
+  }
+
+  const dashCards = async(req, res)=>{
+    try{
+        const { data, error } = await supabase.rpc('calculate_medicine_stats');
+        if(error) return res.status(400).json({ error: error.message });
+        const [value]=data;
+        res.status(200).json(value);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }    
+  }
+
+  const reviewCards = async(req, res)=>{
+    try{
+        let { data, error } = await supabase.rpc('get_review_data');
+        if(error) return res.status(400).json({ error: error.message });
+        console.log(data);
+        res.status(200).json(data);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }    
+  }
+
+
 module.exports ={
     userRating,
     ratingChart,
@@ -135,5 +292,17 @@ module.exports ={
     userDetails,
     storeUserinfo,
     queryAdmins,
-    uploadImage
+    uploadImage,
+    fetchImage,
+    freqChart,
+    pieChart,
+    dataGrid,
+    donationPie,
+    collectionPie,
+    comparisonData,
+    userData,
+    fetchRating,
+    updateUserinfo,
+    dashCards,
+    reviewCards
 }

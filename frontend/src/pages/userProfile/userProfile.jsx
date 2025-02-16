@@ -1,6 +1,10 @@
 import { useAuth } from '../../Contexts/AuthContext.jsx';
 
-import React, { useState, useRef } from "react";
+
+import React, { useState, useEffect, useRef } from "react";
+=======
+//import { useState, useRef } from "react";
+
 import { useNavigate } from "react-router-dom";
 import { Cropper } from "react-cropper";
 import "cropperjs/dist/cropper.css";
@@ -11,9 +15,13 @@ import "./userProfile.css";
 
 export default function ProfileEditor() {
   const {user}=useAuth();
-  const userId=user?.id;
 
-  const [profileImage, setProfileImage] = useState(null);
+  const userId = user?.id;  // Get the logged-in user's ID
+  const email = user?.email; // Get the logged-in user's email
+
+  //const userId=user.id;
+
+
   const [imageToCrop, setImageToCrop] = useState(null);
   const cropperRef = useRef(null);
   const navigate = useNavigate();
@@ -21,12 +29,37 @@ export default function ProfileEditor() {
   // States to hold form data
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [addressLine1, setAddressLine1] = useState("");
   const [addressLine2, setAddressLine2] = useState("");
   const [division, setDivision] = useState("dhaka");
   const [zipCode, setZipCode] = useState("");
+  const [profileImage, setProfileImage] = useState(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const response = await axios.post("http://localhost:5000/api/getProfile", { email });
+        if (response.data.success) {
+          const { first_name, last_name, contact_number, address_line_1, address_line_2, division, zip_code, profile_picture_url } = response.data.data;
+          setFirstName(first_name);
+          setLastName(last_name);
+          //setEmail(email);
+          setContactNumber(contact_number);
+          setAddressLine1(address_line_1);
+          setAddressLine2(address_line_2);
+          setDivision(division);
+          setZipCode(zip_code);
+          setProfileImage(profile_picture_url);
+        }
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      }
+    };
+  
+    fetchProfile();
+  }, [email]);
+  
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
@@ -64,48 +97,58 @@ export default function ProfileEditor() {
     const formData = new FormData();
     formData.append("firstName", firstName);
     formData.append("lastName", lastName);
-    formData.append("email", email);
+    formData.append("email", email); // Include the logged-in user's email
     formData.append("contactNumber", contactNumber);
     formData.append("addressLine1", addressLine1);
     formData.append("addressLine2", addressLine2);
     formData.append("division", division);
     formData.append("zipCode", zipCode);
-    formData.append("userId", userId);
-    
-    // Append the profile image to FormData if it's available
+    formData.append("userId", userId); // Include the logged-in user's ID
+  
+    // Check and process profile image if available
     if (profileImage) {
-      // Convert base64 to Blob for upload
-      const byteString = atob(profileImage.split(',')[1]);
-      const arrayBuffer = new ArrayBuffer(byteString.length);
-      const uintArray = new Uint8Array(arrayBuffer);
-  
-      for (let i = 0; i < byteString.length; i++) {
-        uintArray[i] = byteString.charCodeAt(i);
+      try {
+        // Convert base64 to file and append to formData for upload
+        const base64Data = profileImage.split(',')[1]; // Clean base64 string
+        const byteString = atob(base64Data); // Decode base64
+        const arrayBuffer = new ArrayBuffer(byteString.length);
+        const uintArray = new Uint8Array(arrayBuffer);
+    
+        for (let i = 0; i < byteString.length; i++) {
+          uintArray[i] = byteString.charCodeAt(i);
+        }
+    
+        const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });  // Blob with appropriate MIME type
+        formData.append("profilePicture", blob, "profile-image.jpg"); // Append as file to formData
+      } catch (error) {
+        console.error("Error processing profile image:", error);
+        alert("There was an error processing the profile image.");
+        return;
       }
-  
-      const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });  // Keep as 'image/jpeg' for JPG or 'image/png' for PNG
-      formData.append("profilePicture", blob, "profile-image.jpg");
     }
+    
   
     try {
-      // Sending the data to the backend (replace with your API URL)
+      // Send the form data to the backend (replace with your actual API URL)
       const response = await axios.put("http://localhost:5000/api/profile", formData, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "multipart/form-data", // Ensure backend accepts multipart form-data
         },
       });
   
       if (response.data.success) {
         alert("Profile updated successfully!");
-        navigate('/userDashboard'); // Redirect to dashboard or desired page after success
+        navigate('/userDashboard'); // Redirect to dashboard after successful update
       } else {
-        alert("Error: " + response.data.message);
+        alert("Error: " + response.data.message); // Handle error response from backend
       }
     } catch (error) {
       console.error("There was an error updating the profile:", error);
-      alert("Error updating profile.");
+      alert("Error updating profile."); // Handle network or API errors
     }
   };
+  
+  
   
 
   // Helper function to convert base64 to blob
@@ -131,8 +174,8 @@ export default function ProfileEditor() {
             src={profileImage || "https://via.placeholder.com/80"}
             alt="Profile"
           />
-          <h2>John Smith</h2>
-          <p>johnsmith@gmail.com</p>
+          <h2>{firstName} {lastName}</h2>
+          <p>{email}</p>
         </div>
 
         {/* Sidebar Menu */}
@@ -225,7 +268,8 @@ export default function ProfileEditor() {
               id="email"
               className="medium-textbox"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              //onChange={(e) => setEmail(e.target.value)}
+              disabled
             />
           </div>
 

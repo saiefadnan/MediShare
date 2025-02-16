@@ -12,6 +12,11 @@ import line from '../assets/Line.png';
 import '../styles/footer.css';
 
 export default function Footer() {
+
+  const JoinUs = () => {
+    window.location.href = "/joinus";
+  }
+
   return (
     <footer>
     <Container>
@@ -19,7 +24,7 @@ export default function Footer() {
         <Col>
           <h4 style={{fontFamily:'quando', textAlign:'left', paddingBottom:'5%'}}>Organization</h4>
           <Row style={{padding:'3% 0'}}>
-            <span style={{textAlign:'left'}}><img src={arrow} style={{width:'20px'}}></img><text style={{fontFamily:'Roboto'}}>Join Academy</text></span>
+            <span style={{textAlign:'left', cursor: 'pointer'}} onClick={JoinUs}><img src={arrow} style={{width:'20px'}}></img><text style={{fontFamily:'Roboto'}}>Join Us</text></span>
           </Row>
           <Row style={{padding:'3% 0'}}>
             <span style={{textAlign:'left'}}><img src={arrow} style={{width:'20px'}}></img><text style={{fontFamily:'Roboto'}}>Press Releases</text></span>

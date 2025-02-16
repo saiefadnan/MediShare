@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { updateProfile, upload } = require('../controllers/userProfileController');
+const { getProfile, updateProfile, upload } = require('../controllers/userProfileController');
 
-// Middleware to handle file uploads
-router.put('/profile', upload.single('profilePicture'), updateProfile); // Handle the file upload with 'profilePicture'
+router.post('/getProfile', getProfile);
+router.put('/profile', upload.single('profilePicture'), updateProfile); 
 
 module.exports = router;

@@ -2,6 +2,8 @@ import { Box, Typography, styled } from "@mui/material";
 import DonationTable from "../dashboard_stuffs/DonationTable";
 import DonationChart from "../dashboard_stuffs/Donationchart";
 import DonationPie from "../dashboard_stuffs/DonationPie";
+import CollectionPie from "../dashboard_stuffs/CollectionPie";
+import CollectionChart from "../dashboard_stuffs/CollectionChart";
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -15,12 +17,18 @@ const  DonationPortal= () => {
     return ( 
     <Box component="main" sx={{ display: 'flex',flexDirection:'column', width: '100%'}}>
         <DrawerHeader/>
-        <Typography variant="h6" sx={{margin: '20px 0 0 20px', fontWeight: 'bold'}}>Donation</Typography>
+        <Typography variant="h6" sx={{margin: '20px 0 0 20px', fontWeight: 'bold'}}>Analytics</Typography>
         <div style={{display: 'flex',flexWrap:'wrap', width: '100%'}}>
             <DonationPie/>
+            <CollectionPie/>
             <DonationChart/>
         </div> 
-        <DonationTable/>
+        {/* <Typography variant="h6" sx={{margin: '20px 0 0 20px', fontWeight: 'bold'}}>Collection Analysis</Typography>
+        <div style={{display: 'flex', flexWrap:'wrap',width: '100%'}}>
+            
+            <CollectionChart/>
+        </div>
+        <DonationTable/> */}
     </Box>)
 }
  
