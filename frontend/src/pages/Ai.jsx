@@ -6,33 +6,42 @@ import '../styles/footer.css'
 const Ai = () => {
   //const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const [response, setResponse] = useState('');
+  const [messages, setMessages] = useState([]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!searchQuery.trim()) return;
+
+    const newMessage = { text: searchQuery, sender: 'user' };
+    setMessages([...messages, newMessage]);
+
     const res = await fetch('http://localhost:5000/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ searchQuery }),
     });
-
-    console.log(res);
-
     const data = await res.json();
-    setResponse(data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No response');
+    const responseText = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No response';
+    const responseMessage = { text: responseText, sender: 'bot' };
+    setMessages([...messages, newMessage, responseMessage]);
+    setSearchQuery('');
     console.log('Searching for:', searchQuery);
-    console.log('Response:', response);
-    //<MedicineSearchResults isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}/>
+    console.log('Response:', responseText);
 };
 
   return (
     <div className="ai-page">
-      <div className='ai-header'>
-        <h3 style={{fontWeight: '500', color: 'white'}}>MediShare</h3>
-      </div>
       <div className="main-content">
-        <h1>Find Your Solution Here</h1>
-        <h5 style={{marginBottom: '1.5%', color:'white'}}>Powered by ChatGPT</h5>
+        <h1 style={{fontFamily: "Roboto"}}>Find Your Solution Here</h1>
+        <h5 style={{marginBottom: '1.5%', color:'white'}}>Powered by Gemini✦</h5>
+        <div className="message-list">
+          {messages.map((message, index) => (
+            <div key={index} className={`message ${message.sender}`}>
+              <h6 style={{fontSize: '0.7rem', fontWeight: '600'}}>{message.sender === 'bot' ? 'Bot' : 'You'}</h6>
+              {message.text}
+            </div>
+          ))}
+        </div>
         <div className="container_chat_bot">
           <form onSubmit={handleSubmit} className="container-chat-options">
             <div className="chat">
@@ -43,6 +52,7 @@ const Ai = () => {
                   placeholder="Imagine Something...✦˚"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  style={{fontFamily: "Roboto", fontSize: "1rem"}}
                 ></textarea>
               </div>
               <div className="options">
@@ -108,11 +118,11 @@ const Ai = () => {
               </div>
             </div>
           </form>
-          <div className="tags">
-            <span>Learn about medicines</span>
-            <span>Diagnose disease</span>
-            <span>More</span>
-          </div>
+          {/*<div className="tags">
+            <span style={{fontFamily: "Roboto", fontSize: "0.8rem"}}>Learn about medicines</span>
+            <span style={{fontFamily: "Roboto", fontSize: "0.8rem"}}>Diagnose disease</span>
+            <span style={{fontFamily: "Roboto", fontSize: "0.8rem"}}>More</span>
+          </div>*/}
         </div>
       </div>
     </div>

@@ -57,6 +57,7 @@ function App() {
     '/userRequests', 
     '/userRequested',
     '/auth/google/callback',
+    '/ai',
   ];
 
   return (
