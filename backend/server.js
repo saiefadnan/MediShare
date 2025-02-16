@@ -49,7 +49,8 @@ app.use('/api', search);
 app.use('/api', userProfileRoute);
 app.post('/chat', async (req, res) => {
   try {
-      const { message } = req.body;
+      const { searchQuery } = req.body;
+      console.log('message:', searchQuery);
       const apiKey = process.env.GEMINI_API_KEY;
 
       const response = await fetch(
@@ -58,12 +59,13 @@ app.post('/chat', async (req, res) => {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
-                  contents: [{ role: 'user', parts: [{ text: message }] }]
+                  contents: [{ role: 'user', parts: [{ text: searchQuery }] }]
               })
           }
       );
 
       const data = await response.json();
+      console.log('data:', data);
       res.json(data);
   } catch (error) {
       res.status(500).json({ error: error.message });
