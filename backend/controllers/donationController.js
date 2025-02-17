@@ -25,7 +25,7 @@ const donateMedicine = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Image upload failed' });
         }
 
-        const imageUrl = `https://xyz.supabase.co/storage/v1/object/public/med_image/${fileName}`;
+        const imageUrl = supabase.storage.from('med_image').getPublicUrl(fileName).data.publicUrl;
 
         // Insert into database
         const { data: insertData, error: insertError } = await supabase
