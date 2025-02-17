@@ -3,7 +3,7 @@
   flex-direction: column;
   background: #1e2120;
   height: 100vh;
-  padding: 1%;
+  padding: 0%;
   font-family: 'Roboto', sans-serif;
 }
 
@@ -86,12 +86,61 @@
   cursor: pointer;
 }
 
-/* From Uiverse.io by Cobp */ 
 .container_chat_bot {
+  position: fixed;
+  bottom: 0;
+  left: 10%;
+  right: 10%;
+  width: 100%;
+  background-color: transparent; /* Semi-transparent background */
+  padding: 20px;
   display: flex;
   flex-direction: column;
   max-width: 70%;
-  width: 100%;
+  margin: 0 auto;
+  z-index: 1000;
+}
+
+.message-list {
+  max-height: calc(100vh - 200px); /* Adjust height to fit the screen */
+  width: 70%;
+  overflow-y: auto;
+  margin-bottom: 10px;
+  padding-bottom: 100px; /* Add padding to avoid overlap with chat container */
+}
+
+.message {
+  padding: 10px;
+  margin-bottom: 10px;
+  max-width: 80%;
+}
+
+.message-list::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.message-list {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.message.user {
+  background-color: white;
+  font-family: "Roboto", sans-serif;
+  border-radius: 10px 0 10px 10px;
+  color: black;
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.message.bot {
+  background-color: #646464;
+  font-family: "Roboto", sans-serif;
+  border-radius: 0 10px 10px 10px;
+  color: white;
+  align-self: flex-start;
+  margin-right: auto;
 }
 
 .container_chat_bot .container-chat-options {

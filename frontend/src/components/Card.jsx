@@ -22,6 +22,27 @@ const [reason,setReason]=useState('');
 const [reqrQty,setReqrQty]=useState(0);
 const [file,setFile]=useState(null);
 
+//get location
+const [lat,setLat]=useState(props.locx);
+const [lon,setLon]=useState(props.locy);
+const [location,setLocation]=useState("");
+
+useEffect(() => {
+    const fetchLocation = async () => {
+        try {
+            const response = await axios.get(`http://localhost:5000/api/getLocation`, {
+                params: { lat, lon },
+                
+            });
+            setLocation(response.data.location);
+        } catch (error) {
+            console.error("Error fetching location", error);
+        }
+    };
+
+    if (lat && lon) fetchLocation();
+}, [lat, lon]);
+
 const handleFileChange = (event) => {
     setFile(event.target.files[0]);
     
@@ -48,6 +69,9 @@ const handleRequestSubmission=async (e)=>{
     formData.append('file',file);
     formData.append('quantity',reqrQty);
 
+
+
+
     
     try {
         
@@ -56,15 +80,17 @@ const handleRequestSubmission=async (e)=>{
                 "Content-Type":'multipart/form-data'
             },
         });
+        console.log(response.data.message);
         if(response.status===200){
+            console.log(response.data.message);
             window.alert("Request Submitted Successfully!");
         }else{
-            window.alert("something went wrong!");
+            window.alert(response.data.message);
             console.log(response.status);
         }
         
     } catch (error) {
-        window.alert("something went wrong!");
+        window.alert(error.response.data.message);
         console.error(error);
     }
     setRequestPopup(false);
@@ -136,7 +162,7 @@ function handleClose() {
                     <hr/>
                     <p>Generic Name:{props.title}</p>
                     <p>Quantity:{props.qty}</p>
-                    <p>Location:{props.location}</p>
+                    <p>Location:{location}</p>
                     <p>Company:{props.company}</p>
                     <p>Common Dieases:{props.disease}</p>
                    

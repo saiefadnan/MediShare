@@ -36,6 +36,41 @@ export default function FindMedPage() {
     const [disease, setDisease] = useState('');
     const [company, setCompany] = useState('');
     const [expiryDate, setExpiryDate] = useState('');
+    const [locationSuggestions, setLocationSuggestions] = useState([]);
+
+    const handlelocationChange =async (e) => {
+        const input=e.target.value;
+        setLocation(input);
+
+        if(input.length>2){
+            try {
+                const response = await axios.get(
+                    `https://nominatim.openstreetmap.org/search`,
+                    {
+                        params: { q: input, format: "json", limit: 5, "accept-language": "en" },
+                    }
+                );
+
+                setLocationSuggestions(response.data.map((place)=>({
+                    name:place.display_name,
+                    lat:place.lat,
+                    lon:place.lon
+
+                })));
+                
+            } catch (error) {
+                console.error("Error fetching location suggestions", error);
+                
+            }
+        }else{
+            setLocationSuggestions([]);
+        }
+    }
+
+    const handleSelectLocation = (suggestion) => {
+        setLocation(suggestion.name);
+        setLocationSuggestions([]);
+    };  
 
 
 
@@ -125,7 +160,7 @@ export default function FindMedPage() {
     function disableSuggesion() {
         setTimeout(() => {
             setSuggesionOn(false);
-        }, 100);
+        }, 1000);
 
     }
 
@@ -204,10 +239,20 @@ export default function FindMedPage() {
                 </button>
                 <div className={filterButton ? 'popup dropdown-active' : 'popup dropdown-inactive'}>
                     <form className="filter-form" onSubmit={handleFilter}>
-                        <input id='location' type="text" placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
+                        <input id='location' type="text" placeholder="Location" value={location} onChange={handlelocationChange} />
+                        {locationSuggestions.length > 0 && (
+                <ul className="suggestions">
+                    {locationSuggestions.map((suggestion, index) => (
+                        <li key={index} onClick={() => handleSelectLocation(suggestion)}>
+                            {suggestion.name}
+                        </li>
+                    ))}
+                </ul>
+            )}
+
 
                         <input id='disease' type="text" placeholder="Disease" value={disease} onChange={(e) => setDisease(e.target.value)} />
-                        <input id='company' type="text" placeholder="Company" value={company} onChange={(e) => setDisease(e.target.value)} />
+                        <input id='company' type="text" placeholder="Company" value={company} onChange={(e) => setCompany(e.target.value)} />
                         <label htmlFor="earliest-expiry-date">Earliest Expiry Date</label>
                         <input type="date" id='earliest-expiry-date' value={disease} onChange={(e) => setExpiryDate(e.target.value)} placeholder="Earliest Expiry Date" />
                         <button type='submit'>Filter</button>
@@ -223,13 +268,14 @@ export default function FindMedPage() {
                                 userId={userId}
                                 medId={med.med_id}
                                 donorId={med.donor_id}
-                                imgSrc={images[index % images.length]} // Use modulo for cycling through images
+                                imgSrc={med.med_image||images[index % images.length]} // Use modulo for cycling through images
                                 title={med.common_name}
                                 qty={med.quantity}
                                 expiryDate={med.expiry_date}
                                 company={med.company}
                                 disease={med.disease}
-                                location={med.location}
+                                locx={med.locx}
+                                locy={med.locy}
 
                             />
                         ))

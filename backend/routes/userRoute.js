@@ -6,6 +6,7 @@ const {
   signup,
   forgotPassword,
   resetPassword,
+  ai,
   test,
 } = require('../controllers/userController')
 
@@ -57,5 +58,6 @@ router.get('/logout', (req, res) => {
 })
 router.post('/forgot-password', forgotPassword)
 router.post('/reset-password', resetPassword)
+router.post('/chat', ai)
 
 module.exports = router
