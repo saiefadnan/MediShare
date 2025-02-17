@@ -48,32 +48,7 @@ app.use('/api/donation', donateMedicine);
 app.use('/api/user', user);
 app.use('/api', search);
 app.use('/api', userProfileRoute);
-
 app.use('/api/userDashboard', userDashboardRoutes);
-app.post('/chat', async (req, res) => {
-  try {
-      const { searchQuery } = req.body;
-      console.log('message:', searchQuery);
-      const apiKey = process.env.GEMINI_API_KEY;
-
-      const response = await fetch(
-          `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`,
-          {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                  contents: [{ role: 'user', parts: [{ text: searchQuery }] }]
-              })
-          }
-      );
-
-      const data = await response.json();
-      console.log('data:', data);
-      res.json(data);
-  } catch (error) {
-      res.status(500).json({ error: error.message });
-  }
-});
 
 
 

@@ -15,13 +15,13 @@ const Ai = () => {
     const newMessage = { text: searchQuery, sender: 'user' };
     setMessages([...messages, newMessage]);
 
-    const res = await fetch('http://localhost:5000/chat', {
+    const res = await fetch('http://localhost:5000/api/user/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ searchQuery }),
     });
     const data = await res.json();
-    const responseText = data?.candidates?.[0]?.content?.parts?.[0]?.text || 'No response';
+    const responseText = data?.response || 'No response';
     const responseMessage = { text: responseText, sender: 'bot' };
     setMessages([...messages, newMessage, responseMessage]);
     setSearchQuery('');
@@ -37,7 +37,7 @@ const Ai = () => {
         <div className="message-list">
           {messages.map((message, index) => (
             <div key={index} className={`message ${message.sender}`}>
-              <h6 style={{fontSize: '0.7rem', fontWeight: '600'}}>{message.sender === 'bot' ? 'Bot' : 'You'}</h6>
+              <h6 style={{fontSize: '0.7rem', fontWeight: '600'}}>{message.sender === 'bot' ? 'Gemini' : 'You'}</h6>
               {message.text}
             </div>
           ))}
