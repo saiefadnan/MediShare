@@ -1,7 +1,7 @@
 .ai-page {
   display: flex;
   flex-direction: column;
-  background: #1e2120;
+  background: #e2d8c8;
   height: 100vh;
   padding: 0%;
   font-family: 'Roboto', sans-serif;
@@ -41,11 +41,11 @@
   align-items: center;
   justify-content: top;
   padding: 1rem;
-  background:#1e2120;
+  background:#e2d8c8;
 }
 
 .main-content h1 {
-  color: rgb(255, 255, 255);
+  color: #4a403a;
   font-size: 3rem;
   text-align: center;
 }
@@ -126,19 +126,19 @@
 }
 
 .message.user {
-  background-color: white;
+  background-color: #ce986f;
   font-family: "Roboto", sans-serif;
   border-radius: 10px 0 10px 10px;
-  color: black;
+  color: #f8f5f0;
   align-self: flex-end;
   margin-left: auto;
 }
 
 .message.bot {
-  background-color: #646464;
+  background-color: #457b6f;
   font-family: "Roboto", sans-serif;
   border-radius: 0 10px 10px 10px;
-  color: white;
+  color: #f8f5f0;
   align-self: flex-start;
   margin-right: auto;
 }
@@ -148,11 +148,11 @@
   display: flex;
   background: linear-gradient(
     to bottom right,
-    #7e7e7e,
-    #363636,
-    #363636,
-    #363636,
-    #363636
+    #5c9185,
+    #53877b,
+    #4a7d71,
+    #457b6f,
+    #3d6f64
   );
   border-radius: 16px;
   padding: 1.5px;
@@ -165,13 +165,13 @@
     left: -10px;
     background: radial-gradient(
       ellipse at center,
-      #ffffff,
-      rgba(255, 255, 255, 0.3),
-      rgba(255, 255, 255, 0.1),
-      rgba(0, 0, 0, 0),
-      rgba(0, 0, 0, 0),
-      rgba(0, 0, 0, 0),
-      rgba(0, 0, 0, 0)
+      #e2d8c8,
+      rgba(226, 216, 200, 0.3),
+      rgba(226, 216, 200, 0.1),
+      rgba(69, 123, 111, 0),
+      rgba(69, 123, 111, 0),
+      rgba(69, 123, 111, 0),
+      rgba(69, 123, 111, 0)
     );
     width: 30px;
     height: 30px;
@@ -179,10 +179,11 @@
   }
 }
 
+
 .container_chat_bot .container-chat-options .chat {
   display: flex;
   flex-direction: column;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(18, 11, 4, 0.5);
   border-radius: 15px;
   width: 100%;
   overflow: hidden;
@@ -231,7 +232,7 @@
     transition: all 0.3s ease;
   }
   &:focus::placeholder {
-    color: #363636;
+    color: #11430724;
   }
 }
 
@@ -248,7 +249,7 @@
 
   & button {
     display: flex;
-    color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.158);
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -264,7 +265,7 @@
 .container_chat_bot .chat .options .btn-submit {
   display: flex;
   padding: 2px;
-  background-image: linear-gradient(to top, #292929, #555555, #292929);
+  background-image: linear-gradient(to top, #0f4d27, #1e6b47, #0f4d27);
   border-radius: 10px;
   box-shadow: inset 0 6px 2px -4px rgba(255, 255, 255, 0.5);
   cursor: pointer;
@@ -276,10 +277,10 @@
     width: 30px;
     height: 30px;
     padding: 6px;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(13, 31, 15, 0.1);
     border-radius: 10px;
     backdrop-filter: blur(3px);
-    color: #8b8b8b;
+    color: #ffffffbc;
   }
   & svg {
     transition: all 0.3s ease;
