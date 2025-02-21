@@ -45,7 +45,7 @@ function LoginPage() {
             setAlert({ type: 'success', message: 'Login successful!' });
             navigate('/');
         } else {
-            setAlert({ type: 'error', message: result.message || 'Login failed!' });
+            setAlert({ type: 'error', message: 'Invalid credentials!' });
         }
     } catch (error) {
         console.error("Error logging in:", error);
@@ -55,11 +55,31 @@ function LoginPage() {
     }
   }
 
+  const validateEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
+
+  const validatePassword = (password) => {
+    const re = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return re.test(password);
+  };
+
   const handleSignUp = async (e) => {
     e.preventDefault();
 
     if (!username || !email || !password || !confirmPassword) {
         setAlert({ type: 'error', message: 'Please fill in all fields.' });
+        return;
+    }
+
+    if(validateEmail(email) === false) {
+        setAlert({ type: 'error', message: 'Please enter a valid email address.' });
+        return;
+    }
+
+    if(validatePassword(password) === false) {
+        setAlert({ type: 'error', message: 'Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one digit and one special character.' });
         return;
     }
 
@@ -148,7 +168,7 @@ function LoginPage() {
   
   useEffect(() => {
     if (alert && !alert.exit) {
-      const timer = setTimeout(() => setAlert({ ...alert, exit: true }), 3000);
+      const timer = setTimeout(() => setAlert({ ...alert, exit: true }), 5000);
       return () => clearTimeout(timer);
     }
   }, [alert]);
