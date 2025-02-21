@@ -127,8 +127,19 @@ const Donation = () => {
   
 
   const handleChange = (e) => {
+   
     const { name, value, files } = e.target;
-
+    if (name === "expiryDate") {
+      const selectedDate = new Date(value);
+      const today = new Date();
+      const minValidDate = new Date();
+      minValidDate.setMonth(today.getMonth() + 2); // Minimum two months ahead
+  
+      if (selectedDate < minValidDate) {
+        showAlert("Expiry date must be at least 2 months from today!", "error");
+        return;
+      }
+    }
     if (name === 'medicineImage' && files.length > 0) {
         const file = files[0];
 
