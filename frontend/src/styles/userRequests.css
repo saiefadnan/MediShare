@@ -1,4 +1,5 @@
 .main-content116 {
+    margin-bottom: 20px;
     min-height: 150vh; 
     background-color: #FBF3EA;
     margin-left: 240px; 
@@ -6,11 +7,12 @@
 }
 
 .table-container {
+    margin-top: 20px;
     margin: 0 auto;
     max-width: 100%;
 }
 
-.requests-table {
+.requests-table116 {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
@@ -19,21 +21,21 @@
     text-align: left;
 }
 
-.requests-table th, .requests-table td {
+.requests-table116 th, .requests-table116 td {
     border: 1px solid #ddd;
     padding: 15px;
 }
 
-.requests-table th {
+.requests-table116 th {
     background-color: #f2f2f2;
     font-weight: bold;
 }
 
-.requests-table tr:nth-child(even) {
+.requests-table116 tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-.requests-table tr:hover {
+.requests-table116 tr:hover {
     background-color: #f1f1f1;
 }
 
@@ -43,6 +45,8 @@
     color: #d80000; /* Darker red for text */
     font-weight: bold;
     text-align: center;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .status-pending {
@@ -50,6 +54,8 @@
     color: #e67300; /* Darker orange for text */
     font-weight: bold;
     text-align: center;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .status-accepted {
@@ -57,6 +63,8 @@
     color: #155724; /* Darker green for text */
     font-weight: bold;
     text-align: center;
+    padding: 10px;
+    border-radius: 5px;
 }
 
 /* Action Buttons */
@@ -65,7 +73,7 @@
     gap: 10px;
 }
 
-.donate-button, .reject-button {
+.donate-button116, .reject-button116 {
     background-color: #4caf50;
     border: none;
     padding: 10px 15px;
@@ -76,16 +84,19 @@
     font-weight: bold;
 }
 
-.reject-button {
+.reject-button116 {
     background-color: #f44336;
 }
 
-.donate-button:hover, .reject-button:hover {
-    opacity: 0.8;
+.donate-button116:hover {
+    background-color: #196d2d;
+}
+.reject-button116:hover {
+    background-color: #af0101;
 }
 
 /* Modal */
-.nodal {
+.nodal116 {
     position: fixed;
     top: 0;
     left: 0;
@@ -98,7 +109,7 @@
     z-index: 1000;
 }
 
-.nodal-content {
+.nodal-content116 {
     background-color: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -108,7 +119,7 @@
     text-align: center;
 }
 
-.prescription-image {
+.prescription-image116 {
     width: 100%;
     height: auto;
     border-radius: 10px;
@@ -122,4 +133,108 @@
     font-weight: bold;
     cursor: pointer;
     color: #333;
+}
+
+/* Popover styles */
+.popover {
+    width: 300px;
+    max-width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+
+.popover-header {
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #f2f2f2;
+}
+
+.popover-body {
+    padding: 5px;
+}
+
+.search-container116 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between; /* Align search bar left and select dropdown right */
+    align-items: center;
+    width: 100%;
+}
+
+.search-bar116 {
+    width: 80%; /* Take up most of the space */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+}
+
+.search-bar116:focus {
+    border-color: #4CAF50; /* Highlight border on focus */
+}
+
+.search-select116 {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-left: 10px; /* Add some space between search bar and dropdown */
+}
+
+.search-bar-container116 {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-icon116 {
+    position: absolute;
+    right: 10px;
+    font-size: 18px;
+    color: #888;
+    pointer-events: none;
+}
+
+.filter-icon-container {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.filter-icon {
+    font-size: 20px;
+    color: #888;
+}
+
+/* Dropdown menu styling */
+.dropdown-menu {
+    position: absolute;
+    top: 35px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 150px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-menu116 button {
+    padding: 8px;
+    border: none;
+    background: none;
+    width: 100%;
+    text-align: left;
+    font-size: 14px;
+    color: #555;
+    cursor: pointer;
+}
+
+.dropdown-menu116 button:hover {
+    background-color: #f1f1f1;
+}
+
+.search-bar116:focus {
+    border-color: #4CAF50;
 }

@@ -21,25 +21,4 @@ EXECUTE FUNCTION update_userinfo_username();
 
 
 
-/*useractivity, inventory*/
-
-
-/*status_quo */
-CREATE TYPE status_quo_enum AS ENUM ('Accepted', 'Declined', 'Pending');
-
-ALTER TABLE public.medicine_request
-  ADD COLUMN status_quo status_quo_enum;
-
-ALTER TABLE public.medicine_request
-  ADD CONSTRAINT check_status_quo
-  CHECK (status_quo IN ('Accepted', 'Declined', 'Pending'));
-
-
--- Step 1: Create ENUM Type (if not done)
-CREATE TYPE status_quo_enum AS ENUM ('Accepted', 'Declined', 'Pending');
-
-
-ALTER TABLE public.medicine_request
-  ADD COLUMN status_quo status_quo_enum;
-
 
