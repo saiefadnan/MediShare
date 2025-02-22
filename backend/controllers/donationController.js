@@ -44,7 +44,8 @@ const donateMedicine = async (req, res) => {
                     status: 'Available',
                     donor_id: donorId,
                 },
-            ]);
+            ])
+            .select();
 
         if (insertError) {
             console.error('Error inserting data:', insertError.message);
@@ -52,7 +53,7 @@ const donateMedicine = async (req, res) => {
         }
 
         console.log('Data inserted successfully:', insertData);
-        return res.status(200).json({ success: true, message: 'Donation submitted successfully!' });
+        return res.status(200).json({ success: true, message: 'Donation submitted successfully!', donationId: insertData[0].med_id });
 
     } catch (err) {
         console.error('Unexpected error:', err);

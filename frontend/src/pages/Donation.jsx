@@ -6,6 +6,8 @@ import 'leaflet/dist/leaflet.css';
 import {Container, Row, Col} from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { Alert, AlertTitle, Snackbar } from '@mui/material';
+import jsPDF from 'jspdf';
+import logo from '../assets/medisharelogo.png';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -62,6 +64,84 @@ const Donation = () => {
       [name]: files ? files[0] : value,
     }));
   };
+
+  const generatePDF = (formData, donatedId) => {
+    const doc = new jsPDF();
+    // Set background color
+    doc.setFillColor(248, 245, 240);
+    doc.rect(0, 0, 210, 297, 'F');
+    
+    // Set title with color
+    doc.setFontSize(18);
+    doc.setFont('Roboto', 'bold');
+    doc.setTextColor(69, 123, 111);
+    doc.text('MediShare Donation Receipt', 105, 20, { align: 'center' });
+    doc.setLineWidth(0.5);
+    doc.line(20, 25, 190, 25);
+    console.log('Title added successfully!');
+    
+    // Set normal font
+    doc.setFontSize(12);
+    doc.setFont('Roboto', 'normal');
+    doc.setTextColor(0, 0, 0);
+    
+    // Add a bordered section with light background
+    doc.setFillColor(248, 245, 240);
+    doc.rect(15, 30, 180, 185, 'F');
+    doc.rect(15, 30, 180, 185);
+    
+    // Medicine details in table format
+    const startY = 50;
+    const lineHeight = 10;
+    const details = [
+        ['Donation ID:', donatedId],
+        ['Donor Name:', user.username],
+        ['Medicine Name:', formData.medicineName],
+        ['Generic Name:', formData.genericName],
+        ['Company Name:', formData.companyName],
+        ['Probable Disease:', formData.diseaseName],
+        ['Quantity:', formData.quantity],
+        ['Expiry Date:', formData.expiryDate],
+        ['Latitude:', formData.latitude],
+        ['Longitude:', formData.longitude]
+    ];
+    
+    details.forEach((detail, index) => {
+        doc.setTextColor(69, 123, 111);
+        doc.text(`${detail[0]}`, 25, startY + index * lineHeight);
+        doc.setTextColor(0, 0, 0);
+        doc.text(`${detail[1]}`, 70, startY + index * lineHeight);
+    });
+    // Add medicine image if available before the footer
+    if (formData.medicineImage) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const imgData = e.target.result;
+            const imgWidth = 50; // Adjust size as needed
+            const imgHeight = 50; // Adjust size as needed
+            const xPos = (doc.internal.pageSize.getWidth() - imgWidth) / 2; // Center the image horizontally
+            const yPos = startY + details.length * lineHeight + 5; // Position below the details
+
+            doc.addImage(imgData, 'JPEG', xPos, yPos, imgWidth, imgHeight);
+            
+            // Footer after image
+            doc.setFontSize(10);
+            doc.setTextColor(69, 123, 111);
+            doc.text('Thank you for your donation!', 105, 270, { align: 'center' });
+            
+            doc.save('donation_receipt.pdf');
+        };
+        reader.readAsDataURL(formData.medicineImage);
+    } else {
+        // Footer if no image
+        doc.setFontSize(10);
+        doc.setTextColor(69, 123, 111);
+        doc.text('Thank you for your donation!', 105, 270, { align: 'center' });
+        
+        doc.save('donation_receipt.pdf');
+    }
+};
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { medicineName, genericName, companyName, diseaseName, quantity, expiryDate, latitude, longitude, medicineImage } = formData;
@@ -103,6 +183,8 @@ const Donation = () => {
       } else {
         console.log('Data inserted successfully:', data);
         showAlert('Donation submitted successfully!', 'success');
+        const donatedId = data.donationId;
+        generatePDF(formData, donatedId);
   
         // Reset form data
         setFormData({
