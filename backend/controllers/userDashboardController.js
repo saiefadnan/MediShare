@@ -7,10 +7,9 @@ const getDashboardData = async (req, res) => {
   const { email } = req.body; 
   console.log("Email received: ", email);
   try {
-   
     const { data: userProfile, error: userProfileError } = await supabase
-      .from('updateprofile')
-      .select('first_name, last_name, contact_number, address_line_1, address_line_2, division, zip_code, email, profile_picture_url')
+      .from('userInfo')  // Changed from 'updateprofile' to 'userInfo'
+      .select('username, last_name, contact_number, address_line_1, address_line_2, division, zip_code, email, image_url')  // Updated column names
       .eq('email', email);
 
     if (userProfileError) {
@@ -28,30 +27,6 @@ const getDashboardData = async (req, res) => {
     res.status(500).json({ success: false, error: error.message });
   }
 };
-
-
-/* const loadInventoryItems = async (req, res) => {
-  const { email } = req.body; 
-
-  try {
-    
-    const { data: inventoryItems, error: inventoryError } = await supabase
-      .from('medicine')
-      .select('med_id, common_name, quantity, expiry_date')
-      .eq('donor_id', email); 
-
-    if (inventoryError) {
-      console.error('Error fetching inventory items:', inventoryError);
-      return res.status(500).json({ success: false, message: 'Error fetching inventory items.' });
-    }
-
-    res.status(200).json({ success: true, data: inventoryItems });
-  } catch (error) {
-    console.error('Error fetching inventory items:', error);
-    res.status(500).json({ success: false, error: error.message });
-  }
-}; */
-
 
 
 
@@ -202,17 +177,186 @@ const getAvailableMedicinesData = async (req, res) => {
       res.status(500).json({ success: false, message: error.message });
     }
   };
-  
 
 
+  // Fetch Recent Activity for User
+  const getReccentActivity = async (req, res) => {
+    const { email } = req.body;
   
+    try {
+      // Fetch userId based on email
+      const { data: userData, error: userError } = await supabase
+        .from('userInfo')
+        .select('id')
+        .eq('email', email)
+        .single();
+  
+      if (userError || !userData) {
+        console.error('Error fetching user data:', userError || 'User not found');
+        return res.status(404).json({ success: false, message: 'User not found.' });
+      }
+  
+      const userId = userData.id;
+  
+      // Fetch accepted activity data for the user where they are either the requester or donor
+      const { data: activityData, error: activityError } = await supabase
+        .from('medicine_request')
+        .select('created_at, status, requester_id, donor_id')
+        .or(`requester_id.eq.${userId},donor_id.eq.${userId}`)  // Matching userId as requester or donor
+        .eq('status', 'accepted')   // Only accepted requests
+        .order('created_at', { ascending: false });
+  
+      if (activityError) {
+        console.error('Error fetching activity data:', activityError);
+        return res.status(500).json({ success: false, message: 'Error fetching activity data.' });
+      }
+  
+      // Process the activity data
+      const reccentActivity = await Promise.all(activityData.map(async (item) => {
+        try {
+          let action = '';
+          let name = '';
+  
+          if (item.requester_id === userId) {
+            action = 'Receive';   // The user is the requester, so they receive the donation
+          } else if (item.donor_id === userId) {
+            action = 'Donate';    // The user is the donor, so they donate the item
+          }
+  
+          // Fetch donor data based on donor_id if the user is the requester
+          const { data: donorData, error: donorError } = await supabase
+            .from('userInfo')
+            .select('username')
+            .eq('id', item.donor_id)  // Only fetch donor info if user is the requester
+            .single();
+  
+          if (donorError) {
+            console.error('Error fetching donor data:', donorError);
+            return null; // Skip this activity if donor data fails
+          }
+  
+          name = donorData.username;
+  
+          // Return the activity object
+          return {
+            name: name,
+            action: action,  // "Receive" or "Donate"
+            status: 'Complete',  // If the status is 'accepted', it is complete
+            date: new Date(item.created_at).toLocaleDateString('en-GB'),
+          };
+        } catch (donorError) {
+          console.error('Error fetching donor data:', donorError);
+          return null; // Skip this activity if there's an error fetching donor data
+        }
+      }));
+  
+      // Filter out any null values (activities where donor data failed to fetch)
+      const filteredActivity = reccentActivity.filter(activity => activity !== null);
+  
+      console.log('Filtered Recent Activity:', filteredActivity);  // Log the filtered data before sending the response
+      res.status(200).json({ success: true, data: filteredActivity });
+    } catch (error) {
+      console.error('Error fetching recent activity:', error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+};
+
+const loadInventoryItems = async (req, res) => {
+  const { email, offset = 0, limit = 3 } = req.body;  // Default to 3 items per request
+
+  try {
+    // Fetch the user ID from userInfo table based on email
+    const { data: userData, error: userError } = await supabase
+      .from('userInfo')
+      .select('id')
+      .eq('email', email)
+      .single();
+
+    if (userError || !userData) {
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
+
+    const userId = userData.id;
+
+    // Fetch inventory items linked to the userId (donor_id), with pagination
+    const { data: inventoryItems, error: inventoryError } = await supabase
+      .from('medicine')
+      .select('generic_name, quantity, expiry_date')
+      .eq('donor_id', userId)  // Get medicines uploaded by the user
+      .range(offset, offset + limit - 1);  // Fetch items with pagination based on offset and limit
+
+    if (inventoryError) {
+      console.error('Error fetching inventory items:', inventoryError);
+      return res.status(500).json({ success: false, message: 'Error fetching inventory items.' });
+    }
+
+    if (!inventoryItems.length) {
+      return res.status(404).json({ success: false, message: 'No medicines found for this user.' });
+    }
+
+    // Return the fetched inventory items
+    res.status(200).json({ success: true, data: inventoryItems });
+  } catch (error) {
+    console.error('Error fetching inventory items:', error);
+    res.status(500).json({ success: false, message: 'Error fetching inventory items.' });
+  }
+};
+
+// Update Inventory Item
+const updateInventoryItem = async (req, res) => {
+  const { email, med_id, generic_name, quantity } = req.body;
+
+  if (!med_id || isNaN(med_id)) {
+    console.error('Invalid med_id:', med_id);
+    return res.status(400).json({ success: false, message: 'Invalid med_id provided.' });
+  }
+
+  try {
+    const { data: userData, error: userError } = await supabase
+      .from('userInfo')
+      .select('id')
+      .eq('email', email)
+      .single();
+
+    if (userError || !userData) {
+      console.error('User not found or error fetching user:', userError);
+      return res.status(404).json({ success: false, message: 'User not found.' });
+    }
+
+    const userId = userData.id;
+
+    const { data, error } = await supabase
+      .from('medicine')
+      .update({
+        generic_name,
+        quantity
+      })
+      .eq('med_id', med_id)  // Ensure med_id is treated as an int8 in the query
+      .eq('donor_id', userId);
+
+    if (error) {
+      console.error('Error updating inventory item:', error);
+      return res.status(500).json({ success: false, message: 'Error updating inventory item.' });
+    }
+
+    console.log("Item updated successfully:", data);
+    res.status(200).json({ success: true, message: 'Inventory item updated successfully.' });
+  } catch (error) {
+    console.error('Error in updateInventoryItem:', error);
+    res.status(500).json({ success: false, message: 'General error: ' + error.message });
+  }
+};
+
+
   
 
 module.exports = {
   getDashboardData,
-  /*loadInventoryItems, */
+  loadInventoryItems, 
   donationsData,
   getMonthlyReceivedData,
-  getAvailableMedicinesData
+  getAvailableMedicinesData,
+  getReccentActivity,
+  updateInventoryItem
 
 };

@@ -1,47 +1,109 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../styles/sidebarUser.css';
 import '../styles/userRequests.css'; 
-import prescriptionSigned from '../assets/prescrpt.png';
+import { useAuth } from '../Contexts/AuthContext.jsx'; // Make sure to import the useAuth context
+import { Link } from 'react-router-dom'; // Import Link for navigation
 
 function UserRequests() { 
-  const [requests, setRequests] = useState([
-    { id: 1, name: "Abraham", type: "Capsule", prescription: "View", date: "20/10/24" },
-    { id: 2, name: "Brian", type: "Syrup", prescription: "View", date: "11/10/24" },
-    { id: 3, name: "Jeremy", type: "Tablet", prescription: "View", date: "16/7/24" },
-    { id: 4, name: "Sarah", type: "Capsule", prescription: "View", date: "19/7/24" },
-    { id: 5, name: "Jack", type: "Capsule", prescription: "View", date: "22/7/24" },
-    { id: 6, name: "Mary", type: "Laxatives", prescription: "View", date: "30/9/24" },
-    { id: 7, name: "Sophia", type: "Insulin", prescription: "View", date: "15/8/24" },
-    { id: 8, name: "Michael", type: "Anticoagulants", prescription: "View", date: "10/9/24" },
-    { id: 9, name: "Emma", type: "Drops", prescription: "View", date: "25/10/24" },
-    { id: 10, name: "James", type: "Anti-Anxiety Drugs", prescription: "View", date: "05/11/24" },
-    { id: 11, name: "Olivia", type: "Diuretics", prescription: "View", date: "12/11/24" },
-  ]);
+  const { user } = useAuth(); // Get the logged-in user from the context
+  const [requests, setRequests] = useState([]);  
+  const [searchTerm, setSearchTerm] = useState('');
+  const [searchBy, setSearchBy] = useState('name'); // Default search by name
+  const [profilePic116, setProfilePic116] = useState(''); // State to store the profile picture URL
+  const email = user?.email; // Dynamically get the email from the logged-in user
 
-  const [showNodal, setShowNodal] = useState(false); // Controls the nodal visibility
+  // Fetch user requests from the backend
+  useEffect(() => {
+    const fetchRequests = async () => {
+      try {
+        const response = await axios.post('http://localhost:5000/api/userRequests/getUserRequestsData', { email });
+        if (response.data.success) {
+          console.log('Fetched requests:', response.data.data); // Log fetched requests
+          setRequests(response.data.data);
+          setProfilePic116(response.data.profilePic); // Update requests data
+        }
+      } catch (error) {
+        console.error('Error fetching requests:', error);
+      }
+    };
 
-  const handleView = (id) => {
-    if (id === 1) { // Check if the request is Abraham's
-      setShowNodal(true);
+    if (email) {
+      fetchRequests();
+    }
+  }, [email]);
+
+  // Filtered requests based on search term and selected filter (name/type)
+  const filteredRequests = requests.filter((request) => {
+    if (searchBy === 'name') {
+      return request.requestedBy?.toLowerCase().includes(searchTerm.toLowerCase());
+    } else if (searchBy === 'type') {
+      return request.type?.toLowerCase().includes(searchTerm.toLowerCase());
+    }
+  });
+
+  // Function to handle the "Donate" button click
+  const handleDonate = async (request_id) => {
+    console.log("Donate button clicked, request_id:", request_id);  // Log request_id
+    
+    if (!request_id) {
+      alert('Request ID is missing');
+      return; // Prevent execution if request_id is undefined
+    }
+    
+    try {
+      const response = await axios.put('http://localhost:5000/api/userRequests/updateRequestStatus', {
+        request_id,  // Send the request_id as part of the request
+        status: 'accepted',
+      });
+  
+      if (response.data.success) {
+        setRequests(prevRequests =>
+          prevRequests.map(request =>
+            request.request_id === request_id ? { ...request, status: 'accepted', showButtons: false } : request
+          )
+        );
+      }
+    } catch (error) {
+      console.error('Error accepting request:', error.message);
     }
   };
-
-  const handleCloseNodal = () => {
-    setShowNodal(false);
+  
+  const handleReject = async (request_id) => {
+    console.log("Reject button clicked, request_id:", request_id);  // Log request_id
+    
+    if (!request_id) {
+      alert('Request ID is missing');
+      return; // Prevent execution if request_id is undefined
+    }
+  
+    try {
+      const response = await axios.put('http://localhost:5000/api/userRequests/updateRequestStatus', {
+        request_id,  // Send the request_id as part of the request
+        status: 'rejected',
+      });
+  
+      if (response.data.success) {
+        setRequests(prevRequests =>
+          prevRequests.map(request =>
+            request.request_id === request_id ? { ...request, status: 'rejected', showButtons: false } : request
+          )
+        );
+      }
+    } catch (error) {
+      console.error('Error rejecting request:', error.message);
+    }
   };
-
-  const handleReject = (id) => {
-    setRequests((prevRequests) => prevRequests.filter((request) => request.id !== id));
-  };
-
+  
+  
   return (
     <div className="user-requests">
       {/* Sidebar */}
       <div className="sidebar">
         <div className="profile">
-          <img src="https://via.placeholder.com/80" alt="Profile" />
-          <h2>John Smith</h2>
-          <p>johnsmith@gmail.com</p>
+          <img src={profilePic116 || 'https://defaultProfilePicURL.com/80'} alt="Profile" />
+          <h2>{user?.username} {user?.last_name}</h2> {/* Display the logged-in user's username */}
+          <p>{user?.email}</p>
         </div>
 
         {/* Sidebar Menu */}
@@ -75,66 +137,87 @@ function UserRequests() {
         </ul>
        
         <button className="sign-out" onClick={() => window.location.href = '/login'}>
-    <i className="fa-solid fa-right-from-bracket"></i> Sign Out
-  </button>
+          <i className="fa-solid fa-right-from-bracket"></i> Sign Out
+        </button>
       </div>
 
       {/* Main Content */}
       <div className="main-content116">
-        <h1 style={{ fontWeight: 'bold', color: 'black' }}>Requests</h1>
-        <div className="table-container">
-          <table className="requests-table">
+        <h1 style={{ fontWeight: 'bold', color: 'black' }}>Incoming Requests</h1>
+
+        {/* Search Bar and Dropdown */}
+        <div className="search-container116">
+          <input
+            type="text"
+            className="search-bar116"
+            placeholder={`Search by ${searchBy}...`}
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+
+          <select
+            className="search-select116"
+            value={searchBy}
+            onChange={(e) => setSearchBy(e.target.value)}
+          >
+            <option value="name">Search by Name</option>
+            <option value="type">Search by Type</option>
+          </select>
+        </div>
+
+        <div className="table-container116">
+          <table className="requests-table116">
             <thead>
               <tr>
                 <th>Requested by</th>
                 <th>Type</th>
+                <th>Quantity</th> 
                 <th>Prescription</th>
                 <th>Date</th>
-                <th>Donate/Reject</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {requests.map((request) => (
-                <tr key={request.id}>
-                  <td>{request.name}</td>
-                  <td>{request.type}</td>
-                  <td>
-                    <a href="#" onClick={() => handleView(request.id)}>
-                      {request.prescription}
-                    </a>
-                  </td>
-                  <td>{request.date}</td>
-                  <td>
-                    <div className="actions">
-                      <button className="donate-button">
-                        <i className="fa-solid fa-check"></i> Donate
-                      </button>
-                      <button
-                        className="reject-button"
-                        onClick={() => handleReject(request.id)}
-                      >
-                        <i className="fa-solid fa-x"></i> Reject
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+  {filteredRequests.map((request) => {
+    console.log('Request object:', request);  // Log the full request object to see if request_id exists
+    console.log('Request ID:', request.request_id);  // Log the request_id specifically to see if it is defined
+    
+    return (
+      <tr key={request.request_id}>
+        <td>{request.requestedBy}</td>
+        <td>{request.type}</td>
+        <td>{request.quantity}</td>
+        <td>
+          <Link to="/prescriptionImage" state={{ prescriptionImage: request.prescriptionImage }}>
+            View
+          </Link>
+        </td>
+        <td>{request.date}</td>
+        <td>
+          {request.status === 'pending' && request.showButtons !== false ? (
+            <div className="actions">
+              <button className="donate-button116" onClick={() => handleDonate(request.request_id)}>
+                <i className="fa-solid fa-check"></i> Donate
+              </button>
+              <button className="reject-button116" onClick={() => handleReject(request.request_id)}>
+                <i className="fa-solid fa-x"></i> Reject
+              </button>
+            </div>
+          ) : (
+            <div className="status-message">
+              <span>{`You have ${request.status} this request`}</span>
+            </div>
+          )}
+        </td>
+      </tr>
+    );
+  })}
+</tbody>
+
+
           </table>
         </div>
       </div>
-
-      {/* Nodal for Abraham's Prescription */}
-      {showNodal && (
-        <div className="nodal">
-          <div className="nodal-content">
-            <span className="klose-button116" onClick={handleCloseNodal}>
-              &times;
-            </span>
-            <img src={prescriptionSigned} alt="Abraham's Prescription" className="prescription-image" />
-          </div>
-        </div>
-      )}
     </div>
   );
 }

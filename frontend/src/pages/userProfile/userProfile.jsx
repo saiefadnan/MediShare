@@ -1,9 +1,5 @@
 import { useAuth } from '../../Contexts/AuthContext.jsx';
 import React, { useState, useEffect, useRef } from "react";
-
-//import React, { useState, useEffect, useRef } from "react";
-
-//import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Cropper } from "react-cropper";
 import "cropperjs/dist/cropper.css";
@@ -13,154 +9,173 @@ import "../../styles/sidebarUser.css";
 import "./userProfile.css";
 
 export default function ProfileEditor() {
-  const {user}=useAuth();
-
-  const userId = user?.id;  // Get the logged-in user's ID
+  const { user } = useAuth();
+  const userId = user?.id; // Get the logged-in user's ID
   const email = user?.email; // Get the logged-in user's email
-
-  //const userId=user.id;
-
-
-  const [imageToCrop, setImageToCrop] = useState(null);
-  const cropperRef = useRef(null);
   const navigate = useNavigate();
 
   // States to hold form data
-  const [firstName, setFirstName] = useState("");
+  const [username, setUserName] = useState("");
   const [lastName, setLastName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [addressLine1, setAddressLine1] = useState("");
   const [addressLine2, setAddressLine2] = useState("");
   const [division, setDivision] = useState("dhaka");
   const [zipCode, setZipCode] = useState("");
-  const [profileImage, setProfileImage] = useState(null);
+  const [profilePic, setProfilePic] = useState('');
+  const [imageToCrop, setImageToCrop] = useState(null); // For cropping
+  const [profileImage, setProfileImage] = useState(null); // For the previewed image
 
+  // Cropper ref
+  const cropperRef = useRef(null); // This is the cropperRef initialization
+
+  // Fetch Sidebar Profile Data
   useEffect(() => {
-    const fetchProfile = async () => {
+    const fetchSidebarProfileData = async () => {
       try {
-        const response = await axios.post("http://localhost:5000/api/getProfile", { email });
-        if (response.data.success) {
-          const { first_name, last_name, contact_number, address_line_1, address_line_2, division, zip_code, profile_picture_url } = response.data.data;
-          setFirstName(first_name);
-          setLastName(last_name);
-          //setEmail(email);
-          setContactNumber(contact_number);
-          setAddressLine1(address_line_1);
-          setAddressLine2(address_line_2);
-          setDivision(division);
-          setZipCode(zip_code);
-          setProfileImage(profile_picture_url);
+        const sidebarResponse = await axios.post("http://localhost:5000/api/userProfile/getSidebarProfileData", { email });
+        if (sidebarResponse.data.success) {
+          const { profilePic, username, lastName } = sidebarResponse.data; // Extract data from the response
+          setProfilePic(profilePic || '/placeholder.jpg');
+          setUserName(username || 'Unknown');
+          setLastName(lastName || 'Unknown');
+        } else {
+          console.error("Error fetching sidebar profile data:", sidebarResponse.data.message);
         }
       } catch (error) {
-        console.error("Error fetching profile data:", error);
+        console.error("Error fetching sidebar profile data:", error);
       }
     };
-  
-    fetchProfile();
+
+    if (email) {
+      fetchSidebarProfileData(); // Fetch the sidebar profile data if email exists
+    }
   }, [email]);
-  
+
+  // Fetch User Profile Data
+  useEffect(() => {
+    const fetchUserProfileData = async () => {
+      try {
+        const response = await axios.post("http://localhost:5000/api/userProfile/getUserProfileData", { email: user?.email });
+        if (response.data.success) {
+          const { username, lastName, contactNumber, addressLine1, addressLine2, division, zipCode, profilePic } = response.data.data;
+          setUserName(username || 'Unknown');
+          setLastName(lastName || 'Unknown');
+          setContactNumber(contactNumber || '---');
+          setAddressLine1(addressLine1 || 'Not provided');
+          setAddressLine2(addressLine2 || 'Not provided');
+          setDivision(division || 'Not specified');
+          setZipCode(zipCode || 'Not provided');
+          setProfilePic(profilePic || '/placeholder.jpg');
+        } else {
+          console.error("Error fetching user profile data:", response.data.message);
+        }
+      } catch (error) {
+        console.error("Error fetching user profile data:", error);
+      }
+    };
+
+    if (email) {
+      fetchUserProfileData(); // Fetch user profile data if email exists
+    }
+  }, [email]);
 
   const handleImageUpload = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImageToCrop(reader.result); // Set the image to crop
+        setImageToCrop(reader.result); // Set the uploaded image for cropping
+        setProfileImage(reader.result); // Preview the image immediately
       };
       reader.readAsDataURL(file);
     }
   };
-  
 
   const handleCrop = () => {
     const cropper = cropperRef.current?.cropper;
     if (cropper) {
       const croppedImage = cropper.getCroppedCanvas().toDataURL();
-      setProfileImage(croppedImage); // Set the cropped image as the profile picture
-      setImageToCrop(null); // Close the cropping modal
+      setProfileImage(croppedImage);
+      setImageToCrop(null);
     }
   };
 
   const handleCancelCrop = () => {
-    setImageToCrop(null); // Cancel cropping and close the modal
+    setImageToCrop(null); // Reset the cropper and clear the preview
   };
 
-  // Function to handle form submission
   const handleSaveChanges = async () => {
-    // Validate form data
-    if (!firstName || !lastName || !email) {
-      alert("Please fill in the required fields: First Name, Last Name, and Email.");
+    // Ensure required fields are filled
+    if ( !addressLine1 || !contactNumber) {
+      alert("Please fill in the required fields: Username, Address Line 1, Contact Number, Division, and Zip Code.");
       return;
     }
-  
+
+    console.log('Sendging form data to the backend: ');
+    console.log({
+      username,
+      lastName,
+      email,
+      contactNumber,
+      addressLine1,
+      addressLine2,
+      division,
+      zipCode,
+      profileImage
+    });
+
     const formData = new FormData();
-    formData.append("firstName", firstName);
+    formData.append("username", username);
     formData.append("lastName", lastName);
-    formData.append("email", email); // Include the logged-in user's email
+    formData.append("email", email);
     formData.append("contactNumber", contactNumber);
     formData.append("addressLine1", addressLine1);
     formData.append("addressLine2", addressLine2);
     formData.append("division", division);
     formData.append("zipCode", zipCode);
-    formData.append("userId", userId); // Include the logged-in user's ID
-  
-    // Check and process profile image if available
+    formData.append("userId", userId);
+
+    // Only append profile image if it's being updated
     if (profileImage) {
       try {
-        // Convert base64 to file and append to formData for upload
-        const base64Data = profileImage.split(',')[1]; // Clean base64 string
-        const byteString = atob(base64Data); // Decode base64
+        const base64Data = profileImage.split(',')[1];
+        const byteString = atob(base64Data);
         const arrayBuffer = new ArrayBuffer(byteString.length);
         const uintArray = new Uint8Array(arrayBuffer);
-    
+
         for (let i = 0; i < byteString.length; i++) {
           uintArray[i] = byteString.charCodeAt(i);
         }
-    
-        const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });  // Blob with appropriate MIME type
-        formData.append("profilePicture", blob, "profile-image.jpg"); // Append as file to formData
+
+        const blob = new Blob([arrayBuffer], { type: 'image/jpeg' });
+        formData.append("profilePicture", blob, "profile-image.jpg");
       } catch (error) {
         console.error("Error processing profile image:", error);
         alert("There was an error processing the profile image.");
         return;
       }
     }
-    
-  
+
     try {
-      // Send the form data to the backend (replace with your actual API URL)
       const response = await axios.put("http://localhost:5000/api/profile", formData, {
         headers: {
-          "Content-Type": "multipart/form-data", // Ensure backend accepts multipart form-data
+          "Content-Type": "multipart/form-data",
         },
       });
-  
+
+      console.log('Response from backend:', response.data);
+
       if (response.data.success) {
         alert("Profile updated successfully!");
-        navigate('/userDashboard'); // Redirect to dashboard after successful update
+        navigate('/userDashboard');
       } else {
-        alert("Error: " + response.data.message); // Handle error response from backend
+        alert("Error: " + response.data.message);
       }
     } catch (error) {
       console.error("There was an error updating the profile:", error);
-      alert("Error updating profile."); // Handle network or API errors
+      alert("Error updating profile.");
     }
-  };
-  
-  
-  
-
-  // Helper function to convert base64 to blob
-  const dataURLtoBlob = (dataURL) => {
-    const byteString = atob(dataURL.split(',')[1]);
-    const arrayBuffer = new ArrayBuffer(byteString.length);
-    const uintArray = new Uint8Array(arrayBuffer);
-
-    for (let i = 0; i < byteString.length; i++) {
-      uintArray[i] = byteString.charCodeAt(i);
-    }
-
-    return new Blob([arrayBuffer], { type: 'image/jpeg' });
   };
 
   return (
@@ -168,16 +183,14 @@ export default function ProfileEditor() {
       {/* Sidebar */}
       <div className="sidebar">
         <div className="profile">
-          {/* Sidebar profile image */}
           <img
-            src={profileImage || "https://via.placeholder.com/80"}
+            src={profilePic || "https://via.placeholder.com/80"}
             alt="Profile"
           />
-          <h2>{firstName} {lastName}</h2>
-          <p>{email}</p>
+          <h2>{user?.username} {user?.last_name}</h2>
+          <p>{user?.email}</p>
         </div>
 
-        {/* Sidebar Menu */}
         <ul className="menu">
           <li className="menu-header">Check</li>
           <li>
@@ -203,6 +216,7 @@ export default function ProfileEditor() {
             </a>
           </li>
         </ul>
+
         <button className="sign-out" onClick={() => window.location.href = '/login'}>
           <i className="fa-solid fa-right-from-bracket"></i> Sign Out
         </button>
@@ -213,9 +227,8 @@ export default function ProfileEditor() {
         <div className="profile-header">
           <div className="profile-image-section">
             <div className="profile-image">
-              {/* Main profile image */}
               <img
-                src={profileImage || "/placeholder.svg"}
+                src={profileImage || profilePic || "/placeholder.svg"}
                 alt="Profile"
               />
             </div>
@@ -234,13 +247,13 @@ export default function ProfileEditor() {
           </div>
           <div className="name-fields">
             <div className="form-group116">
-              <label htmlFor="firstName">First Name</label>
+              <label htmlFor="username">First Name</label>
               <input
                 type="text"
-                id="firstName"
+                id="username"
                 className="medium-textbox"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
+                value={username}
+                onChange={(e) => setUserName(e.target.value)}
               />
             </div>
             <div className="form-group116">
@@ -267,7 +280,6 @@ export default function ProfileEditor() {
               id="email"
               className="medium-textbox"
               value={email}
-              //onChange={(e) => setEmail(e.target.value)}
               disabled
             />
           </div>
@@ -339,7 +351,6 @@ export default function ProfileEditor() {
           </div>
         </div>
 
-        {/* Buttons */}
         <div className="button-group">
           <button className="cancel-button">Cancel</button>
           <button className="save-button" onClick={handleSaveChanges}>Save Changes</button>
@@ -357,12 +368,8 @@ export default function ProfileEditor() {
             ref={cropperRef}
           />
           <div className="button-group">
-            <button className="cancel-button" onClick={handleCancelCrop}>
-              Cancel
-            </button>
-            <button className="save-button" onClick={handleCrop}>
-              Save
-            </button>
+            <button className="cancel-button" onClick={handleCancelCrop}>Cancel</button>
+            <button className="save-button" onClick={handleCrop}>Save</button>
           </div>
         </div>
       )}

@@ -19,6 +19,7 @@ import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
 import MedicineSearchResults from './pages/components_MedicineSearchResults';
 import CircularUnderLoad from './components/CircularUnderLoad.jsx';
+import PrescriptionImagePage from './pages/PrescriptionImagePage.jsx';
 const Admin = lazy(()=>import('./pages/Admin.jsx'));
 
 
@@ -40,6 +41,7 @@ function App() {
     '/admin/accounts',
     '/admin/chat',
     '/auth/google/callback',
+    '/prescriptionImage',
   ];
 
   const hideFooterRoutes = [
@@ -58,6 +60,7 @@ function App() {
     '/userRequested',
     '/auth/google/callback',
     '/ai',
+    '/prescriptionImage',
   ];
 
   return (
@@ -82,6 +85,7 @@ function App() {
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/joinUs" element={<JoinUs />} />
+          <Route path="/prescriptionImage" element={<PrescriptionImagePage />} />
         </Routes>
       </Suspense>
       {!hideFooterRoutes.some(route => new RegExp(`^${route.replace(/:token/, ".*")}$`).test(location.pathname)) && <Footer />}
