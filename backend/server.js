@@ -3,7 +3,7 @@ const app = express();
 require('dotenv').config()
 const cors = require('cors');
 const http = require('http');
-const server = http.createServer(app)
+const server = http.createServer(app);
 const user = require('./routes/userRoute');
 const search = require('./routes/searchRoute');
 const admin = require('./routes/adminRoute');
@@ -22,18 +22,11 @@ app.use(cors({
 app.use(express.static('public'))
 app.use(express.json())
 
-
-
-// Basic route
-app.use('/api/user', user);
-app.use('/api', search);
-
 app.use((req, res, next) => {
   console.log(req.path, req.method)
   next()
 
 })
-
 
 app.use(session({
   secret: ['key1', 'key2'],
@@ -48,26 +41,17 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-app.use('/api/admin',admin);
-app.use('/api/donation', donateMedicine);
-
-
 // Basic routes
-
+app.use('/api/user', user);
+app.use('/api', search);
 app.use('/api/admin',admin);
 app.use('/api/donation', donateMedicine);
-
 app.use('/api/user', user);
 app.use('/api', search);
 app.use('/api', userProfileRoute);
-
 app.use('/api/userDashboard', userDashboardRoutes);
 
-
-
 // Start the server
-
 server.listen(process.env.PORT, () => {
   console.log(`Server is running on http://localhost:${process.env.PORT}`);
 });

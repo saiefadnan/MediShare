@@ -11,45 +11,95 @@ import FullscreenExitIcon from '@mui/icons-material/FullscreenExit';
 import axios from "axios";
 import { useAuth } from "../../Contexts/AuthContext";
 import useFetch from "../../hooks/useFetch";
+import supabase from "./Supabaseclient";
+import toast, { Toaster } from "react-hot-toast";
 
 const AdminNavbar = ({Open}) => {
     const {user} = useAuth();
-    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/fetch-image',{id: user?.id});
+    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/fetch-navdata',{id: user?.id});
     const [image, setImage] = useState(null);
     const drawerWidth = 240;
     const [open, setOpen] = Open;
     const [openNotif,setOpenNotif] = useState(false);
     const [fullscreen, setFullscreen] = useState(false);
+    const [notifyCount, setNotifyCount] = useState(0);
+
+    const storeNotifs = async(msg)=>{
+        setNotifyCount(prevCount=>prevCount+1);
+        await axios.post('http://localhost:5000/api/admin/store-notifs',{ message: msg });
+        toast.success(msg);
+    }
+
+    const userNotifs = (user, event)=>{
+        let msg="";
+        if(event==="insert"){
+            msg=`User ID: ${user.id} ${user.email} has just joined the community!`;
+        }
+        else if(event==="update"){
+            msg=`User ID: ${user.id} ${user.email} has just updated his/her user infos!`;
+        }else{
+            msg=`User ID: ${user.id} has been removed permanently!`;
+        }
+        storeNotifs(msg);
+    }
+    const medNotifs = (meds, event)=>{
+        let msg="";
+        if(event==="insert"){
+            msg=`User ID: ${meds.donor_id} just donated ${meds.quantity} X ${meds.generic_name}`;
+        }
+        else if(event==="update"){
+            msg=`User ID: ${user.id} ${user.email} has just updated his/her user infos!`;
+        }else{
+            msg=`User ID: ${user.id} has been removed permanently!`;
+        }
+        storeNotifs(msg);
+    }
+
+    useEffect(()=>{
+        const subscription1 = supabase
+        .channel("notifications")
+        .on("postgres_changes",{event: "INSERT", schema: "public", table: "userInfo"},(payload)=>{
+            const newUser = payload.new;
+            console.log(newUser);
+            userNotifs(newUser, "insert");
+            
+        })
+        .on("postgres_changes", 
+            { event: "UPDATE", schema: "public", table: "userInfo" }, 
+            (payload) => {
+                const updatedUser = payload.new;
+                console.log("User Updated:", updatedUser);
+                userNotifs(updatedUser, "update");
+            }
+        )
+        .on("postgres_changes", 
+            { event: "DELETE", schema: "public", table: "userInfo" }, 
+            (payload) => {
+                const oldUser = payload.old;
+                console.log("User deleted:", oldUser);
+                userNotifs(oldUser, "delete");
+            }
+        )
+        .on("postgres_changes", 
+            { event: "INSERT", schema: "public", table: "medicine" }, 
+            (payload) => {
+                const newMeds = payload.new;
+                console.log("new Meds", newMeds);
+                medNotifs(newMeds, "insert");
+            }
+        )
+        .subscribe();
+
+        return(()=>{
+            supabase.removeChannel(subscription1);
+        })
+    },[])
     
     useEffect(()=>{
         setImage(data?.image_url);
+        setNotifyCount(data?.notify_count);
     },[data])
-
-
-    // const AppBar = styled(MuiAppBar, {
-    // shouldForwardProp: (prop) => prop !== 'open',})(({ theme }) => ({
-    //     zIndex: theme.zIndex.drawer + 1,
-    //     height: '65px',
-    //     transition: theme.transitions.create(['width', 'margin'], {
-    //     easing: theme.transitions.easing.sharp,
-    //     duration: theme.transitions.duration.leavingScreen,
-    //     }),
-    //     variants: [
-    //     {
-    //         props: ({ open }) => open,
-    //         style: {
-    //         marginLeft: drawerWidth,
-    //         width: `calc(100% - ${drawerWidth}px)`,
-    //         height: '65px',
-    //         transition: theme.transitions.create(['width', 'margin'], {
-    //             easing: theme.transitions.easing.sharp,
-    //             duration: theme.transitions.duration.enteringScreen,
-    //         }),
-    //         },
-    //     },
-    //     ],
-    // }));
-
+    
     const handleSelectImage = async(event)=>{
         const file = event.target.files[0];
         if (file) {
@@ -106,6 +156,7 @@ const AdminNavbar = ({Open}) => {
         setOpen(!open);
     };
     const handlePanel = () =>{
+        setNotifyCount(0);
         setOpenNotif(!openNotif);
     }
 
@@ -118,6 +169,7 @@ const AdminNavbar = ({Open}) => {
 
     return ( 
         <AppBar position="fixed" open={open} sx={{backgroundColor: "#F6EFE4" }}>
+            <Toaster/>
             <Toolbar>
             <IconButton
             color="inherit"
@@ -149,11 +201,11 @@ const AdminNavbar = ({Open}) => {
             <IconButton onClick={handleToggleScreen}>
                 {fullscreen?<FullscreenExitIcon/>:<FullscreenIcon/> }
             </IconButton>
-            {/* <IconButton color="black" onClick={handlePanel}>
-                <Badge badgeContent={4} color="error">
+            <IconButton color="black" onClick={handlePanel}>
+                <Badge badgeContent={notifyCount} color="error">
                     <NotificationsIcon/> 
                 </Badge>
-            </IconButton> */}
+            </IconButton>
         <input
             type="file"
             accept="image/*"
@@ -166,7 +218,7 @@ const AdminNavbar = ({Open}) => {
           <Avatar src={user.image_url ? user.image_url : image} alt="avatar" sx={{ width: 50, height: 50 }} />
         </IconButton>
     </label>
-        {openNotif && <NotificationPanel Open={[openNotif,setOpenNotif]} />}
+        {openNotif && <NotificationPanel Params={[openNotif,setOpenNotif,setNotifyCount]} />}
         </Toolbar>
     </AppBar> 
 );

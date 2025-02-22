@@ -3,14 +3,7 @@ import React, { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import useFetch from "../../hooks/useFetch";
 
-const data = [
-  { name: 'Donators', value: 4000 },
-  { name: 'Collectors', value: 3000 },
-  { name: 'Others', value: 2000 },
-];
-
 const COLORS = ['#006AFF', '#52C93A', '#FF2727'];
-
 const CollectionPie = () => {
     const currentYear = new Date().getFullYear();
     const years = Array.from({length: 10},(_,i)=>currentYear-i);
@@ -52,6 +45,8 @@ const CollectionPie = () => {
             ))}
             </Select>
         </Box>
+            {!error && isPending && <Typography>Loading...</Typography>}
+            {error && <Typography color="error">Error: {error}</Typography>}
             <ResponsiveContainer width="100%" height={310}>
                 <PieChart>
                     <Pie
