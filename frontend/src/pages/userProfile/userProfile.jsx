@@ -108,7 +108,7 @@ export default function ProfileEditor() {
   const handleSaveChanges = async () => {
    
     if ( !addressLine1 || !contactNumber) {
-      alert("Please fill in the required fields: Username, Address Line 1, Contact Number, Division, and Zip Code.");
+      alert("Please fill in the required fields: Username, Address Line 1, Contact Number");
       return;
     }
 
