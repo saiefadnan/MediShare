@@ -3,18 +3,18 @@ import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Cropper } from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import axios from "axios"; // Import axios for API calls
+import axios from "axios";
 
 import "../../styles/sidebarUser.css";
 import "./userProfile.css";
 
 export default function ProfileEditor() {
   const { user } = useAuth();
-  const userId = user?.id; // Get the logged-in user's ID
-  const email = user?.email; // Get the logged-in user's email
+  const userId = user?.id; 
+  const email = user?.email; 
   const navigate = useNavigate();
 
-  // States to hold form data
+  
   const [username, setUserName] = useState("");
   const [lastName, setLastName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -23,13 +23,13 @@ export default function ProfileEditor() {
   const [division, setDivision] = useState("dhaka");
   const [zipCode, setZipCode] = useState("");
   const [profilePic, setProfilePic] = useState('');
-  const [imageToCrop, setImageToCrop] = useState(null); // For cropping
-  const [profileImage, setProfileImage] = useState(null); // For the previewed image
+  const [imageToCrop, setImageToCrop] = useState(null); 
+  const [profileImage, setProfileImage] = useState(null); 
 
-  // Cropper ref
-  const cropperRef = useRef(null); // This is the cropperRef initialization
+  
+  const cropperRef = useRef(null); 
 
-  // Fetch Sidebar Profile Data
+  // eita sidebar data fetch
   useEffect(() => {
     const fetchSidebarProfileData = async () => {
       try {
@@ -48,11 +48,11 @@ export default function ProfileEditor() {
     };
 
     if (email) {
-      fetchSidebarProfileData(); // Fetch the sidebar profile data if email exists
+      fetchSidebarProfileData(); 
     }
   }, [email]);
 
-  // Fetch User Profile Data
+  // Fetch kore eita
   useEffect(() => {
     const fetchUserProfileData = async () => {
       try {
@@ -76,7 +76,7 @@ export default function ProfileEditor() {
     };
 
     if (email) {
-      fetchUserProfileData(); // Fetch user profile data if email exists
+      fetchUserProfileData(); 
     }
   }, [email]);
 
@@ -85,8 +85,8 @@ export default function ProfileEditor() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImageToCrop(reader.result); // Set the uploaded image for cropping
-        setProfileImage(reader.result); // Preview the image immediately
+        setImageToCrop(reader.result); 
+        setProfileImage(reader.result); 
       };
       reader.readAsDataURL(file);
     }
@@ -102,11 +102,11 @@ export default function ProfileEditor() {
   };
 
   const handleCancelCrop = () => {
-    setImageToCrop(null); // Reset the cropper and clear the preview
+    setImageToCrop(null); // Reset  cropper 
   };
 
   const handleSaveChanges = async () => {
-    // Ensure required fields are filled
+   
     if ( !addressLine1 || !contactNumber) {
       alert("Please fill in the required fields: Username, Address Line 1, Contact Number, Division, and Zip Code.");
       return;

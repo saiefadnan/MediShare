@@ -146,17 +146,16 @@ const donationsData = async (req, res) => {
 
 const getAvailableMedicinesData = async (req, res) => {
     try {
-      // Fetch available medicines from the 'medicine' table with their status 'available'
+      
       const { data: availableMedicines, error: availableMedicinesError } = await supabase
         .from('medicine')
-        .select('created_at, status') // Only selecting created_at and status
-        .eq('status', 'available');  // Filter for available medicines
-      
+        .select('created_at, status') 
+        .eq('status', 'available');  
       if (availableMedicinesError) {
         return res.status(500).json({ success: false, message: availableMedicinesError.message });
       }
       
-      // Prepare data for the graph, grouping the medicines by month
+      
       const monthCounts = { December: 0, January: 0, February: 0 };
       
       availableMedicines.forEach(item => {
@@ -170,7 +169,7 @@ const getAvailableMedicinesData = async (req, res) => {
         }
       });
   
-      // Send the response with the counts of available medicines by month
+      
       res.status(200).json({ success: true, data: monthCounts });
     } catch (error) {
       console.error('Error fetching available medicines data:', error);
@@ -179,12 +178,12 @@ const getAvailableMedicinesData = async (req, res) => {
   };
 
 
-  // Fetch Recent Activity for User
+  
   const getReccentActivity = async (req, res) => {
     const { email } = req.body;
   
     try {
-      // Fetch userId based on email
+     
       const { data: userData, error: userError } = await supabase
         .from('userInfo')
         .select('id')
@@ -198,12 +197,12 @@ const getAvailableMedicinesData = async (req, res) => {
   
       const userId = userData.id;
   
-      // Fetch accepted activity data for the user where they are either the requester or donor
+      
       const { data: activityData, error: activityError } = await supabase
         .from('medicine_request')
         .select('created_at, status, requester_id, donor_id')
-        .or(`requester_id.eq.${userId},donor_id.eq.${userId}`)  // Matching userId as requester or donor
-        .eq('status', 'accepted')   // Only accepted requests
+        .or(`requester_id.eq.${userId},donor_id.eq.${userId}`)  
+        .eq('status', 'accepted')   
         .order('created_at', { ascending: false });
   
       if (activityError) {
@@ -211,49 +210,49 @@ const getAvailableMedicinesData = async (req, res) => {
         return res.status(500).json({ success: false, message: 'Error fetching activity data.' });
       }
   
-      // Process the activity data
+     
       const reccentActivity = await Promise.all(activityData.map(async (item) => {
         try {
           let action = '';
           let name = '';
   
           if (item.requester_id === userId) {
-            action = 'Receive';   // The user is the requester, so they receive the donation
+            action = 'Receive';   
           } else if (item.donor_id === userId) {
-            action = 'Donate';    // The user is the donor, so they donate the item
+            action = 'Donate';    
           }
   
-          // Fetch donor data based on donor_id if the user is the requester
+          
           const { data: donorData, error: donorError } = await supabase
             .from('userInfo')
             .select('username')
-            .eq('id', item.donor_id)  // Only fetch donor info if user is the requester
+            .eq('id', item.donor_id) 
             .single();
   
           if (donorError) {
             console.error('Error fetching donor data:', donorError);
-            return null; // Skip this activity if donor data fails
+            return null; 
           }
   
           name = donorData.username;
   
-          // Return the activity object
+          
           return {
             name: name,
-            action: action,  // "Receive" or "Donate"
-            status: 'Complete',  // If the status is 'accepted', it is complete
+            action: action, 
+            status: 'Complete', 
             date: new Date(item.created_at).toLocaleDateString('en-GB'),
           };
         } catch (donorError) {
           console.error('Error fetching donor data:', donorError);
-          return null; // Skip this activity if there's an error fetching donor data
+          return null; 
         }
       }));
   
-      // Filter out any null values (activities where donor data failed to fetch)
+    
       const filteredActivity = reccentActivity.filter(activity => activity !== null);
   
-      console.log('Filtered Recent Activity:', filteredActivity);  // Log the filtered data before sending the response
+      console.log('Filtered Recent Activity:', filteredActivity);  
       res.status(200).json({ success: true, data: filteredActivity });
     } catch (error) {
       console.error('Error fetching recent activity:', error);
@@ -262,10 +261,10 @@ const getAvailableMedicinesData = async (req, res) => {
 };
 
 const loadInventoryItems = async (req, res) => {
-  const { email, offset = 0, limit = 3 } = req.body;  // Default to 3 items per request
+  const { email, offset = 0, limit = 3 } = req.body;  
 
   try {
-    // Fetch the user ID from userInfo table based on email
+    
     const { data: userData, error: userError } = await supabase
       .from('userInfo')
       .select('id')
@@ -278,7 +277,7 @@ const loadInventoryItems = async (req, res) => {
 
     const userId = userData.id;
 
-    // Fetch inventory items linked to the userId (donor_id), with pagination
+   
     const { data: inventoryItems, error: inventoryError } = await supabase
       .from('medicine')
       .select('generic_name, quantity, expiry_date')
@@ -294,7 +293,7 @@ const loadInventoryItems = async (req, res) => {
       return res.status(404).json({ success: false, message: 'No medicines found for this user.' });
     }
 
-    // Return the fetched inventory items
+    
     res.status(200).json({ success: true, data: inventoryItems });
   } catch (error) {
     console.error('Error fetching inventory items:', error);
@@ -302,7 +301,7 @@ const loadInventoryItems = async (req, res) => {
   }
 };
 
-// Update Inventory Item
+
 const updateInventoryItem = async (req, res) => {
   const { email, med_id, generic_name, quantity } = req.body;
 
@@ -331,7 +330,7 @@ const updateInventoryItem = async (req, res) => {
         generic_name,
         quantity
       })
-      .eq('med_id', med_id)  // Ensure med_id is treated as an int8 in the query
+      .eq('med_id', med_id)  
       .eq('donor_id', userId);
 
     if (error) {
