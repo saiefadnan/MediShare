@@ -68,6 +68,10 @@ const handleFileChange = (event) => {
   
 const handleRequestSubmission=async (e)=>{
     e.preventDefault();
+    console.log(requesterId);
+    console.log('MedId: ',medId);
+    console.log(donorId);
+    console.log(reason);
     if(!requesterId){
         showAlert("Please Log In First!", 'error');
         return;
@@ -75,6 +79,22 @@ const handleRequestSubmission=async (e)=>{
     if(!reason||!file||!reqrQty){
         console.log(reason);
         showAlert("Fill all the fields!", 'error');
+        return;
+    }
+    if(reqrQty>props.qty){
+        showAlert("Quantity requested is more than available!", 'error');
+        return;
+    }
+    if(reqrQty<=0){
+        showAlert("Quantity should be greater than 0!", 'error');
+        return;
+    }
+    if(!file.type.includes('image')){
+        showAlert("Please upload an image file!", 'error');
+        return;
+    }
+    if(requesterId==donorId){
+        showAlert("Tui ki bokachoda naki shala! Nijer dhon nije chushos?", 'error');
         return;
     }
     const formData=new FormData();
