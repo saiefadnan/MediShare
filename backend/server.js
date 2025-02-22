@@ -13,7 +13,8 @@ const passport = require('passport');
 const passportSetup = require('./config/passport');
 const userProfileRoute = require('./routes/userProfileRoute');
 const userDashboardRoutes = require('./routes/userDashboardRoute');
-
+const userRequestRoute = require('./routes/userRequestsRoute');
+const userRequestedRoutes = require('./routes/userRequestedRoute');
 app.use(cors({
   origin: 'http://localhost:3000',
   methods: "GET, POST, PUT, DELETE",
@@ -21,6 +22,12 @@ app.use(cors({
 }));
 app.use(express.static('public'))
 app.use(express.json())
+
+
+
+// Basic route
+app.use('/api/user', user);
+app.use('/api', search);
 
 app.use((req, res, next) => {
   console.log(req.path, req.method)
@@ -41,6 +48,11 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
+//app.use('/api/admin',admin);
+//app.use('/api/donation', donateMedicine);
+
+
 // Basic routes
 app.use('/api/user', user);
 app.use('/api', search);
@@ -48,8 +60,37 @@ app.use('/api/admin',admin);
 app.use('/api/donation', donateMedicine);
 app.use('/api/user', user);
 app.use('/api', search);
-app.use('/api', userProfileRoute);
+app.use('/api/userProfile', userProfileRoute);
+
 app.use('/api/userDashboard', userDashboardRoutes);
+app.use('/api/userRequests', userRequestRoute);  // This will handle all routes in 'userRequestRoute' under '/api/userRequests'
+app.use('/api/userRequested', userRequestedRoutes);  // This will handle all routes in 'userRequestedRoute' under '/api/userRequested'
+
+
+//app.use('/api/userDashboard', userDashboardRoutes);
+
+app.post('/chat', async (req, res) => {
+  try {
+      const { message } = req.body;
+      const apiKey = process.env.GEMINI_API_KEY;
+
+      const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${apiKey}`,
+          {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                  contents: [{ role: 'user', parts: [{ text: message }] }]
+              })
+          }
+      );
+
+      const data = await response.json();
+      res.json(data);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
 
 // Start the server
 server.listen(process.env.PORT, () => {

@@ -1,0 +1,89 @@
+/* PrescriptionImagePage4324.css */
+
+/* General Styling for Prescription Image */
+.prescription-image4324 {
+    width: 100%;
+    height: auto;
+    object-fit: contain; /* Ensures the image fits within the container */
+    max-width: 100%; /* Ensures the image does not stretch beyond the container */
+    max-height: 80vh; /* Limits the image height so that it stays within the viewport */
+    margin: 0 auto; /* Centers the image horizontally */
+    display: block;
+    border-radius: 10px; /* Optional: Adds rounded corners to the image */
+    overflow: hidden; /* Prevents the image from overflowing the container */
+    transition: transform 0.2s ease-in-out; /* Smooth zoom-in/zoom-out transition */
+  }
+  
+  /* Styling for the modal background */
+  .nodal4324 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8); /* Darker overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow: hidden; /* Prevents scrollbars when zooming in */
+  }
+  
+  /* Styling for modal content */
+  .nodal-content4324 {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    width: 90%;
+    max-width: 800px;
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  /* Close Button */
+  .klose-button4324 {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    color: #333;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    /* For tablets and smaller devices */
+    .prescription-image4324 {
+      max-height: 70vh; /* Image height will be reduced for smaller devices */
+    }
+  
+    .nodal-content4324 {
+      width: 95%; /* Ensure modal content is more responsive on smaller screens */
+    }
+  
+    .klose-button4324 {
+      top: 5px;
+      right: 15px;
+      font-size: 20px; /* Smaller close button for smaller screens */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    /* For mobile screens */
+    .prescription-image4324 {
+      max-height: 60vh; /* Image height will be further reduced for mobile */
+    }
+  
+    .nodal-content4324 {
+      width: 95%; /* Ensure modal content fits smaller screen width */
+    }
+  
+    .klose-button4324 {
+      top: 5px;
+      right: 10px;
+      font-size: 18px; /* Smaller close button for very small screens */
+    }
+  }
+  
