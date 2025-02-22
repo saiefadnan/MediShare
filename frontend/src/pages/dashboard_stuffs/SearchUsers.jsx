@@ -39,7 +39,7 @@ const SearchUsers = ({open, setOpen,}) => {
                 role: results.role
             });
             console.log(response.data.msg);
-            if(response.data.msg==="success")toast.success("Info updated!");
+            //if(response.data.msg==="success")toast.success("Info updated!");
         }catch(err){
             console.error('Error fetching suggestions:', err);
         }

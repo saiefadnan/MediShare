@@ -1,11 +1,14 @@
 import Notifications from "@mui/icons-material/Notifications";
-import { Box, Divider, Icon, List, ListItem, ListItemText, Menu, Popover, Typography } from "@mui/material";
+import { Avatar, Box, Divider, Icon, List, ListItem, ListItemText, Menu, Popover, Typography } from "@mui/material";
 import { useEffect, useRef } from "react";
 import { formatDistanceToNow } from 'date-fns';
 import useFetch from "../../hooks/useFetch";
-
+import user from './Icons/user.png';
+import alert from './Icons/alert.png';
+import donation from './Icons/donation.png'
 const NotificationPanel = ({Params}) => {
     const {data, isPending, error} = useFetch("http://localhost:5000/api/admin/fetch-notifs");
+    console.log(data);
     const [open,setOpen,setNotifyCount]= Params;
     const boxRef = useRef(null);
     const handleOutsideClick = (e)=>{
@@ -55,6 +58,7 @@ const NotificationPanel = ({Params}) => {
                 <List sx={{height: '600px',overflowY: 'auto'}}>
                     {data?.map((notification) => (
                         <ListItem key={notification.id}>
+                            <Avatar src={notification.category==="user"?user:notification.category==="donation"?donation:null} sx={{padding: 0.5}}/>
                             <ListItemText
                                 sx={{
                                     fontWeight : 'bold',

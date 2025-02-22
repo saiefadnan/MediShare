@@ -13,6 +13,7 @@ import { useAuth } from "../../Contexts/AuthContext";
 import useFetch from "../../hooks/useFetch";
 import supabase from "./Supabaseclient";
 import toast, { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const AdminNavbar = ({Open}) => {
     const {user} = useAuth();
@@ -24,9 +25,9 @@ const AdminNavbar = ({Open}) => {
     const [fullscreen, setFullscreen] = useState(false);
     const [notifyCount, setNotifyCount] = useState(0);
 
-    const storeNotifs = async(msg)=>{
+    const storeNotifs = async(msg,cat)=>{
         setNotifyCount(prevCount=>prevCount+1);
-        await axios.post('http://localhost:5000/api/admin/store-notifs',{ message: msg });
+        await axios.post('http://localhost:5000/api/admin/store-notifs',{ message: msg,category: cat});
         toast.success(msg);
     }
 
@@ -36,23 +37,18 @@ const AdminNavbar = ({Open}) => {
             msg=`User ID: ${user.id} ${user.email} has just joined the community!`;
         }
         else if(event==="update"){
-            msg=`User ID: ${user.id} ${user.email} has just updated his/her user infos!`;
+            msg=`User ID: ${user.id} ${user.email}'s user Info has been updated!`;
         }else{
             msg=`User ID: ${user.id} has been removed permanently!`;
         }
-        storeNotifs(msg);
+        storeNotifs(msg,"user");
     }
     const medNotifs = (meds, event)=>{
         let msg="";
         if(event==="insert"){
             msg=`User ID: ${meds.donor_id} just donated ${meds.quantity} X ${meds.generic_name}`;
         }
-        else if(event==="update"){
-            msg=`User ID: ${user.id} ${user.email} has just updated his/her user infos!`;
-        }else{
-            msg=`User ID: ${user.id} has been removed permanently!`;
-        }
-        storeNotifs(msg);
+        storeNotifs(msg,"donation");
     }
 
     useEffect(()=>{
@@ -65,10 +61,9 @@ const AdminNavbar = ({Open}) => {
             
         })
         .on("postgres_changes", 
-            { event: "UPDATE", schema: "public", table: "userInfo" }, 
-            (payload) => {
+            { event: "UPDATE", schema: "public", table: "userInfo" },(payload)=>{
                 const updatedUser = payload.new;
-                console.log("User Updated:", updatedUser);
+                console.log("User Updated:", updatedUser,payload.old);
                 userNotifs(updatedUser, "update");
             }
         )
@@ -169,7 +164,7 @@ const AdminNavbar = ({Open}) => {
 
     return ( 
         <AppBar position="fixed" open={open} sx={{backgroundColor: "#F6EFE4" }}>
-            <Toaster/>
+            {notifyCount>0 && <Toaster/>}
             <Toolbar>
             <IconButton
             color="inherit"
@@ -206,18 +201,22 @@ const AdminNavbar = ({Open}) => {
                     <NotificationsIcon/> 
                 </Badge>
             </IconButton>
-        <input
+        {/* <input
             type="file"
             accept="image/*"
             style={{ display: "none" }}
             id="file-input"
-            onChange={handleSelectImage}
-        />
-      <label htmlFor="file-input">
+            onChange={handleSelectImage}/>
+        <label htmlFor="file-input">
         <IconButton component="span" color="inherit">
           <Avatar src={user.image_url ? user.image_url : image} alt="avatar" sx={{ width: 50, height: 50 }} />
         </IconButton>
-    </label>
+        </label> */}
+        <Link to="/userDashboard">
+            <IconButton component="span" color="inherit">
+            <Avatar src={user.image_url ? user.image_url : image} alt="avatar" sx={{ width: 50, height: 50 }} />
+            </IconButton>
+        </Link>
         {openNotif && <NotificationPanel Params={[openNotif,setOpenNotif,setNotifyCount]} />}
         </Toolbar>
     </AppBar> 

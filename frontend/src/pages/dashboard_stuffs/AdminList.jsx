@@ -24,7 +24,7 @@ const AdminList = () => {
         WebkitBackdropFilter: "blur(10px)", 
         color: "#333",
         minWidth: '380px',
-        height: "400px" , 
+        height: "500px" , 
         margin: '20px auto',
         padding: '20px',
         borderRadius: '8px',

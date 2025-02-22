@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Avatar, Box, Button, LinearProgress, Typography} from '@mui/material';
 import check from './Icons/check.png'
-import error from './Icons/error.png'
+import error1 from './Icons/error.png'
 import ModalDiv from './ModalDiv';
 import useFetch from '../../hooks/useFetch';
 
@@ -58,7 +58,7 @@ const AccountsPortal = () => {
           {params.value==='active'?
           <Avatar src={check}
             sx={{ height: 30, width: 30 , border: '1px solid #F4F7FE' }} />
-          :<Avatar src={error}
+          :<Avatar src={error1}
             sx={{ height: 30, width: 30 , border: '1px solid #F4F7FE' }}  
           />}
         </Box>

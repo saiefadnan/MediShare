@@ -296,10 +296,10 @@ const userRating = async (req, res) => {
 
   const storeNotifs = async(req, res)=>{
     try{
-        const {message}= req.body;
+        const {message,category}= req.body;
         let { data, error } = await supabase
         .from("notification")
-        .insert([{message: message}]);
+        .insert([{message: message, category: category}]);
 
         if(error) return res.status(400).json({ error: error.message });
         console.log("notifs stored!!!");
@@ -313,7 +313,7 @@ const userRating = async (req, res) => {
     try{
         const { data, error } = await supabase
         .from("notification")
-        .select("id, created_at, message, read")
+        .select("*")
         .order("created_at", { ascending: false });
         if(error) return res.status(400).json({ error: error.message });
 
