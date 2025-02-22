@@ -59,6 +59,8 @@ const Piechart = () => {
                 ))}
                 </Select>
             </Box>
+            {!error && isPending && <Typography>Loading...</Typography>}
+            {error && <Typography color="error">Error: {error}</Typography>}
             <ResponsiveContainer width="100%" height={310} >
                 <PieChart>
                     <Pie

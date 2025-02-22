@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid } from '@mui/x-data-grid';
-import { Avatar, Box, Button, LinearProgress} from '@mui/material';
+import { Avatar, Box, Button, LinearProgress, Typography} from '@mui/material';
 import check from './Icons/check.png'
 import error from './Icons/error.png'
 import ModalDiv from './ModalDiv';
@@ -129,6 +129,8 @@ const AccountsPortal = () => {
 
   return (
         <Box sx={{ height: 750, width: '100%',}}>
+          {!error && isPending && <Typography>Loading...</Typography>}
+          {error && <Typography color="error">Error: {error}</Typography>}
           <DataGrid 
             rows={info} 
             columns={columns} 

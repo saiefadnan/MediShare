@@ -3,7 +3,7 @@ const app = express();
 require('dotenv').config()
 const cors = require('cors');
 const http = require('http');
-const server = http.createServer(app)
+const server = http.createServer(app);
 const user = require('./routes/userRoute');
 const search = require('./routes/searchRoute');
 const admin = require('./routes/adminRoute');
@@ -26,7 +26,7 @@ app.use(express.json())
 
 
 // Basic route
-//app.use('/api/user', user);
+app.use('/api/user', user);
 app.use('/api', search);
 
 app.use((req, res, next) => {
@@ -34,7 +34,6 @@ app.use((req, res, next) => {
   next()
 
 })
-
 
 app.use(session({
   secret: ['key1', 'key2'],
@@ -55,10 +54,10 @@ app.use(passport.session());
 
 
 // Basic routes
-
+app.use('/api/user', user);
+app.use('/api', search);
 app.use('/api/admin',admin);
 app.use('/api/donation', donateMedicine);
-
 app.use('/api/user', user);
 app.use('/api', search);
 app.use('/api/userProfile', userProfileRoute);
@@ -94,7 +93,6 @@ app.post('/chat', async (req, res) => {
 });
 
 // Start the server
-
 server.listen(process.env.PORT, () => {
   console.log(`Server is running on http://localhost:${process.env.PORT}`);
 });

@@ -24,6 +24,8 @@ const ReviewCards = () => {
                     <img src={users} style={{padding: '0px 10px 0px 0px'}}></img>
                     Total Users</Typography>
                 <Typography variant="h5" sx={{ fontWeight: 'bold' }}>{data?.total_users}</Typography>
+                {!error && isPending && <Typography>Loading...</Typography>}
+                {error && <Typography color="error">Error: {error}</Typography>}
             </Card>
             <Card sx={{ padding: '20px', backgroundColor: ' #FFF4DE', height: '120px', width: '280px', margin: '20px auto'}}>
                 <Typography variant="h6">
@@ -31,6 +33,8 @@ const ReviewCards = () => {
                     Total Reviews
                 </Typography>
                 <Typography variant="h5" sx={{ fontWeight: 'bold' }}>{data?.total_reviews}</Typography>
+                {!error && isPending && <Typography>Loading...</Typography>}
+                {error && <Typography color="error">Error: {error}</Typography>}
             </Card>
             <Card sx={{ padding: '20px', backgroundColor: ' #DCFCE7', height: '120px', width: '280px', margin: '20px auto'}}>
                 <Typography variant="h6">
@@ -38,6 +42,8 @@ const ReviewCards = () => {
                     Overall Rating
                 </Typography>
                 <Typography variant="h5" sx={{ fontWeight: 'bold' }}>{data?.avg_rating} ⭐</Typography>
+                {!error && isPending && <Typography>Loading...</Typography>}
+                {error && <Typography color="error">Error: {error}</Typography>}
             </Card>
             <Card sx={{ padding: '20px', backgroundColor: ' #F3E8FF', height: '120px', width: '280px', margin: '20px auto'}}>
                 <Typography variant="h6">
@@ -45,7 +51,9 @@ const ReviewCards = () => {
                     Overall Review
                 </Typography>
                 {data?.avg_rating>=3?<Typography variant="h5" sx={{ fontWeight: 'bold' }}>Mostly Positive</Typography>
-                :<Typography variant="h5" sx={{ fontWeight: 'bold' }}>Mostly Negative</Typography>}
+                :(data?<Typography variant="h5" sx={{ fontWeight: 'bold' }}>Mostly Negative</Typography>:null)}
+                {!error && isPending && <Typography>Loading...</Typography>}
+                {error && <Typography color="error">Error: {error}</Typography>}
             </Card>
         </div>
      );

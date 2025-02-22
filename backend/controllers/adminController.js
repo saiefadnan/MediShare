@@ -128,16 +128,26 @@ const userRating = async (req, res) => {
     }
   }
 
-  const fetchImage = async(req, res)=>{
+  const fetchNavData = async(req, res)=>{
     try{
         const { id }=req.body;
         const { data, error } = await supabase
         .from("userInfo")
         .select("image_url")
         .eq("id", id);
-        const [image] = data;
         if(error) return res.status(400).json({ error: error.message });
-        res.status(200).json(image);
+
+        const { data: notifyCount, error: notifsError } = await supabase
+        .from("notification")
+        .select("id")
+        .eq("read", false);
+
+        if(notifsError) return res.status(400).json({ error: notifsError.message });
+
+        res.status(200).json({
+            image_url: data[0]?.image_url,
+            notify_count: notifyCount.length
+        });
     }catch(err){
         res.status(500).json({ error: 'Something went wrong!' });
     }
@@ -284,6 +294,42 @@ const userRating = async (req, res) => {
     }    
   }
 
+  const storeNotifs = async(req, res)=>{
+    try{
+        const {message}= req.body;
+        let { data, error } = await supabase
+        .from("notification")
+        .insert([{message: message}]);
+
+        if(error) return res.status(400).json({ error: error.message });
+        console.log("notifs stored!!!");
+        res.status(200).json(data);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }    
+  }
+
+  const fetchNotifs = async(req, res)=>{
+    try{
+        const { data, error } = await supabase
+        .from("notification")
+        .select("id, created_at, message, read")
+        .order("created_at", { ascending: false });
+        if(error) return res.status(400).json({ error: error.message });
+
+        const { data: resetCount, error: resetError} = await supabase
+        .from("notification")
+        .update({"read": true})
+        .eq('read', false);
+        if(resetError) return res.status(400).json({ error: resetError.message });
+
+        console.log("notifs retrieved!!!");
+        res.status(200).json(data);
+    }catch(err){
+        res.status(500).json({ error: 'Something went wrong!' });
+    }    
+  }
+
 
 module.exports ={
     userRating,
@@ -293,7 +339,7 @@ module.exports ={
     storeUserinfo,
     queryAdmins,
     uploadImage,
-    fetchImage,
+    fetchNavData,
     freqChart,
     pieChart,
     dataGrid,
@@ -304,5 +350,7 @@ module.exports ={
     fetchRating,
     updateUserinfo,
     dashCards,
-    reviewCards
+    reviewCards,
+    storeNotifs,
+    fetchNotifs
 }

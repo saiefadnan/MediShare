@@ -18,8 +18,6 @@ const Datagrid = () => {
   }
   const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/datagrid',{year: selectedYear, limit: selectedLimit});
   console.log(data);
-  // const progressColor = ['#0095FF','#00E096','#884DFF','#FF8F0D','#979797'];
-  // const barColor = ['#CDE7FF','#8CFAC7','#C5A8FF','#FFD5A4','#F4F7FE'];
   const generateColors = (num, param) => {
     const colors = [];
     const hueStep = 360 / num; 
