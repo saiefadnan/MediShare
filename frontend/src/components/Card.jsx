@@ -1,5 +1,5 @@
 import '../styles/card.css';
-import {useState,useEffect} from 'react';
+import {useState,useEffect,useCallback, useMemo, useRef } from 'react';
 import {motion} from 'framer-motion';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -58,8 +58,8 @@ useEffect(() => {
         }
     };
 
-    if (lat && lon) fetchLocation();
-}, [lat, lon]);
+    if (lat && lon && detailsPopup) fetchLocation();
+}, [detailsPopup]);
 
 const handleFileChange = (event) => {
     setImagePreview(URL.createObjectURL(event.target.files[0]));
@@ -253,6 +253,7 @@ function handleClose() {
                 </Modal.Header>
                 <Modal.Body>
                     <p className="cookie-para">Generic Name: <b>{props.title}</b></p>
+                    <p className="cookie-para">Common Name: <b>{props.commonName}</b></p>
                     <p className="cookie-para">Quantity: <b>{props.qty}</b></p>
                     <p className="cookie-para">Location: <b>{location}</b></p>
                     <p className="cookie-para">Company: <b>{props.company}</b></p>
