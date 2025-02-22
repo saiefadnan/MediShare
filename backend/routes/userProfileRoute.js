@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { getProfile, updateProfile, upload, getSidebarProfileData, getUserProfileData } = require('../controllers/userProfileController');
+const multer = require('multer');
+const { getProfile, updateProfile, getSidebarProfileData, getUserProfileData } = require('../controllers/userProfileController');
 //const { get } = require('../config/mail');
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 router.get('/getProfile', getProfile); 
 //router.get('/getUserProfileData', getProfile);
