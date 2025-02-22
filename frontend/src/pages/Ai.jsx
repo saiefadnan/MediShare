@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import '../styles/ai.css';
 import '../styles/footer.css'
-//import MedicineSearchResults from './components_MedicineSearchResults';
 
 const Ai = () => {
-  //const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [messages, setMessages] = useState([]);
 
@@ -33,7 +31,7 @@ const Ai = () => {
     <div className="ai-page">
       <div className="main-content">
         <h1 style={{fontFamily: "Roboto"}}>Find Your Solution Here</h1>
-        <h5 style={{marginBottom: '1.5%', color:'white'}}>Powered by Gemini✦</h5>
+        <h5 style={{marginBottom: '1.5%', color:'#4a403a'}}>Powered by <text style={{color: "#457b6f"}}>Gemini✦</text></h5>
         <div className="message-list">
           {messages.map((message, index) => (
             <div key={index} className={`message ${message.sender}`}>
@@ -49,7 +47,7 @@ const Ai = () => {
                 <textarea
                   id="chat_bot"
                   name="chat_bot"
-                  placeholder="Imagine Something...✦˚"
+                  placeholder="Ask About Medicines...✦˚"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   style={{fontFamily: "Roboto", fontSize: "1rem"}}

@@ -1,3 +1,11 @@
+body{
+    font-family: 'Roboto', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f5f0;
+    color: #10433f;
+    line-height: 1.6;
+}
 button:hover{
     background-color: #ffffff;
     scale: 1.02;
@@ -44,56 +52,6 @@ button:hover{
 
     
 
-}
-.quantity{
-    font-size: 15px;
-    
-    margin-top: 10px;
-    margin-bottom: 0;
-}
-
- .exp-date{
-    font-size: 15px;
-    
-}
-
-.card-btns{
-    position:absolute;
-    left:50%;
-    transform: translate(-50%);
-    display: flex;
-    margin-top: 10px;
-    gap: 20px;
-
-}
-
-.card-btns button{
-    border: none;
-    background-color: #10433f;
-    color: white;
-    height: 30px;
-    width: 80px;
-    border-radius: 35px;
-}
-
-.card-btns button:nth-child(2){
-    border: 3px solid rgb(26, 54, 51);
-    background-color: rgb(252, 252, 253);
-    color: rgb(32, 32, 32);
-    height: 30px;
-    width: 80px;
-    border-radius: 35px;
-}
-
-.card-btns button:nth-child(1):hover{
-    background-color: rgb(36, 118, 81);
-    
-}
-
-.card-btns button:nth-child(2):hover{
-    background-color:rgb(26, 54, 51);
-    color: aliceblue;
-    
 }
 
 .request-popup{
@@ -191,11 +149,6 @@ button:hover{
     
 }
 
-.form-btns{
-    display: flex;
-    gap: 10px;
-}
-
 .details-popup{
     position: fixed;
     top: 50%;
@@ -239,3 +192,291 @@ hr{
     background: #0808082a;
 }
 
+.card183 {
+    --accent-color: #ce986f;
+    position: relative;
+    width: 240px;
+    background: white;
+    border-radius: 1rem;
+    padding: 0.3rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 50px 30px -20px;
+    transition: all 0.5s ease-in-out;
+  }
+  
+  .card183 .image-container {
+    position: relative;
+    width: 100%;
+    height: 130px;
+    border-radius: 0.7rem;
+    border-top-right-radius: 4rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card183 .image-container img {
+    width: 100%;
+    height: 100%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    border-radius: inherit;
+  }
+  
+  .card183 .image-container .svg {
+    height: 100%;
+    width: 100%;
+    border-radius: inherit;
+  }
+  
+  .card183 .image-container .price {
+    position: absolute;
+    right: 0.7rem;
+    bottom: -1rem;
+    background: white;
+    color: var(--accent-color);
+    font-weight: 900;
+    font-size: 0.9rem;
+    padding: 0.5rem;
+    border-radius: 1rem 1rem 2rem 2rem;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 0px 15px 0px;
+  }
+  
+  .card183 .favorite {
+    position: absolute;
+    width: 19px;
+    height: 19px;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+  }
+  
+  .card183 .favorite input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .card183 .favorite input:checked ~ svg {
+    animation: bouncing 0.5s;
+    fill: rgb(255, 95, 95);
+    filter: drop-shadow(0px 3px 1px rgba(53, 53, 53, 0.14));
+  }
+  
+  .card183 .favorite svg {
+    fill: #a8a8a8;
+  }
+  
+  .card183 .content {
+    padding: 0px 0.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card183 .content .brand {
+    font-weight: 900;
+    color: #a6a6a6;
+  }
+  
+  .card183 .content .product-name {
+    font-weight: 700;
+    color: #666666;
+    font-size: 0.7rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card183 .content .color-size-container {
+    display: flex;
+    justify-content: space-between;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #a8a8a8;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .card183 .content .color-size-container > * {
+    flex: 1;
+  }
+  
+  .card183 .content .color-size-container .colors .colors-container {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.3rem;
+    font-size: 0.5rem;
+    margin-top: 0.2rem;
+  }
+  
+  .card183 .content .color-size-container .colors .colors-container .color {
+    height: 14px;
+    position: relative;
+  }
+  
+  .card183 .content .color-size-container .colors .colors-container .color:hover .color-name {
+    display: block;
+  }
+  
+  .card183 .content .color-size-container .colors .colors-container .color a {
+    display: inline-block;
+    height: 100%;
+    aspect-ratio: 1;
+    border: 3px solid black;
+    border-radius: 50%;
+  }
+  
+  .card183 .content .color-size-container .colors .colors-container .color .color-name {
+    display: none;
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 99;
+    background: black;
+    padding: 0.2rem 1rem;
+    border-radius: 1rem;
+    text-align: center;
+  }
+  
+  .card183 .content .color-size-container .colors .colors-container .color:first-child a {
+    border-color: #ffd426;
+  }
+  
+  .card183 .content .color-size-container .colors .colors-container .color:nth-child(2) a {
+    background: #144076;
+  }
+  
+  .card183 .content .color-size-container .colors .colors-container .color:nth-child(3) a {
+    border-color: #00b9ff;
+  }
+  
+  .card183 .content .color-size-container .colors .colors-container .color:nth-child(4) a {
+    border-color: #ff6ba1;
+  }
+  
+  .card183 .content .color-size-container .colors .colors-container .active {
+    border-color: black;
+  }
+  
+  .card183 .content .color-size-container .sizes .size-container {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.2rem;
+  }
+  
+  .card183 .content .color-size-container .sizes .size-container .size {
+    height: 14px;
+  }
+  
+  .card183 .content .color-size-container .sizes .size-container .size .size-radio {
+    cursor: pointer;
+  }
+  
+  .card183 .content .color-size-container .sizes .size-container .size .size-radio input {
+    display: none;
+  }
+  
+  .card183 .content .color-size-container .sizes .size-container .size .size-radio input:checked ~ .name {
+    background: var(--accent-color);
+    border-radius: 2rem 2rem 1.5rem 1.5rem;
+    color: white;
+  }
+  
+  .card183 .content .color-size-container .sizes .size-container .size .size-radio .name {
+    display: grid;
+    place-content: center;
+    height: 100%;
+    aspect-ratio: 1.2/1;
+    text-decoration: none;
+    color: #484848;
+    font-size: 0.5rem;
+    text-align: center;
+  }
+  
+  .card183 .content .rating {
+    color: #a8a8a8;
+    font-size: 0.6rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .card183 .content .rating svg {
+    height: 12px;
+  }
+  
+  .card183 .button-container {
+    display: flex;
+  }
+  
+  .card183 .button-container .button {
+    border-radius: 0.5rem 0.5rem 0.5rem 0.5rem;
+    border: none;
+    padding: 0.5rem 0;
+    background: var(--accent-color);
+    color: white;
+    font-weight: 900;
+    cursor: pointer;
+  }
+  
+  .card183 .button-container .button:hover {
+    background: #4a403a;
+  }
+  
+  .card183 .button-container .buy-button {
+    flex: auto;
+    width: 50%;
+  }
+  
+  .card183 .button-container .cart-button {
+    display: grid;
+    place-content: center;
+    width: 50%;
+  }
+  
+  .card183 .button-container .cart-button svg {
+    width: 15px;
+    fill: white;
+  }
+  
+  .card183:hover {
+    transform: scale(1.01);
+  }
+  
+  @keyframes bouncing {
+    from, to {
+      transform: scale(1, 1);
+    }
+  
+    25% {
+      transform: scale(1.5, 2.1);
+    }
+  
+    50% {
+      transform: scale(2.1, 1.5);
+    }
+  
+    75% {
+      transform: scale(1.5, 2.05);
+    }
+  }
+
+  .custom-modal .modal-content {
+    background-color: #f8f5f0;
+    padding: 10px;
+  }
+  
+  .cookie-heading {
+    color: rgb(34, 34, 34);
+    font-weight: 800;
+    font-size: 24px;
+  }
+  .cookie-para {
+    font-size: 15px;
+    font-weight: 400;
+    color: rgb(51, 51, 51);
+  }

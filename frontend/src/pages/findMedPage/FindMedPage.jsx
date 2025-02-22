@@ -5,6 +5,7 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import Card from '../../components/Card.jsx';
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../Contexts/AuthContext.jsx';
+import { motion } from 'framer-motion';
 
 
 
@@ -29,7 +30,7 @@ export default function FindMedPage() {
     const [suggesion, setSuggesion] = useState([]);
     const [suggesionOn, setSuggesionOn] = useState(false);
 
-
+    const [loading, setLoading] = useState(true);
     //filter states
 
     const [location, setLocation] = useState('');
@@ -86,7 +87,7 @@ export default function FindMedPage() {
     useEffect(() => {
         if (!searchKey) setMedicines(data.slice(0, rng));
 
-    }, [data]);
+    }, [data, searchKey]);
 
     useEffect(() => {
         if (!searchKey) {
@@ -98,7 +99,7 @@ export default function FindMedPage() {
 
         }
 
-    }, [data]);
+    }, [data, searchKey]);
 
 
     const fetchData = async (key = '') => {
@@ -106,7 +107,7 @@ export default function FindMedPage() {
 
             const response = await axios.get(`http://localhost:5000/api/searchMedicine`, { params: { searchKey: key } });
             setData(response.data);
-
+            setLoading(false);
 
 
 
@@ -114,6 +115,7 @@ export default function FindMedPage() {
 
         } catch (error) {
             console.error('Error fetching medicines:', error);
+            setLoading(false);
         }
     };
 
@@ -155,7 +157,7 @@ export default function FindMedPage() {
         }
 
         setMedicines(data.slice(0, nxtRng));
-    }, [count]);
+    }, [count, data]);
 
     function disableSuggesion() {
         setTimeout(() => {
@@ -209,86 +211,103 @@ export default function FindMedPage() {
 
 
     return (
-        <div id="full-page">
-            <div className="search-section">
-                <h1>Find Your Med!</h1>
-                <div className="search-container">
-                    <input onBlur={disableSuggesion} type="text" value={searchKey} onChange={handleSearchChange} placeholder="Enter Medicine Name" />
-                    <button onClick={handleSearch} className="search-icon">
-                        <FontAwesomeIcon icon={faMagnifyingGlass} />
-                    </button>
-                    <div className={suggesionOn ? "suggesion active" : "suggesion inactive"}>
-
-                        {
-                            suggesion.map((itm) =>
-
-                                (<h4 onClick={() => handleSuggestionClick(itm)} key={itm.med_id} ><span >Generic Name:{itm.generic_name}</span> <span>Common Name:{itm.common_name}</span></h4>)
-
-                            )
-                        }
-
-
+        <motion.div id="full-page" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, ease: "easeInOut" }}>
+            {loading ? (
+                <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                    <div className="wrapper">
+                        <div className="circle"></div>
+                        <div className="circle"></div>
+                        <div className="circle"></div>
+                        <div className="shadow"></div>
+                        <div className="shadow"></div>
+                        <div className="shadow"></div>
                     </div>
-
                 </div>
-
-            </div>
-            <div className="filter-container">
-                <button onClick={handleFilterButton} className="dropdown-button">
-                    Filter
-                </button>
-                <div className={filterButton ? 'popup dropdown-active' : 'popup dropdown-inactive'}>
-                    <form className="filter-form" onSubmit={handleFilter}>
-                        <input id='location' type="text" placeholder="Location" value={location} onChange={handlelocationChange} />
-                        {locationSuggestions.length > 0 && (
-                <ul className="suggestions">
-                    {locationSuggestions.map((suggestion, index) => (
-                        <li key={index} onClick={() => handleSelectLocation(suggestion)}>
-                            {suggestion.name}
-                        </li>
-                    ))}
-                </ul>
+            ) : (
+                <>
+                    <div className="search-section">
+                        <h1>
+                            Find Your Med!
+                        </h1>
+                        <div className="search-container">
+                            <input onBlur={disableSuggesion} type="text" value={searchKey} onChange={handleSearchChange} placeholder="Enter Medicine Name" />
+                            <button onClick={handleSearch} className="search-icon">
+                                <FontAwesomeIcon icon={faMagnifyingGlass} />
+                            </button>
+                            <div className={suggesionOn ? "suggesion active" : "suggesion inactive"}>
+                                {suggesion.map((itm) => (
+                                    <motion.h4
+                                        key={itm.med_id}
+                                        onClick={() => handleSuggestionClick(itm)}
+                                        initial={{ opacity: 0, x: -50 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ duration: 0.5, ease: "easeInOut" }}
+                                    >
+                                        <span>Generic Name: {itm.generic_name}</span> <span>Common Name: {itm.common_name}</span>
+                                    </motion.h4>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                    <div className="filter-container">
+                        <button onClick={handleFilterButton} className="dropdown-button">
+                            Filter
+                        </button>
+                        <motion.div className={filterButton ? 'popup dropdown-active' : 'popup dropdown-inactive'} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
+                            <form className="filter-form" onSubmit={handleFilter}>
+                                <input id='location' type="text" placeholder="Location" value={location} onChange={handlelocationChange} />
+                                {locationSuggestions.length > 0 && (
+                                    <ul className="suggestions">
+                                        {locationSuggestions.map((suggestion, index) => (
+                                            <li key={index} onClick={() => handleSelectLocation(suggestion)}>
+                                                {suggestion.name}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                                <input id='disease' type="text" placeholder="Disease" value={disease} onChange={(e) => setDisease(e.target.value)} />
+                                <input id='company' type="text" placeholder="Company" value={company} onChange={(e) => setCompany(e.target.value)} />
+                                <label htmlFor="earliest-expiry-date">Earliest Expiry Date</label>
+                                <input type="date" id='earliest-expiry-date' value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} placeholder="Earliest Expiry Date" />
+                                <button type='submit'>Filter</button>
+                            </form>
+                        </motion.div>
+                    </div>
+                    <div className="card-section">
+                        <div className="cards-container">
+                            {medicines.length > 0 ? (
+                                medicines.map((med, index) => (
+                                    <motion.div key={med.med_id} initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, ease: "easeInOut" }}>
+                                        <Card
+                                            userId={userId}
+                                            medId={med.med_id}
+                                            donorId={med.donor_id}
+                                            imgSrc={med.med_image || images[index % images.length]} // Use modulo for cycling through images
+                                            title={med.common_name}
+                                            qty={med.quantity}
+                                            expiryDate={med.expiry_date}
+                                            company={med.company}
+                                            disease={med.disease}
+                                            locx={med.locx}
+                                            locy={med.locy}
+                                            gen={med.generic_name}
+                                        />
+                                    </motion.div>
+                                ))
+                            ) : (
+                                <motion.h1 className="no-data" style={{ marginBottom: '50px' }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, ease: "easeInOut" }}>
+                                    No Medicine Found!
+                                </motion.h1>
+                            )}
+                        </div><br/>
+                        {medicines.length < data.length && (
+                            <motion.button className="loadmore-btn" onClick={loadMore} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, ease: "easeInOut" }}>
+                                Load More
+                            </motion.button>
+                        )}
+                    </div>
+                </>
             )}
-
-
-                        <input id='disease' type="text" placeholder="Disease" value={disease} onChange={(e) => setDisease(e.target.value)} />
-                        <input id='company' type="text" placeholder="Company" value={company} onChange={(e) => setCompany(e.target.value)} />
-                        <label htmlFor="earliest-expiry-date">Earliest Expiry Date</label>
-                        <input type="date" id='earliest-expiry-date' value={disease} onChange={(e) => setExpiryDate(e.target.value)} placeholder="Earliest Expiry Date" />
-                        <button type='submit'>Filter</button>
-                    </form>
-                </div>
-            </div>
-            <div className="card-section">
-                <div className="cards-container">
-                    {medicines.length > 0 ? (
-                        medicines.map((med, index) => (
-                            <Card
-                                key={med.med_id}
-                                userId={userId}
-                                medId={med.med_id}
-                                donorId={med.donor_id}
-                                imgSrc={med.med_image||images[index % images.length]} // Use modulo for cycling through images
-                                title={med.common_name}
-                                qty={med.quantity}
-                                expiryDate={med.expiry_date}
-                                company={med.company}
-                                disease={med.disease}
-                                locx={med.locx}
-                                locy={med.locy}
-
-                            />
-                        ))
-                    ) : (
-                        <h1 className="no-data" style={{ marginBottom: '50px' }}>No Medicine Found!</h1>
-                    )}
-                </div>
-
-                <button className="loadmore-btn" onClick={loadMore}>
-                    Load More
-                </button>
-
-            </div>
-        </div>
+        </motion.div>
     );
 }
