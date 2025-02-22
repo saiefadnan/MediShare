@@ -1,10 +1,5 @@
-const multer = require('multer');
 const supabase = require('../config/supabase.js');
 const path = require('path');
-const bcrypt = require('bcrypt');
-
-const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
 
 const getSidebarProfileData = async (req, res) => {
   const { email } = req.body;
@@ -79,6 +74,8 @@ const getProfile = async (req, res) => {
 const updateProfile = async (req, res) => {
   const { email, username, lastName, contactNumber, addressLine1, addressLine2, division, zipCode, userId } = req.body;
   const profilePicture = req.file;  
+  console.log("Received form data:", req.body);
+  console.log("Received file:", req.file);
 
   try {
     
@@ -146,7 +143,8 @@ const updateProfile = async (req, res) => {
     
     const { data: updatedData, error: updateError } = await supabase
       .from('userInfo')
-      .upsert([updateData]);
+      .update([updateData])
+      .eq('email', email);
 
     if (updateError) {
       console.error('Error saving profile data:', updateError);
@@ -244,7 +242,6 @@ const getUserProfileData = async (req, res) => {
 module.exports = {
   getProfile,
   updateProfile,
-  upload,
   getSidebarProfileData,
   getUserProfileData
 };

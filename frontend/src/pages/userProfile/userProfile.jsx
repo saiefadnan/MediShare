@@ -1,9 +1,10 @@
 import { useAuth } from '../../Contexts/AuthContext.jsx';
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Cropper } from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import axios from "axios";
+import { Alert, AlertTitle, Snackbar } from '@mui/material';
 
 import "../../styles/sidebarUser.css";
 import "./userProfile.css";
@@ -28,6 +29,17 @@ export default function ProfileEditor() {
 
   
   const cropperRef = useRef(null); 
+  const [alertInfo, setAlertInfo] = useState({ open: false, message: '', severity: 'success' });
+  const handleAlertClose = () => {
+    setAlertInfo({ ...alertInfo, open: false });
+  };
+  const showAlert = (message, severity = 'success') => {
+    setAlertInfo({ open: true, message, severity });
+  
+    setTimeout(() => {
+      setAlertInfo({ ...alertInfo, open: false });
+    }, 3000);
+  };
 
   // eita sidebar data fetch
   useEffect(() => {
@@ -106,9 +118,10 @@ export default function ProfileEditor() {
   };
 
   const handleSaveChanges = async () => {
-   
+   console.log('Save changes button clicked');
     if ( !addressLine1 || !contactNumber) {
-      alert("Please fill in the required fields: Username, Address Line 1, Contact Number");
+      console.log('Please fill in the required fields: Username, Address Line 1, Contact Number, Division, and Zip Code.');
+      showAlert("Please fill in the required fields: Username, Address Line 1, Contact Number, Division, and Zip Code.", 'error');
       return;
     }
 
@@ -152,13 +165,16 @@ export default function ProfileEditor() {
         formData.append("profilePicture", blob, "profile-image.jpg");
       } catch (error) {
         console.error("Error processing profile image:", error);
-        alert("There was an error processing the profile image.");
+        showAlert("There was an error processing the profile image.", 'error');
         return;
       }
     }
 
+    console.log('Form data:', formData);
+    console.log('Sending form data to the backend...');
+
     try {
-      const response = await axios.put("http://localhost:5000/api/profile", formData, {
+      const response = await axios.put("http://localhost:5000/api/userProfile/profile", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -167,20 +183,31 @@ export default function ProfileEditor() {
       console.log('Response from backend:', response.data);
 
       if (response.data.success) {
-        alert("Profile updated successfully!");
-        navigate('/userDashboard');
+        showAlert("Profile updated successfully!",'success');
       } else {
         alert("Error: " + response.data.message);
+        showAlert("Error: "+response.data.message, 'error');
       }
     } catch (error) {
       console.error("There was an error updating the profile:", error);
       alert("Error updating profile.");
+      showAlert("Error updating profile.", 'error');
     }
   };
 
   return (
     <div className="profile-editor">
-      {/* Sidebar */}
+      <Snackbar
+        open={alertInfo.open}
+        autoHideDuration={4000}
+        onClose={handleAlertClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert onClose={handleAlertClose} severity={alertInfo.severity} variant="filled">
+          <AlertTitle>{alertInfo.severity === 'error' ? 'Error' : 'Success'}</AlertTitle>
+          {alertInfo.message}
+        </Alert>
+      </Snackbar>
       <div className="sidebar">
         <div className="profile">
           <img

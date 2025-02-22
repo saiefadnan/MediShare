@@ -7,7 +7,6 @@ import {Container, Row, Col} from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import { Alert, AlertTitle, Snackbar } from '@mui/material';
 import jsPDF from 'jspdf';
-import logo from '../assets/medisharelogo.png';
 
 const containerVariants = {
   hidden: { opacity: 0 },

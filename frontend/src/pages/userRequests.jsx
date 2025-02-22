@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../styles/sidebarUser.css';
 import '../styles/userRequests.css'; 
 import { useAuth } from '../Contexts/AuthContext.jsx'; // Make sure to import the useAuth context
 import { Link } from 'react-router-dom'; // Import Link for navigation
+import { Alert, AlertTitle, Snackbar } from '@mui/material';
 
 function UserRequests() { 
   const { user } = useAuth(); // Get the logged-in user from the context
@@ -12,6 +13,17 @@ function UserRequests() {
   const [searchBy, setSearchBy] = useState('name'); // Default search by name
   const [profilePic116, setProfilePic116] = useState(''); // State to store the profile picture URL
   const email = user?.email; // Dynamically get the email from the logged-in user
+  const [alertInfo, setAlertInfo] = useState({ open: false, message: '', severity: 'success' });
+  const handleAlertClose = () => {
+    setAlertInfo({ ...alertInfo, open: false });
+  };
+  const showAlert = (message, severity = 'success') => {
+    setAlertInfo({ open: true, message, severity });
+  
+    setTimeout(() => {
+      setAlertInfo({ ...alertInfo, open: false });
+    }, 3000);
+  };
 
   // Fetch user requests from the backend
   useEffect(() => {
@@ -47,13 +59,13 @@ function UserRequests() {
     console.log("Donate button clicked, request_id:", request_id);  // Log request_id
     
     if (!request_id) {
-      alert('Request ID is missing');
+      showAlert('Request ID is missing', 'error');
       return; // Prevent execution if request_id is undefined
     }
     
     try {
       const response = await axios.put('http://localhost:5000/api/userRequests/updateRequestStatus', {
-        request_id,  // Send the request_id as part of the request
+        request_id,
         status: 'accepted',
       });
   
@@ -63,17 +75,19 @@ function UserRequests() {
             request.request_id === request_id ? { ...request, status: 'accepted', showButtons: false } : request
           )
         );
+        showAlert('Request accepted successfully', 'success');
       }
     } catch (error) {
       console.error('Error accepting request:', error.message);
+      showAlert('Error accepting request:' + error.message, 'error');
     }
   };
   
   const handleReject = async (request_id) => {
-    console.log("Reject button clicked, request_id:", request_id);  // Log request_id
+    console.log("Reject button clicked, request_id:", request_id);
     
     if (!request_id) {
-      alert('Request ID is missing');
+      showAlert('Request ID is missing', 'error');
       return; // Prevent execution if request_id is undefined
     }
   
@@ -89,15 +103,28 @@ function UserRequests() {
             request.request_id === request_id ? { ...request, status: 'rejected', showButtons: false } : request
           )
         );
+        showAlert('Request rejected successfully', 'success');
       }
     } catch (error) {
       console.error('Error rejecting request:', error.message);
+      showAlert('Error rejecting request:' + error.message, 'error');
     }
   };
   
   
   return (
     <div className="user-requests">
+      <Snackbar
+        open={alertInfo.open}
+        autoHideDuration={4000}
+        onClose={handleAlertClose}
+        anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      >
+        <Alert onClose={handleAlertClose} severity={alertInfo.severity} variant="filled">
+          <AlertTitle>{alertInfo.severity === 'error' ? 'Error' : 'Success'}</AlertTitle>
+          {alertInfo.message}
+        </Alert>
+      </Snackbar>
       {/* Sidebar */}
       <div className="sidebar">
         <div className="profile">

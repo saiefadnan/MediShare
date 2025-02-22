@@ -88,8 +88,11 @@
     background-color: #f44336;
 }
 
-.donate-button116:hover, .reject-button116:hover {
-    opacity: 0.8;
+.donate-button116:hover {
+    background-color: #196d2d;
+}
+.reject-button116:hover {
+    background-color: #af0101;
 }
 
 /* Modal */
