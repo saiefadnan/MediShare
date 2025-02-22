@@ -204,6 +204,7 @@
 }
 
 /* Recent Activity and Monthly Reports */
+/* Recent Activity and Monthly Reports */
 .side-by-side {
   display: flex;
   gap: 20px;
@@ -212,7 +213,7 @@
 }
 
 .recent-activity {
-  flex: 2;
+  flex: 1 1 50%; /* Allow it to grow and take 50% of the space */
   min-width: 300px;
   background-color: #d9e8e5;
   border-radius: 10px;
@@ -222,11 +223,12 @@
 }
 
 .monthly-reports {
-  flex: 1;
+  flex: 1 1 50%; /* Allow it to grow and take 50% of the space */
   min-width: 300px;
-  /*background-color: #d9e8e5; */
   border-radius: 10px;
-  
+  background-color: #f2f2f2;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .recent-activity h2, .monthly-reports h2 {
@@ -235,11 +237,12 @@
   margin-bottom: 10px;
 }
 
-.recent-activity .overview {
+.recent-activity .overview, .monthly-reports .chart-container {
   font-size: 14px;
   color: #555;
   margin-bottom: 10px;
 }
+
 
 .recent-activity .load-more {
   margin-top: 10px;
