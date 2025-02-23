@@ -58,7 +58,7 @@ const NotificationPanel = ({Params}) => {
                 <List sx={{height: '600px',overflowY: 'auto'}}>
                     {data?.map((notification) => (
                         <ListItem key={notification.id}>
-                            <Avatar src={notification.category==="user"?user:notification.category==="donation"?donation:null} sx={{padding: 0.5}}/>
+                            <Avatar src={notification.category==="user"?user:notification.category==="donation"?donation:alert} sx={{padding: 0.5}}/>
                             <ListItemText
                                 sx={{
                                     fontWeight : 'bold',

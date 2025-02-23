@@ -25,64 +25,14 @@ const AdminNavbar = ({Open}) => {
     const [fullscreen, setFullscreen] = useState(false);
     const [notifyCount, setNotifyCount] = useState(0);
 
-    const storeNotifs = async(msg,cat)=>{
-        setNotifyCount(prevCount=>prevCount+1);
-        await axios.post('http://localhost:5000/api/admin/store-notifs',{ message: msg,category: cat});
-        toast.success(msg);
-    }
-
-    const userNotifs = (user, event)=>{
-        let msg="";
-        if(event==="insert"){
-            msg=`User ID: ${user.id} ${user.email} has just joined the community!`;
-        }
-        else if(event==="update"){
-            msg=`User ID: ${user.id} ${user.email}'s user Info has been updated!`;
-        }else{
-            msg=`User ID: ${user.id} has been removed permanently!`;
-        }
-        storeNotifs(msg,"user");
-    }
-    const medNotifs = (meds, event)=>{
-        let msg="";
-        if(event==="insert"){
-            msg=`User ID: ${meds.donor_id} just donated ${meds.quantity} X ${meds.generic_name}`;
-        }
-        storeNotifs(msg,"donation");
-    }
-
     useEffect(()=>{
         const subscription1 = supabase
         .channel("notifications")
-        .on("postgres_changes",{event: "INSERT", schema: "public", table: "userInfo"},(payload)=>{
-            const newUser = payload.new;
-            console.log(newUser);
-            userNotifs(newUser, "insert");
-            
+        .on("postgres_changes",{event: "INSERT", schema: "public", table: "notification"},(payload)=>{
+            const newNotif = payload.new;
+            console.log(newNotif);
+            setNotifyCount(prevCount=>prevCount+1);
         })
-        .on("postgres_changes", 
-            { event: "UPDATE", schema: "public", table: "userInfo" },(payload)=>{
-                const updatedUser = payload.new;
-                console.log("User Updated:", updatedUser,payload.old);
-                userNotifs(updatedUser, "update");
-            }
-        )
-        .on("postgres_changes", 
-            { event: "DELETE", schema: "public", table: "userInfo" }, 
-            (payload) => {
-                const oldUser = payload.old;
-                console.log("User deleted:", oldUser);
-                userNotifs(oldUser, "delete");
-            }
-        )
-        .on("postgres_changes", 
-            { event: "INSERT", schema: "public", table: "medicine" }, 
-            (payload) => {
-                const newMeds = payload.new;
-                console.log("new Meds", newMeds);
-                medNotifs(newMeds, "insert");
-            }
-        )
         .subscribe();
 
         return(()=>{
