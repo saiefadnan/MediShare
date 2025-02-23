@@ -294,21 +294,6 @@ const userRating = async (req, res) => {
     }    
   }
 
-  const storeNotifs = async(req, res)=>{
-    try{
-        const {message,category}= req.body;
-        let { data, error } = await supabase
-        .from("notification")
-        .insert([{message: message, category: category}]);
-
-        if(error) return res.status(400).json({ error: error.message });
-        console.log("notifs stored!!!");
-        res.status(200).json(data);
-    }catch(err){
-        res.status(500).json({ error: 'Something went wrong!' });
-    }    
-  }
-
   const fetchNotifs = async(req, res)=>{
     try{
         const { data, error } = await supabase
@@ -351,6 +336,5 @@ module.exports ={
     updateUserinfo,
     dashCards,
     reviewCards,
-    storeNotifs,
     fetchNotifs
 }
