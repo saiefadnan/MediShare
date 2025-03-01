@@ -153,8 +153,8 @@ function RequestedTable() {
                   <td>{item.quantity}</td> {/* Updated column for quantity */}
                   <td
                     className={
-                      item.status === "declined"
-                        ? "status-declined"
+                      item.status === "rejected"
+                        ? "status-rejected"
                         : item.status === "pending"
                         ? "status-pending"
                         : "status-accepted"
