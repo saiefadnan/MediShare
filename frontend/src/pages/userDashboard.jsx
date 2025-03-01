@@ -23,12 +23,12 @@ function UserDashboard() {
 
   const { user } = useAuth();
   const email = user?.email; 
-  const userId = user?.id;  
+  //const userId = user?.id;  
   //const [nextKey, setNextKey] = useState(4); 
-  const [items, setItems] = useState([]);
+  //const [items, setItems] = useState([]);
   const [donationsData, setDonationsData] = useState({ donated: 0, received: 0 });
   const [userData, setUserData] = useState(null);
-  const [reccentActivity, setReccentActivity] = useState([]);
+  const [getReccentActivity, setReccentActivity] = useState([]);
   const [inventory, setInventory] = useState([]);
   const [editValues, setEditValues] = useState({ generic_name: '', quantity: '' });
   const [loading, setLoading] = useState(true);
@@ -54,22 +54,24 @@ function UserDashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post("http://localhost:5000/api/userDashboard/dashboardData", { email });
+        console.log("Fetching data for email:", email); // Add logging
+  
+        const response = await axios.post("http://localhost:5000/api/userDashboard/getDashboardData", { email });
         if (response.data.success) {
           setUserData(response.data.data);
         }
-    
+  
         const donationsResponse = await axios.post("http://localhost:5000/api/userDashboard/donationsData", { email });
         if (donationsResponse.data.success) {
           setDonationsData(prevData => ({
             ...prevData,
-            donated: donationsResponse.data.data.donated, 
-            received: donationsResponse.data.data.received 
+            donated: donationsResponse.data.data.donated,
+            received: donationsResponse.data.data.received
           }));
           console.log("Donations Data: ", donationsResponse.data.data);
         }
-    
-        const availableMedicinesResponse = await axios.post("http://localhost:5000/api/userDashboard/availableMedicinesData", { email });
+  
+        const availableMedicinesResponse = await axios.post("http://localhost:5000/api/userDashboard/getAvailableMedicinesData", { email });
         if (availableMedicinesResponse.data.success) {
           const availableData = availableMedicinesResponse.data.data;
           setDonationsData(prevData => ({
@@ -77,8 +79,8 @@ function UserDashboard() {
             totalAvailable: [availableData.December, availableData.January, availableData.February]
           }));
         }
-    
-        const monthlyReceivedResponse = await axios.post("http://localhost:5000/api/userDashboard/monthlyReceivedData", { email });
+  
+        const monthlyReceivedResponse = await axios.post("http://localhost:5000/api/userDashboard/getMonthlyReceivedData", { email });
         if (monthlyReceivedResponse.data.success) {
           const receivedData = monthlyReceivedResponse.data.data;
           setDonationsData(prevData => ({
@@ -86,25 +88,25 @@ function UserDashboard() {
             totalReceived: [receivedData.December, receivedData.January, receivedData.February]
           }));
         }
-    
-        
+  
         setLoading(true);
         const inventoryResponse = await axios.post("http://localhost:5000/api/userDashboard/loadInventoryItems", { email, offset: 0, limit: 3 });
         if (inventoryResponse.data.success) {
           setInventory(inventoryResponse.data.data);
-          setOffset(3); 
-          setHasMore(inventoryResponse.data.data.length === 3); 
+          setOffset(3);
+          setHasMore(inventoryResponse.data.data.length === 3);
           console.log("Inventory Data: ", inventoryResponse.data.data);
         } else {
           console.log('No inventory found for the user.');
-          setHasMore(false); 
+          setHasMore(false);
         }
-    
-       
-        const reccentActivityResponse = await axios.post("http://localhost:5000/api/userDashboard/reccentActivity", { email });
-        console.log("Recent Activity Response:", reccentActivityResponse); 
-        if (reccentActivityResponse.data.success) {
-          setReccentActivity(reccentActivityResponse.data.data); 
+  
+        const getReccentActivityResponse = await axios.post("http://localhost:5000/api/userDashboard/getReccentActivity", { email });
+        console.log("Recent Activity Response:", getReccentActivityResponse);
+        if (getReccentActivityResponse.data.success) {
+          setReccentActivity(getReccentActivityResponse.data.data);
+        } else {
+          console.log('No recent activity found.');
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -112,38 +114,38 @@ function UserDashboard() {
         setLoading(false);
       }
     };
-    
-    fetchData();
-  }, [email]); 
-    
-   
-  useEffect(() => {
-    if (reccentActivity.length > 0) {
-      console.log("Fetched recent activity:", reccentActivity);
+  
+    if (email) {
+      fetchData();
+    } else {
+      console.error("Email is undefined");
     }
-  }, [reccentActivity]);
+  }, [email]);
+  
+  useEffect(() => {
+    if (getReccentActivity.length > 0) {
+      console.log("Fetched recent activity:", getReccentActivity);
+    }
+  }, [getReccentActivity]);
   
   const handleLoadMore = async () => {
     try {
-      
+      console.log("Loading more inventory items for email:", email); // Add logging
+  
       const inventoryResponse = await axios.post("http://localhost:5000/api/userDashboard/loadInventoryItems", {
         email,
         offset,
-        limit: 3, 
+        limit: 3,
       });
   
       if (inventoryResponse.data.success) {
-        
         setInventory(prevInventory => [...prevInventory, ...inventoryResponse.data.data]);
-  
-        
-        setOffset(prevOffset => prevOffset + 3); 
-  
-        
+        setOffset(prevOffset => prevOffset + 3);
         setHasMore(inventoryResponse.data.data.length === 3);
+        console.log("Loaded more inventory items:", inventoryResponse.data.data); // Add logging
       } else {
         console.log('No more inventory items to load.');
-        setHasMore(false); 
+        setHasMore(false);
       }
     } catch (error) {
       console.error("Error loading more inventory items:", error);
@@ -151,12 +153,10 @@ function UserDashboard() {
   };
   
   
-  
-  
-  const handleEdit = (item) => {
-    setEditingItemId(item.med_id); // Set the item as being edited
-    setEditValues({ generic_name: item.generic_name, quantity: item.quantity }); // Populate fields with current values
-  };
+  //const handleEdit = (item) => {
+    //setEditingItemId(item.med_id); // Set the item as being edited
+    //setEditValues({ generic_name: item.generic_name, quantity: item.quantity }); // Populate fields with current values
+  //};
   
   
   const handleSave = async (med_id) => {
@@ -185,12 +185,12 @@ function UserDashboard() {
   
       setEditingItemId(null);  // Close the edit form
   
-      const response = await axios.put("http://localhost:5000/api/userDashboard/updateInventoryItem", {
-        email,
-        med_id: Number(med_id),  // Ensure med_id is passed as a number
-        generic_name: editValues.generic_name,
-        quantity: editValues.quantity
-      });
+      //const response = await axios.put("http://localhost:5000/api/userDashboard/updateInventoryItem", {
+        //email,
+        //med_id: Number(med_id),  // Ensure med_id is passed as a number
+        //generic_name: editValues.generic_name,
+        //quantity: editValues.quantity
+      //});
   
       console.log('Response from backend:', response);
   
@@ -355,8 +355,8 @@ function UserDashboard() {
                     </tr>
                   </thead>
                   <tbody>
-                    {reccentActivity.length > 0 ? (
-                      reccentActivity.map((activity) => (
+                    {getReccentActivity.length > 0 ? (
+                      getReccentActivity.map((activity) => (
                         <tr key={activity.id || activity.name + activity.date}>
                           <td>{activity.name}</td>
                           <td>{activity.action}</td>
