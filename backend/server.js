@@ -24,6 +24,7 @@ app.use(cors({
   methods: "GET, POST, PUT, DELETE",
   credentials: true,
 }));
+
 app.use(express.static('public'));
 app.use(express.json());
 
@@ -31,6 +32,10 @@ app.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
+
+
+
+
 
 app.use(session({
   secret: ['key1', 'key2'],
@@ -45,7 +50,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Routes
+
 app.use('/api/user', user);
 app.use('/api', search);
 app.use('/api/admin', admin);

@@ -84,10 +84,7 @@ export default function FindMedPage() {
     }, [searchKey]);
 
 
-    useEffect(() => {
-        if (!searchKey) setMedicines(data.slice(0, rng));
-
-    }, [data, searchKey]);
+  
 
     useEffect(() => {
         if (!searchKey) {
@@ -101,8 +98,25 @@ export default function FindMedPage() {
 
     }, [data, searchKey]);
 
+    useEffect(() => {
+        // Fetch all medicines initially
+        fetchAllMedicines();
+    }, []);
 
-    const fetchData = async (key = '') => {
+    const fetchAllMedicines = async () => {
+        try {
+            const response = await axios.get('http://localhost:5000/api/searchMedicine', { params: { searchKey: '' } });
+            setData(response.data); // Store all medicines in data state
+            setMedicines(response.data.slice(0, rng)); // Initially show some medicines
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching medicines:', error);
+            setLoading(false);
+        }
+    };
+
+
+    const fetchData = async (key) => {
         try {
 
             const response = await axios.get(`http://localhost:5000/api/searchMedicine`, { params: { searchKey: key } });
@@ -157,7 +171,7 @@ export default function FindMedPage() {
         }
 
         setMedicines(data.slice(0, nxtRng));
-    }, [count, data]);
+    }, [count]);
 
     function disableSuggesion() {
         setTimeout(() => {
@@ -169,11 +183,7 @@ export default function FindMedPage() {
     function handleSuggestionClick(itm) {
 
         setSearchKey(itm.common_name);
-
         setCount(1);
-
-
-
         setMedicines(data.slice(0, rng));
         setSuggesion([]);
         setSuggesionOn(false);
@@ -186,6 +196,7 @@ export default function FindMedPage() {
         e.preventDefault();
         setFilterButton(false);
         let filters = {};
+        if(searchKey) filters.searchKey = searchKey;
         if (location) filters.location = location;
         if (disease) filters.disease = disease;
         if (company) filters.company = company;
@@ -283,7 +294,8 @@ export default function FindMedPage() {
                                             medId={med.med_id}
                                             donorId={med.donor_id}
                                             imgSrc={med.med_image || images[index % images.length]} // Use modulo for cycling through images
-                                            title={med.common_name}
+                                            title={med.generic_name}
+                                            commonName={med.common_name}    
                                             qty={med.quantity}
                                             expiryDate={med.expiry_date}
                                             company={med.company}

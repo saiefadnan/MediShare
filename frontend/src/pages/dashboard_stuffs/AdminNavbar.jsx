@@ -13,6 +13,7 @@ import { useAuth } from "../../Contexts/AuthContext";
 import useFetch from "../../hooks/useFetch";
 import supabase from "./Supabaseclient";
 import toast, { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const AdminNavbar = ({Open}) => {
     const {user} = useAuth();
@@ -24,70 +25,14 @@ const AdminNavbar = ({Open}) => {
     const [fullscreen, setFullscreen] = useState(false);
     const [notifyCount, setNotifyCount] = useState(0);
 
-    const storeNotifs = async(msg)=>{
-        setNotifyCount(prevCount=>prevCount+1);
-        await axios.post('http://localhost:5000/api/admin/store-notifs',{ message: msg });
-        toast.success(msg);
-    }
-
-    const userNotifs = (user, event)=>{
-        let msg="";
-        if(event==="insert"){
-            msg=`User ID: ${user.id} ${user.email} has just joined the community!`;
-        }
-        else if(event==="update"){
-            msg=`User ID: ${user.id} ${user.email} has just updated his/her user infos!`;
-        }else{
-            msg=`User ID: ${user.id} has been removed permanently!`;
-        }
-        storeNotifs(msg);
-    }
-    const medNotifs = (meds, event)=>{
-        let msg="";
-        if(event==="insert"){
-            msg=`User ID: ${meds.donor_id} just donated ${meds.quantity} X ${meds.generic_name}`;
-        }
-        else if(event==="update"){
-            msg=`User ID: ${user.id} ${user.email} has just updated his/her user infos!`;
-        }else{
-            msg=`User ID: ${user.id} has been removed permanently!`;
-        }
-        storeNotifs(msg);
-    }
-
     useEffect(()=>{
         const subscription1 = supabase
         .channel("notifications")
-        .on("postgres_changes",{event: "INSERT", schema: "public", table: "userInfo"},(payload)=>{
-            const newUser = payload.new;
-            console.log(newUser);
-            userNotifs(newUser, "insert");
-            
+        .on("postgres_changes",{event: "INSERT", schema: "public", table: "notification"},(payload)=>{
+            const newNotif = payload.new;
+            console.log(newNotif);
+            setNotifyCount(prevCount=>prevCount+1);
         })
-        .on("postgres_changes", 
-            { event: "UPDATE", schema: "public", table: "userInfo" }, 
-            (payload) => {
-                const updatedUser = payload.new;
-                console.log("User Updated:", updatedUser);
-                userNotifs(updatedUser, "update");
-            }
-        )
-        .on("postgres_changes", 
-            { event: "DELETE", schema: "public", table: "userInfo" }, 
-            (payload) => {
-                const oldUser = payload.old;
-                console.log("User deleted:", oldUser);
-                userNotifs(oldUser, "delete");
-            }
-        )
-        .on("postgres_changes", 
-            { event: "INSERT", schema: "public", table: "medicine" }, 
-            (payload) => {
-                const newMeds = payload.new;
-                console.log("new Meds", newMeds);
-                medNotifs(newMeds, "insert");
-            }
-        )
         .subscribe();
 
         return(()=>{
@@ -169,7 +114,7 @@ const AdminNavbar = ({Open}) => {
 
     return ( 
         <AppBar position="fixed" open={open} sx={{backgroundColor: "#F6EFE4" }}>
-            <Toaster/>
+            {notifyCount>0 && <Toaster/>}
             <Toolbar>
             <IconButton
             color="inherit"
@@ -206,18 +151,22 @@ const AdminNavbar = ({Open}) => {
                     <NotificationsIcon/> 
                 </Badge>
             </IconButton>
-        <input
+        {/* <input
             type="file"
             accept="image/*"
             style={{ display: "none" }}
             id="file-input"
-            onChange={handleSelectImage}
-        />
-      <label htmlFor="file-input">
+            onChange={handleSelectImage}/>
+        <label htmlFor="file-input">
         <IconButton component="span" color="inherit">
           <Avatar src={user.image_url ? user.image_url : image} alt="avatar" sx={{ width: 50, height: 50 }} />
         </IconButton>
-    </label>
+        </label> */}
+        <Link to="/userDashboard">
+            <IconButton component="span" color="inherit">
+            <Avatar src={user.image_url ? user.image_url : image} alt="avatar" sx={{ width: 50, height: 50 }} />
+            </IconButton>
+        </Link>
         {openNotif && <NotificationPanel Params={[openNotif,setOpenNotif,setNotifyCount]} />}
         </Toolbar>
     </AppBar> 

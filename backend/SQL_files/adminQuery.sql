@@ -203,3 +203,44 @@ create or replace function get_review_data () RETURNS avg_and_user_count as $$
   FROM "userRating";
 $$ LANGUAGE sql;
 
+
+CREATE OR REPLACE FUNCTION STORE_USER_NOTIFICATION()
+RETURNS TRIGGER AS $$
+BEGIN
+  IF TG_TABLE_NAME='userInfo' THEN
+    IF TG_OP='INSERT' THEN
+      INSERT INTO notification (message, category)
+      VALUES('User ID: ' || NEW.id || ' ' || NEW.email ||  ' has just joined the community!', 'user');
+      RETURN NEW;
+    ELSIF TG_OP='UPDATE' THEN
+      INSERT INTO notification (message, category)
+      VALUES('User ID: ' || NEW.id || ' ' || NEW.email ||  ' updated their profile!', 'user');
+      RETURN NEW;
+    ELSIF TG_OP='DELETE' THEN 
+      INSERT INTO notification (message, category)
+      VALUES('User ID: ' || OLD.id || ' has been removed permanently', 'alert');
+      RETURN OLD;
+    END IF;
+  ELSIF TG_TABLE_NAME='medicine'  and TG_OP='INSERT' THEN
+    INSERT INTO notification (message, category)
+    VALUES('User ID: ' || NEW.donor_id || ' just donated ' || NEW.quantity || ' X ' || NEW.generic_name, 'donation');
+    RETURN NEW;
+  END IF;
+  RETURN NULL;
+END;
+$$ language plpgsql;
+
+DROP TRIGGER IF EXISTS NEW_USER_SIGNUP ON "userInfo";
+DROP TRIGGER IF EXISTS USER_DONATION ON medicine;
+
+CREATE TRIGGER NEW_USER_SIGNUP
+AFTER INSERT OR UPDATE OR DELETE ON "userInfo"
+FOR EACH ROW 
+EXECUTE FUNCTION STORE_USER_NOTIFICATION();
+
+CREATE TRIGGER USER_DONATION
+AFTER INSERT ON medicine
+FOR EACH ROW 
+EXECUTE FUNCTION STORE_USER_NOTIFICATION();
+
+

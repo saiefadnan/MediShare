@@ -107,7 +107,7 @@ const Datagrid = () => {
         color: "#333",
         width: '45%',
         minWidth: '380px',
-        height: "400px" , 
+        height: "500px" , 
         margin: '20px auto',
         padding: '20px 10px',
         borderRadius: '8px',
@@ -143,7 +143,7 @@ const Datagrid = () => {
                 ))}
               </Select>
             </Box>
-          <DataGrid rows={data} columns={columns} pageSize={5} rowsPerPageOptions={[5]} sx={{height: '90%',width: '100%',
+          <DataGrid rows={data} columns={columns} pageSize={5} rowsPerPageOptions={[5]} sx={{height: '375px',width: '100%',
           minWidth: '300px',
         '@media (max-width: 400px)':{
           minWidth: "100%", 

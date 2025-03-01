@@ -28,7 +28,6 @@ router.post('/fetch-rating',fetchRating);
 router.post('/update-userinfo', updateUserinfo);
 router.post('/dashcards',dashCards);
 router.post('/reviewcards',reviewCards);
-router.post('/store-notifs',storeNotifs);
 router.post('/fetch-notifs',fetchNotifs);
 
 

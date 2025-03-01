@@ -22,6 +22,7 @@ const search=async(req,res)=>{
             .from('medicine')
             .select('*')
             .or(`common_name.ilike.%${searchKey}%,generic_name.ilike.%${searchKey}%`)
+            .ilike('status','available')
             .order('created_at', { ascending: false });
         }
         
@@ -51,7 +52,7 @@ const search=async(req,res)=>{
 }
 
 const filterSearch=async (req,res)=>{
-    const {location,disease,company,expiry_date}=req.query;
+    const {location,searchKey,disease,company,expiry_date}=req.query;
 
     let query=supabase.from('medicine').select('*');
 
@@ -81,12 +82,16 @@ const filterSearch=async (req,res)=>{
     if(disease){
         query=query.ilike('disease',`%${disease}%`);
     }
+    if(searchKey){
+        query=query.or(`common_name.ilike.%${searchKey}%,generic_name.ilike.%${searchKey}%`);
+    }
     if(company){
         query=query.ilike('company',`%${company}%`);
     }
     if(expiry_date){
         query=query.gte('expiry_date',expiry_date);
     }
+    query=query.ilike('status','available').order('created_at', { ascending: false });
 
     try {
         const {data,error}=await query;
@@ -108,6 +113,9 @@ const filterSearch=async (req,res)=>{
 const request=async(req,res)=>{
     const {requester_id,med_id,donor_id,reason,quantity}=req.body;
     const file=req.file;
+    if(requester_id==donor_id){
+        return res.status(400).json({message:"Tui ki bokachoda naki shala! Nijer dhon nije chushos?"});
+    }
     
   
    try {

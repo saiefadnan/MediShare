@@ -154,7 +154,9 @@ function RequestedTable() {
                   <td
                     className={
                       item.status === "rejected"
+
                         ? "status-rejected"
+
                         : item.status === "pending"
                         ? "status-pending"
                         : "status-accepted"
