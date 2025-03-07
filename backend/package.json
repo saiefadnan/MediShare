@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "server.js",
   "dependencies": {
+    "@google/generative-ai": "^0.24.0",
     "@supabase/supabase-js": "^2.48.1",
     "abbrev": "^1.1.1",
     "accepts": "^1.3.8",
