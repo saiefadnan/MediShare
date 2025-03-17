@@ -50,8 +50,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Basic route
-app.use('/api/user', user);
-app.use('/api', search);
+// app.use('/api/user', user);
+// app.use('/api', search);
 
 app.use((req, res, next) => {
   console.log(req.path, req.method)
