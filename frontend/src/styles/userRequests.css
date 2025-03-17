@@ -40,7 +40,7 @@
 }
 
 /* Status-specific colors */
-.status-declined {
+.status-rejected {
     background-color: #ffcccc; /* Light red */
     color: #d80000; /* Darker red for text */
     font-weight: bold;

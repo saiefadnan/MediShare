@@ -1,9 +1,11 @@
 const supabase = require('../config/supabase.js'); 
 //const upload  = require('../middlewares/multer'); // If you are handling image upload
-//const path = require('path');
+const path = require('path');
 
 
 const getDashboardData = async (req, res) => {
+  console.log('getDashboardData called');
+
   const { email } = req.body; 
   console.log("Email received: ", email);
   try {
@@ -31,6 +33,8 @@ const getDashboardData = async (req, res) => {
 
 
 const donationsData = async (req, res) => {
+  console.log('donationsData called');
+
     const { email } = req.body;  
     console.log("Email in backend:", email);  
   
@@ -100,6 +104,8 @@ const donationsData = async (req, res) => {
 
 
   const getMonthlyReceivedData = async (req, res) => {
+    console.log('getMonthlyReceivedData called');
+
     try {
       
       const { data: allReceivedItems, error: allReceivedError } = await supabase
@@ -145,6 +151,8 @@ const donationsData = async (req, res) => {
 
 
 const getAvailableMedicinesData = async (req, res) => {
+   console.log('getAvailableMedicinesData called');
+
     try {
       
       const { data: availableMedicines, error: availableMedicinesError } = await supabase
@@ -180,87 +188,112 @@ const getAvailableMedicinesData = async (req, res) => {
 
   
   const getReccentActivity = async (req, res) => {
+    console.log('getReccentActivity called');
+
     const { email } = req.body;
-  
+
     try {
-     
-      const { data: userData, error: userError } = await supabase
-        .from('userInfo')
-        .select('id')
-        .eq('email', email)
-        .single();
-  
-      if (userError || !userData) {
-        console.error('Error fetching user data:', userError || 'User not found');
-        return res.status(404).json({ success: false, message: 'User not found.' });
-      }
-  
-      const userId = userData.id;
-  
-      
-      const { data: activityData, error: activityError } = await supabase
-        .from('medicine_request')
-        .select('created_at, status, requester_id, donor_id')
-        .or(`requester_id.eq.${userId},donor_id.eq.${userId}`)  
-        .eq('status', 'accepted')   
-        .order('created_at', { ascending: false });
-  
-      if (activityError) {
-        console.error('Error fetching activity data:', activityError);
-        return res.status(500).json({ success: false, message: 'Error fetching activity data.' });
-      }
-  
-     
-      const reccentActivity = await Promise.all(activityData.map(async (item) => {
-        try {
-          let action = '';
-          let name = '';
-  
-          if (item.requester_id === userId) {
-            action = 'Receive';   
-          } else if (item.donor_id === userId) {
-            action = 'Donate';    
-          }
-  
-          
-          const { data: donorData, error: donorError } = await supabase
+        // Fetch user ID
+        const { data: userData, error: userError } = await supabase
             .from('userInfo')
-            .select('username')
-            .eq('id', item.donor_id) 
+            .select('id')
+            .eq('email', email)
             .single();
-  
-          if (donorError) {
-            console.error('Error fetching donor data:', donorError);
-            return null; 
-          }
-  
-          name = donorData.username;
-  
-          
-          return {
-            name: name,
-            action: action, 
-            status: 'Complete', 
-            date: new Date(item.created_at).toLocaleDateString('en-GB'),
-          };
-        } catch (donorError) {
-          console.error('Error fetching donor data:', donorError);
-          return null; 
+
+        if (userError || !userData) {
+            console.error('Error fetching user data:', userError || 'User not found');
+            return res.status(404).json({ success: false, message: 'User not found.' });
         }
-      }));
-  
-    
-      const filteredActivity = reccentActivity.filter(activity => activity !== null);
-  
-      console.log('Filtered Recent Activity:', filteredActivity);  
-      res.status(200).json({ success: true, data: filteredActivity });
+
+        const userId = userData.id;
+
+        // Fetch activity data where the user is either requester or donor
+        const { data: activityData, error: activityError } = await supabase
+            .from('medicine_request')
+            .select('created_at, status, requester_id, donor_id')
+            .or(`requester_id.eq.${userId},donor_id.eq.${userId}`)
+            .eq('status', 'accepted')
+            .order('created_at', { ascending: false });
+
+        if (activityError) {
+            console.error('Error fetching activity data:', activityError);
+            return res.status(500).json({ success: false, message: 'Error fetching activity data.' });
+        }
+
+        if (!activityData || activityData.length === 0) {
+            console.log('No recent activity found for the user.');
+            return res.status(404).json({ success: false, message: 'No recent activity found.' });
+        }
+
+        // Process the activity data for recent activities
+        const recentActivity = await Promise.all(activityData.map(async (item) => {
+            try {
+                let action = '';
+                let name = '';
+
+                // If the user is the requester, fetch donor's name
+                if (item.requester_id === userId) {
+                    action = 'Receive';
+
+                    const { data: donorData, error: donorError } = await supabase
+                        .from('userInfo')
+                        .select('username')
+                        .eq('id', item.donor_id)
+                        .single();
+
+                    if (!donorError && donorData) {
+                        name = donorData.username;
+                    } else {
+                        console.error('Error fetching donor data:', donorError);
+                        return null;
+                    }
+                }
+
+                // If the user is the donor, fetch requester's name
+                else if (item.donor_id === userId) {
+                    action = 'Donate';
+
+                    const { data: requesterData, error: requesterError } = await supabase
+                        .from('userInfo')
+                        .select('username')
+                        .eq('id', item.requester_id)
+                        .single();
+
+                    if (!requesterError && requesterData) {
+                        name = requesterData.username;
+                    } else {
+                        console.error('Error fetching requester data:', requesterError);
+                        return null;
+                    }
+                }
+
+                return {
+                    name: name,  // Display the other party's name
+                    action: action,
+                    status: 'Complete',
+                    date: new Date(item.created_at).toLocaleDateString('en-GB'),
+                };
+            } catch (error) {
+                console.error('Error processing activity data:', error);
+                return null;
+            }
+        }));
+
+        // Filter out null values (in case of errors fetching names)
+        const filteredActivity = recentActivity.filter(activity => activity !== null);
+
+        console.log('Filtered Recent Activity:', filteredActivity);
+        res.status(200).json({ success: true, data: filteredActivity });
     } catch (error) {
-      console.error('Error fetching recent activity:', error);
-      res.status(500).json({ success: false, message: error.message });
+        console.error('Error fetching recent activity:', error);
+        res.status(500).json({ success: false, message: error.message });
     }
 };
 
+
 const loadInventoryItems = async (req, res) => {
+  console.log('loadInventoryItems called');
+
   const { email, offset = 0, limit = 3 } = req.body;  
 
   try {
