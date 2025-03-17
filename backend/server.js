@@ -37,18 +37,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Basic route
-app.use('/api/user', user);
-app.use('/api', search);
-
 app.use((req, res, next) => {
   console.log(req.path, req.method)
   next()
-
 })
-
-//app.use('/api/admin',admin);
-//app.use('/api/donation', donateMedicine);
 
 // Basic routes
 app.use('/api/user', user);
