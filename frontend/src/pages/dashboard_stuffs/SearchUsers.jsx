@@ -39,7 +39,7 @@ const SearchUsers = ({open, setOpen,}) => {
                 role: results.role
             });
             console.log(response.data.msg);
-            //if(response.data.msg==="success")toast.success("Info updated!");
+            if(response.data.msg==="success")toast.success("Info updated!");
         }catch(err){
             console.error('Error fetching suggestions:', err);
         }
@@ -81,7 +81,7 @@ const SearchUsers = ({open, setOpen,}) => {
                 p: 4,
                 borderRadius: 1,
             }}>
-            <Toaster/>
+            {/* <Toaster/> */}
             <Typography id="modal-title" variant="h6" component="h2">Edit Role</Typography>
             <Divider sx={{backgroundColor: '#E0E0E0'}}/>
             <Autocomplete

@@ -18,7 +18,7 @@ const ModalDiv = ({Open,Id,Status,Name,Image,updateUserStatus}) => {
             try{
                 const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/admin/update-userinfo`, { user_id: id, status: status });
                 if(response?.data?.message==="update successful"){
-                    //toast.success("status updated!");
+                    toast.success("status updated!");
                     updateUserStatus(id,status);
                 }
             }catch(err){
@@ -54,7 +54,7 @@ const ModalDiv = ({Open,Id,Status,Name,Image,updateUserStatus}) => {
                 p: 4,
                 borderRadius: 1,
             }}>
-                <Toaster/>
+                {/* <Toaster/> */}
             <Typography id="modal-title" variant="h6" component="h2">
                 User's Info
             </Typography>
