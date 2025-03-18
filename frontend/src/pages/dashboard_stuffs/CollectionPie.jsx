@@ -8,7 +8,7 @@ const CollectionPie = () => {
     const currentYear = new Date().getFullYear();
     const years = Array.from({length: 10},(_,i)=>currentYear-i);
     const [selectedYear, setSelectedYear] = useState(currentYear);
-    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/collection-pie',{year: selectedYear});
+    const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/collection-pie`,{year: selectedYear});
     const pieData = data
         ? [
             { name: "Collection", value: data.collection },

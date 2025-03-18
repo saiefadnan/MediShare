@@ -170,7 +170,7 @@ const Donation = () => {
       formDataToSend.append('donorId', donorId);
   
       // Send the POST request
-      const response = await fetch('http://localhost:5000/api/donation/donate-medicine', {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/donation/donate-medicine`, {
         method: 'POST',
         body: formDataToSend, // Send FormData instead of JSON
       });

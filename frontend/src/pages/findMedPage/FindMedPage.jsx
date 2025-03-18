@@ -105,7 +105,7 @@ export default function FindMedPage() {
 
     const fetchAllMedicines = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/searchMedicine', { params: { searchKey: '' } });
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/searchMedicine`, { params: { searchKey: '' } });
             setData(response.data); // Store all medicines in data state
             setMedicines(response.data.slice(0, rng)); // Initially show some medicines
             setLoading(false);
@@ -119,7 +119,7 @@ export default function FindMedPage() {
     const fetchData = async (key) => {
         try {
 
-            const response = await axios.get(`http://localhost:5000/api/searchMedicine`, { params: { searchKey: key } });
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/searchMedicine`, { params: { searchKey: key } });
             setData(response.data);
             setLoading(false);
 
@@ -203,7 +203,7 @@ export default function FindMedPage() {
         if (expiryDate) filters.expiry_date = expiryDate;
 
         try {
-            const response = await axios.get('http://localhost:5000/api/searchFilteredMedicine', { params: filters });
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/searchFilteredMedicine`, { params: filters });
 
             console.log(response.data);
             setMedicines(response.data);

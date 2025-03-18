@@ -21,7 +21,7 @@ const SearchUsers = ({open, setOpen,}) => {
     const handleSearch = async(e)=>{
         if(e.key==='Enter'){
             try{
-                const response = await axios.post('http://localhost:5000/api/admin/userinfo', { email: query });
+                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/admin/userinfo`, { email: query });
                 setResults(response.data);
             }catch(err){
                 console.error('Error fetching suggestions:', err);
@@ -31,7 +31,7 @@ const SearchUsers = ({open, setOpen,}) => {
     const handleSave = async()=>{
         try{
             if(!query || !results.email ) return null;
-            const response = await axios.post('http://localhost:5000/api/admin/save-userinfo', 
+            const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/admin/save-userinfo`, 
             { 
                 email: results.email,
                 username: results.username, 
@@ -49,7 +49,7 @@ const SearchUsers = ({open, setOpen,}) => {
         setQuery(value);
         if (value.length > 1){
             try {
-                const response = await axios.post('http://localhost:5000/api/admin/query-users', { q: value });
+                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/admin/query-users`, { q: value });
                 console.log(response.data);
                 setOptions(response.data); 
             }catch (error) {

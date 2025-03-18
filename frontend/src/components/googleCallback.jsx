@@ -13,14 +13,14 @@ const GoogleCallback = () => {
     const fetchUserData = async () => {
         console.log('fetchUserData');
       try {
-        const response = await fetch('http://localhost:5000/api/user/google/success', {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/google/success`, {
           credentials: 'include'
         });
         
         if (response.ok) {
           const data = await response.json();
           if (data.success && data.user) {
-            const response = await fetch('http://localhost:5000/api/user/signup', {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/signup`, {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',

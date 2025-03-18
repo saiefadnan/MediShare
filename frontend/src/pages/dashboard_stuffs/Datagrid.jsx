@@ -16,7 +16,7 @@ const Datagrid = () => {
   const handleLimit = (e)=>{
     setSelectedLimit(e.target.value);
   }
-  const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/datagrid',{year: selectedYear, limit: selectedLimit});
+  const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/datagrid`,{year: selectedYear, limit: selectedLimit});
   console.log(data);
   const generateColors = (num, param) => {
     const colors = [];

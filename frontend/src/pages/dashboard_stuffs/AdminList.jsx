@@ -7,7 +7,7 @@ import useFetch from '../../hooks/useFetch';
 
 const AdminList = () => {
   const [open, setOpen] = useState(false);
-  const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/query-admins');
+  const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/query-admins`);
   const HandleOpen = ()=>{
     console.log('asdsa');
     setOpen(!open);

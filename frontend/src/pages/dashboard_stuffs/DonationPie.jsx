@@ -9,7 +9,7 @@ const DonationPie = () => {
     const currentYear = new Date().getFullYear();
     const years = Array.from({length: 10},(_,i)=>currentYear-i);
     const [selectedYear, setSelectedYear] = useState(currentYear);
-    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/donation-pie',{year: selectedYear});
+    const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/donation-pie`,{year: selectedYear});
     const pieData = data
         ? [
             { name: "Donation", value: data.donation },

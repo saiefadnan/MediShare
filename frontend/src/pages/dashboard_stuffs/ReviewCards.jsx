@@ -7,7 +7,7 @@ import result from './Icons/result.png'
 import useFetch from '../../hooks/useFetch';
 
 const ReviewCards = () => {
-    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/reviewcards');
+    const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/reviewcards`);
     console.log(data);
     return ( 
         <div style={{

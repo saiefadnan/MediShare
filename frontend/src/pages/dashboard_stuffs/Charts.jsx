@@ -21,7 +21,7 @@ const data1 = [
 const Charts = () => {
   const currentYear = new Date().getFullYear();
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/chart=donators&collectors',{year: selectedYear});
+  const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/chart=donators&collectors`,{year: selectedYear});
   console.log(data);
   const years = Array.from({length: 10},(_,i)=>currentYear-i);
   const handleYear = (e)=>{

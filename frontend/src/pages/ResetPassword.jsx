@@ -18,7 +18,7 @@ function ResetPassword() {
         console.log("Form submitted with token:", token, "and password:", newPassword);
         try {
           console.log("Sending POST request to /api/user/reset-password with token:", token, "and password:", newPassword);
-            const response = await fetch("http://localhost:5000/api/user/reset-password", {
+            const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/reset-password`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ token, newPassword }),

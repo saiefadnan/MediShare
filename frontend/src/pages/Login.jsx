@@ -30,7 +30,7 @@ function LoginPage() {
     }
     setIsLoading(true);
     try {
-        const response = await fetch('http://localhost:5000/api/user/login', {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ function LoginPage() {
     }
 
     try {
-        const response = await fetch('http://localhost:5000/api/user/signup', {
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/signup`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ function LoginPage() {
 
   const handleGoogleLogin = (e) => {
     e.preventDefault();
-    window.location.href = 'http://localhost:5000/api/user/google';
+    window.location.href = `${import.meta.env.VITE_BACKEND_URL}/api/user/google`;
     console.log("Google login clicked");
   };
 

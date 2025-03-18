@@ -1,5 +1,6 @@
 const supabase = require('../config/supabase.js');
 
+
 // Fetch all incoming requests for the logged-in user (i.e., donor)
 const getUserRequestsData = async (req, res) => {
   const { email } = req.body;
@@ -46,7 +47,7 @@ const getUserRequestsData = async (req, res) => {
     // If no requests are found, return empty data
     if (!userRequests || userRequests.length === 0) {
       console.log('No requests found for the user.');
-      return res.status(200).json({ success: true, data: [] });
+      return res.status(200).json({ success: true, profilePic: profilePic, data: [] });
     }
 
     // Now, fetch the usernames from 'userInfo' for all the requester_ids
@@ -104,6 +105,8 @@ const getUserRequestsData = async (req, res) => {
     res.status(500).json({ success: false, message: error.message });
   }
 };
+
+
 
 // Update the request status to "accepted" or "rejected"
 const updateRequestStatus = async (req, res) => {

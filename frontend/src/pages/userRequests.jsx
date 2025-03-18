@@ -29,11 +29,12 @@ function UserRequests() {
   useEffect(() => {
     const fetchRequests = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/api/userRequests/getUserRequestsData', { email });
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/userRequests/getUserRequestsData`, { email });
         if (response.data.success) {
           console.log('Fetched requests:', response.data.data); // Log fetched requests
           setRequests(response.data.data);
           setProfilePic116(response.data.profilePic); // Update requests data
+          console.log(response.data);
         }
       } catch (error) {
         console.error('Error fetching requests:', error);
@@ -64,7 +65,7 @@ function UserRequests() {
     }
     
     try {
-      const response = await axios.put('http://localhost:5000/api/userRequests/updateRequestStatus', {
+      const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/userRequests/updateRequestStatus`, {
         request_id,
         status: 'accepted',
       });
@@ -92,7 +93,7 @@ function UserRequests() {
     }
   
     try {
-      const response = await axios.put('http://localhost:5000/api/userRequests/updateRequestStatus', {
+      const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/userRequests/updateRequestStatus`, {
         request_id,  // Send the request_id as part of the request
         status: 'rejected',
       });

@@ -3,19 +3,13 @@ import React, { useState } from 'react';
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import useFetch from "../../hooks/useFetch";
 
-// const data = [
-//   { name: 'Pending', value: 4000 },
-//   { name: 'Success', value: 3000 },
-//   { name: 'Failure', value: 2000 },
-// ];
-
 const COLORS = ['#006AFF', '#52C93A', '#FF2727'];
  
 const Piechart = () => {
     const currentYear = new Date().getFullYear();
     const years = Array.from({length: 10},(_,i)=>currentYear-i);
     const [selectedYear, setSelectedYear] = useState(currentYear);
-    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/piechart',{year: selectedYear});
+    const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/piechart`,{year: selectedYear});
     console.log(data);
     
     const pieData = data

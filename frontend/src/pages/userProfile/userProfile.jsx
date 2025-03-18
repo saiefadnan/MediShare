@@ -45,7 +45,7 @@ export default function ProfileEditor() {
   useEffect(() => {
     const fetchSidebarProfileData = async () => {
       try {
-        const sidebarResponse = await axios.post("http://localhost:5000/api/userProfile/getSidebarProfileData", { email });
+        const sidebarResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/userProfile/getSidebarProfileData`, { email });
         if (sidebarResponse.data.success) {
           const { profilePic, username, lastName } = sidebarResponse.data; // Extract data from the response
           setProfilePic(profilePic || '/placeholder.jpg');
@@ -68,7 +68,7 @@ export default function ProfileEditor() {
   useEffect(() => {
     const fetchUserProfileData = async () => {
       try {
-        const response = await axios.post("http://localhost:5000/api/userProfile/getUserProfileData", { email: user?.email });
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/userProfile/getUserProfileData`, { email: user?.email });
         if (response.data.success) {
           const { username, lastName, contactNumber, addressLine1, addressLine2, division, zipCode, profilePic } = response.data.data;
           setUserName(username || 'Unknown');
@@ -174,7 +174,7 @@ export default function ProfileEditor() {
     console.log('Sending form data to the backend...');
 
     try {
-      const response = await axios.put("http://localhost:5000/api/userProfile/profile", formData, {
+      const response = await axios.put(`${import.meta.env.VITE_BACKEND_URL}/api/userProfile/profile`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

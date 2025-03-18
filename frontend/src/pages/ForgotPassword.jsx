@@ -13,7 +13,7 @@ function ForgotPassword() {
     setSuccess('');
     try {
       console.log("Sending POST request to /api with email:", email);
-      const response = await fetch('http://localhost:5000/api/user/forgot-password', { 
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/user/forgot-password`, { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

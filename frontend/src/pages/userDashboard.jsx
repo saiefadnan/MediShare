@@ -56,12 +56,12 @@ function UserDashboard() {
       try {
         console.log("Fetching data for email:", email); // Add logging
   
-        const response = await axios.post("http://localhost:5000/api/userDashboard/getDashboardData", { email });
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/userDashboard/getDashboardData`, { email });
         if (response.data.success) {
           setUserData(response.data.data);
         }
   
-        const donationsResponse = await axios.post("http://localhost:5000/api/userDashboard/donationsData", { email });
+        const donationsResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/userDashboard/donationsData`, { email });
         if (donationsResponse.data.success) {
           setDonationsData(prevData => ({
             ...prevData,
@@ -71,7 +71,7 @@ function UserDashboard() {
           console.log("Donations Data: ", donationsResponse.data.data);
         }
   
-        const availableMedicinesResponse = await axios.post("http://localhost:5000/api/userDashboard/getAvailableMedicinesData", { email });
+        const availableMedicinesResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/userDashboard/getAvailableMedicinesData`, { email });
         if (availableMedicinesResponse.data.success) {
           const availableData = availableMedicinesResponse.data.data;
           setDonationsData(prevData => ({
@@ -80,7 +80,7 @@ function UserDashboard() {
           }));
         }
   
-        const monthlyReceivedResponse = await axios.post("http://localhost:5000/api/userDashboard/getMonthlyReceivedData", { email });
+        const monthlyReceivedResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/userDashboard/getMonthlyReceivedData`, { email });
         if (monthlyReceivedResponse.data.success) {
           const receivedData = monthlyReceivedResponse.data.data;
           setDonationsData(prevData => ({
@@ -90,7 +90,7 @@ function UserDashboard() {
         }
   
         setLoading(true);
-        const inventoryResponse = await axios.post("http://localhost:5000/api/userDashboard/loadInventoryItems", { email, offset: 0, limit: 3 });
+        const inventoryResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/userDashboard/loadInventoryItems`, { email, offset: 0, limit: 3 });
         if (inventoryResponse.data.success) {
           setInventory(inventoryResponse.data.data);
           setOffset(3);
@@ -101,7 +101,7 @@ function UserDashboard() {
           setHasMore(false);
         }
   
-        const getReccentActivityResponse = await axios.post("http://localhost:5000/api/userDashboard/getReccentActivity", { email });
+        const getReccentActivityResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/userDashboard/getReccentActivity`, { email });
         console.log("Recent Activity Response:", getReccentActivityResponse);
         if (getReccentActivityResponse.data.success) {
           setReccentActivity(getReccentActivityResponse.data.data);
@@ -132,7 +132,7 @@ function UserDashboard() {
     try {
       console.log("Loading more inventory items for email:", email); // Add logging
   
-      const inventoryResponse = await axios.post("http://localhost:5000/api/userDashboard/loadInventoryItems", {
+      const inventoryResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/userDashboard/loadInventoryItems`, {
         email,
         offset,
         limit: 3,
@@ -196,7 +196,7 @@ function UserDashboard() {
   
       if (response.data.success) {
         // Optionally refetch the inventory after saving
-        const inventoryResponse = await axios.post("http://localhost:5000/api/userDashboard/loadInventoryItems", {
+        const inventoryResponse = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/userDashboard/loadInventoryItems`, {
           email,
           offset: 0,
           limit: 3

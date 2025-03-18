@@ -7,7 +7,7 @@ import user from './Icons/user.png';
 import alert from './Icons/alert.png';
 import donation from './Icons/donation.png'
 const NotificationPanel = ({Params}) => {
-    const {data, isPending, error} = useFetch("http://localhost:5000/api/admin/fetch-notifs");
+    const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/fetch-notifs`);
     console.log(data);
     const [open,setOpen,setNotifyCount]= Params;
     const boxRef = useRef(null);

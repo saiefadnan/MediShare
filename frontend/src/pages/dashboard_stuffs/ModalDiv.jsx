@@ -16,7 +16,7 @@ const ModalDiv = ({Open,Id,Status,Name,Image,updateUserStatus}) => {
     }
     const HandleUpdate=async()=>{
             try{
-                const response = await axios.post('http://localhost:5000/api/admin/update-userinfo', { user_id: id, status: status });
+                const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/admin/update-userinfo`, { user_id: id, status: status });
                 if(response?.data?.message==="update successful"){
                     //toast.success("status updated!");
                     updateUserStatus(id,status);
@@ -26,7 +26,7 @@ const ModalDiv = ({Open,Id,Status,Name,Image,updateUserStatus}) => {
             }
     }
     const [rating, setRating] = useState(0);
-    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/fetch-rating',{user_id: id});
+    const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/fetch-rating`,{user_id: id});
 
     useEffect(()=>{
         console.log(data);

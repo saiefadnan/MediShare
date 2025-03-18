@@ -13,7 +13,7 @@ const AccountsPortal = () => {
   const [image, setImage]= useState(null);
   const [status, setStatus] = useState(null);
   const [id, setId]= useState(0);
-  const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/user-data');
+  const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/user-data`);
   useEffect(()=>{
     setInfo(data);
   },[data])

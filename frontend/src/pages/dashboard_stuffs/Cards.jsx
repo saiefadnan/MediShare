@@ -7,7 +7,7 @@ import time from '../dashboard_stuffs/Icons/time.png'
 import useFetch from '../../hooks/useFetch';
 
 const Cards = () => {
-    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/dashcards');
+    const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/dashcards`);
     console.log(data);
     return ( 
         <Box sx={{ 

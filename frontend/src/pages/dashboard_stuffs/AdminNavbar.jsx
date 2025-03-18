@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 
 const AdminNavbar = ({Open}) => {
     const {user} = useAuth();
-    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/fetch-navdata',{id: user?.id});
+    const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/fetch-navdata`,{id: user?.id});
     const [image, setImage] = useState(null);
     const drawerWidth = 240;
     const [open, setOpen] = Open;
@@ -57,7 +57,7 @@ const AdminNavbar = ({Open}) => {
         formData.append("email", user.email);
 
         try {
-        const response = await axios.post("http://localhost:5000/api/admin/image-upload", formData, {
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/admin/image-upload`, formData, {
             headers: { "Content-Type": "multipart/form-data" }, 
         });
 
@@ -151,17 +151,7 @@ const AdminNavbar = ({Open}) => {
                     <NotificationsIcon/> 
                 </Badge>
             </IconButton>
-        {/* <input
-            type="file"
-            accept="image/*"
-            style={{ display: "none" }}
-            id="file-input"
-            onChange={handleSelectImage}/>
-        <label htmlFor="file-input">
-        <IconButton component="span" color="inherit">
-          <Avatar src={user.image_url ? user.image_url : image} alt="avatar" sx={{ width: 50, height: 50 }} />
-        </IconButton>
-        </label> */}
+    
         <Link to="/userDashboard">
             <IconButton component="span" color="inherit">
             <Avatar src={user.image_url ? user.image_url : image} alt="avatar" sx={{ width: 50, height: 50 }} />

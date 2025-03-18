@@ -16,19 +16,11 @@ const ReviewBreakdown = () =>{
     const currentYear = new Date().getFullYear();
     const years = Array.from({length: 10},(_,i)=>currentYear-i);
     const [selectedYear, setSelectedYear] = useState(currentYear);
-    const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/user-rating',{year: selectedYear});
+    const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/user-rating`,{year: selectedYear});
 
     const handleYear = (e)=>{
         setSelectedYear(e.target.value);
     }
-
-    // if(isPending) {
-    //     return <Typography>Loading...</Typography>;
-    // }
-    
-    // if(error) {
-    //     return <Typography color="error">Error: {error}</Typography>;
-    // }
     
     return(
     <Box style={{ 

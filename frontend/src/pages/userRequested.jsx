@@ -14,7 +14,7 @@ function RequestedTable() {
   useEffect(() => {
     const fetchProfilePic = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/api/userRequested/getProfilePic', { email }); // Fetch profile pic using the logged-in user's email
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/userRequested/getProfilePic`, { email }); // Fetch profile pic using the logged-in user's email
         console.log(response.data); // Log the response to verify the profile picture URL
         if (response.data.success) {
           setProfilePic(response.data.profilePic);
@@ -34,7 +34,7 @@ function RequestedTable() {
   useEffect(() => {
     const fetchRequestedData = async () => {
       try {
-        const response = await axios.post('http://localhost:5000/api/userRequested/getUserRequestedData', { email });
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/userRequested/getUserRequestedData`, { email });
         if (response.data.success) {
           console.log('Fetched requested data:', response.data.data);
           setRequested(response.data.data); // Set the requested data from API

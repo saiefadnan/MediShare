@@ -4,26 +4,11 @@ import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsive
 import useFetch from "../../hooks/useFetch";
 
 const ReviewChart = () => {
-//   const data = [
-//     { month: 'JAN', Negative: 15000, Positive: 14000 },
-//     { month: 'FEB', Negative: 20000, Positive: 18000 },
-//     { month: 'MAR', Negative: 10000, Positive: 25000 },
-//     { month: 'APR', Negative: 15000, Positive: 14000 },
-//     { month: 'MAY', Negative: 12000, Positive: 15000 },
-//     { month: 'JUN', Negative: 18000, Positive: 20000 },
-//     { month: 'JUL', Negative: 20000, Positive: 17000 },
-//     { month: 'AUG', Negative: 15000, Positive: 14000 },
-//     { month: 'SEP', Negative: 20000, Positive: 18000 },
-//     { month: 'OCT', Negative: 10000, Positive: 25000 },
-//     { month: 'NOV', Negative: 15000, Positive: 14000 },
-//     { month: 'DEC', Negative: 12000, Positive: 15000 },
-// ];
-
 
   const currentYear = new Date().getFullYear();
   const years = Array.from({length: 10},(_,i)=>currentYear-i);
   const [selectedYear, setSelectedYear] = useState(currentYear);
-  const {data, isPending, error} = useFetch('http://localhost:5000/api/admin/rating-chart',{year: selectedYear});
+  const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/rating-chart`,{year: selectedYear});
 
     const handleYear = (e)=>{
         setSelectedYear(e.target.value);
