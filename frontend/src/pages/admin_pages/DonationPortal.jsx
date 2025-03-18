@@ -1,9 +1,8 @@
 import { Box, Typography, styled } from "@mui/material";
-import DonationTable from "../dashboard_stuffs/DonationTable";
-import DonationChart from "../dashboard_stuffs/Donationchart";
+import DonationChart from "../dashboard_stuffs/DonationChart";
 import DonationPie from "../dashboard_stuffs/DonationPie";
 import CollectionPie from "../dashboard_stuffs/CollectionPie";
-import CollectionChart from "../dashboard_stuffs/CollectionChart";
+
 const DrawerHeader = styled('div')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
