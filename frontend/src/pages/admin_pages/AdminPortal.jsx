@@ -2,7 +2,7 @@ import '../../styles/admin.css'
 import Box from '@mui/material/Box';
 import Cards from '../dashboard_stuffs/Cards';
 import Piechart from '../dashboard_stuffs/Piechart';
-import Charts from '../dashboard_stuffs/charts';
+import Charts from '../dashboard_stuffs/Charts';
 import Datagrid from '../dashboard_stuffs/Datagrid';
 import AdminList from '../dashboard_stuffs/AdminList';
 import { Typography, styled } from '@mui/material';
