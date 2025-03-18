@@ -23,7 +23,7 @@ router.get(
 router.get(
   '/google/callback',
   passport.authenticate('google', {
-    successRedirect: 'https://medi-share-frontend.vercel.app/auth/google/callback',
+    successRedirect: 'https://medishare-medisharefrontend.up.railway.app/auth/google/callback',
     failureRedirect: '/google/failed',
     failureFlash: true,
   })

@@ -101,7 +101,7 @@ const forgotPassword = async (req, res) => {
 
   const token = crypto.randomBytes(32).toString('hex')
   const expiresAt = new Date(Date.now() + 15 * 60 * 1000)
-  const resetUrl = `https://medi-share-frontend.vercel.app/reset-password/${token}`
+  const resetUrl = `https://medishare-medisharefrontend.up.railway.app/reset-password/${token}`
 
   try {
     await supabase
