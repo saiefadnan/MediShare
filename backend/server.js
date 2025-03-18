@@ -22,7 +22,7 @@ const userRequestedRoutes = require('./routes/userRequestedRoute')
 // Middleware
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://medi-share-frontend.vercel.app',
     methods: 'GET, POST, PUT, DELETE',
     credentials: true,
   })

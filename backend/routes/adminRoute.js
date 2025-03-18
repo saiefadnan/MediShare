@@ -32,8 +32,3 @@ router.post('/fetch-notifs',fetchNotifs);
 
 
 module.exports = router;
-
-
-
-
-// userRating url: localhost:5000/api/admin/user-rating

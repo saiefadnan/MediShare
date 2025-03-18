@@ -23,7 +23,7 @@ router.get(
 router.get(
   '/google/callback',
   passport.authenticate('google', {
-    successRedirect: 'http://localhost:3000/auth/google/callback',
+    successRedirect: 'https://medi-share-frontend.vercel.app/auth/google/callback',
     failureRedirect: '/google/failed',
     failureFlash: true,
   })
@@ -54,7 +54,7 @@ router.get('/google/success', (req, res) => {
 })
 router.get('/logout', (req, res) => {
   req.logout()
-  res.redirect('http://localhost:3000')
+  res.redirect('https://medi-share-frontend.vercel.app')
 })
 router.post('/forgot-password', forgotPassword)
 router.post('/reset-password', resetPassword)
