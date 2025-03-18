@@ -18,7 +18,7 @@ import heartIcon from '../../../public/assets/heartLogo.png'
 import dashboardIcon from '../../../public/assets/dashboard.png'
 import mailIcon from '../../../public/assets/mail.png'
 import starsIcon from '../../../public/assets/stars.png'
-import boxIcon from '../../../public/assets/Box.png'
+import boxIcon from '../../../public/assets/box.png'
 import accountsIcon from '../../../public/assets/accounts.png'
 
 const drawerWidth = 240;
