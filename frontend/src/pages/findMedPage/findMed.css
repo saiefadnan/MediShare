@@ -48,9 +48,10 @@
 
 .search-section .search-container{
     z-index: 5;
-    width: 600px;
+    width: 45%;
+    min-width: 300px;
     border-radius: 30px;
-   background-color: bisque;
+    background-color: bisque;
     position: relative;
     box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.403);
     
@@ -62,8 +63,7 @@
     position: relative;
     left: 50%;
     transform: translate(-50%);
-   
-  width: 600px;
+    width: 100%;
     border-radius: 30px;
     padding-left: 15px;
 

@@ -130,42 +130,46 @@
 
 /* Main Content */
 .user-dashboard-main-content {
-  margin-left: 270px;
-  padding: 20px;
+  min-width: 320px;
+  margin-left: 250px;
+  padding: 10px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
 }
 
 
-
+.organize{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
 
 
 /* Dashboard Cards */
 .dashboard-cards {
+  width: 100%;
   display: flex;
-  gap: 70px;
   margin-bottom: 30px;
   flex-wrap: wrap;
-  justify-content: flex-start;
-  
+  height: auto;
+  gap: 5px;
+  justify-content: space-around;
 }
 
 .dashboard-card {
-  flex: 1 1 calc(45% - 20px);
-  padding: 40px 200px;
+  padding: 40px 40px;
   border-radius: 15px;
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.5);
   font-size: 20px;
   font-weight: bold;
   color: #fff;
-  min-width: 220px;
-  position: relative; /* Enable absolute positioning for child elements */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-   
+  width: 99%;
+  max-width: 300px;
+  /* position: relative; */
+ 
+  height: 180px;
    /* Align content to the left */
 }
 
@@ -178,69 +182,69 @@
 }
 
 .dashboard-card img {
-  position: relative;
-  left: -200px; /* Enables relative movement of the icon */
-  top: 70px; /* Moves the icon 20px downward */
-  width: 50px; /* Keeps the size unchanged */
+  /* position: relative;
+  left: -200px; 
+  top: 70px;  */
+  width: 50px;
   height: 50px;
 }
 
 .dashboard-card p {
-  position: relative;
+  /* position: relative;
   right: 180px;
   bottom: 80px;
-  margin: 0;
+  margin: 0; */
   font-size: 20px; /* Adjust text size */
   font-weight: bold;
 
 }
 
 .dashboard-card h3 {
-  margin: 0;
+  /* margin: 0; */
   font-size: 36px; /* Adjust number size */
-  position: absolute;
-  bottom: 15px; /* Align the number at the bottom */
-  right: 15px; /* Align the number at the right */
+  /* position: absolute; */
+  /* bottom: 15px;
+  right: 15px;  */
 }
 
-/* Recent Activity and Monthly Reports */
-/* Recent Activity and Monthly Reports */
 .side-by-side {
   display: flex;
-  gap: 20px;
   width: 100%;
-  justify-content: flex-start;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .recent-activity {
-  flex: 1 1 50%; /* Allow it to grow and take 50% of the space */
-  min-width: 300px;
+  height: 445px;
+  width: 650px;
+  /* max-width: 650px; */
   background-color: #d9e8e5;
   border-radius: 10px;
-  padding: 20px;
+  padding: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   overflow: hidden;
 }
 
 .monthly-reports {
-  flex: 1 1 50%; /* Allow it to grow and take 50% of the space */
-  min-width: 300px;
+  height: 445px;
+  /* max-width: 650px; */
+  width: 650px;
   border-radius: 10px;
   background-color: #f2f2f2;
-  padding: 20px;
+  padding: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .recent-activity h2, .monthly-reports h2 {
   font-size: 20px;
   color: #3d2b2b;
-  margin-bottom: 10px;
 }
 
 .recent-activity .overview, .monthly-reports .chart-container {
   font-size: 14px;
   color: #555;
-  margin-bottom: 10px;
+  width: 99%;
 }
 
 
@@ -303,6 +307,7 @@
 .inventory {
   margin-top: 30px;
   width: 100%;
+  min-width: 300px;
   display: flex;
   flex-direction: column; /* Change layout to column */
   align-items: center; /* Center all content horizontally */
@@ -390,13 +395,12 @@
   overflow-x: auto; 
 }
 
-.monthly-reports .header-container {
+.monthly-reports .header-container1 {
   background-color: #d9e8e5; 
   border-radius: 10px; 
-  padding: 10px; 
-  margin-bottom: 15px;  
+  padding: 5px; 
   text-align: center; 
-  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0 6px 6px rgba(0, 0, 0, 0.1);  
 }
 
 

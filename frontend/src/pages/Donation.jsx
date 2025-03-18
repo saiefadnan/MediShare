@@ -361,6 +361,7 @@ const Donation = () => {
                             <div className="form-group">
                             <label>MEDICINE NAME</label>
                             <input
+                                className="donation-input"
                                 type="text"
                                 name="medicineName"
                                 placeholder="EX: NAPA"
@@ -372,6 +373,7 @@ const Donation = () => {
                             <div className="form-group">
                             <label>GENERIC NAME</label>
                             <input
+                              className='donation-input'
                                 type="text"
                                 name="genericName"
                                 placeholder="EX: PARACETAMOL"
@@ -382,6 +384,7 @@ const Donation = () => {
                             <div className="form-group">
                             <label>COMPANY NAME</label>
                             <input
+                            className="donation-input"
                                 type="text"
                                 name="companyName"
                                 placeholder="EX: Beximco"
@@ -392,6 +395,7 @@ const Donation = () => {
                             <div className="form-group">
                             <label>PROBABLE DISEASE</label>
                             <input
+                            className="donation-input"
                                 type="text"
                                 name="diseaseName"
                                 placeholder="EX: COMMON COLD"
@@ -403,6 +407,7 @@ const Donation = () => {
                             <div className="form-group">
                             <label>QUANTITY</label>
                             <input
+                            className="donation-input"
                                 type="text"
                                 name="quantity"
                                 placeholder="EX: 10"
@@ -415,6 +420,7 @@ const Donation = () => {
                             <label>EXPIRY DATE</label>
                             <div className="expiry-date-container">
                                 <input
+                                className="donation-input"
                                 type="date"
                                 name="expiryDate"
                                 value={formData.expiryDate}

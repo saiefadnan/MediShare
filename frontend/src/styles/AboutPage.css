@@ -17,8 +17,12 @@
   }
   
   .mission1 {
+    width: 100%;
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
     padding: 40px 20px;
   }
   
@@ -28,6 +32,10 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     padding: 20px;
     width: 30%;
+    height: 200px;
+    min-width: 300px;
+    word-wrap: break-word;
+    white-space: normal;
   }
   
   .impact1 {

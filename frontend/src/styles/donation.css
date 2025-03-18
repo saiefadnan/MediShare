@@ -77,7 +77,6 @@
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  width: 500px;
 }
 
 .form-group label {
@@ -219,8 +218,10 @@
   opacity: 0.9;
 }
 
-
-@media (max-width: 768px) {
+@media (max-width: 850px) {
+  .form-group .donation-input, .map-container, .medicine-upload-container{
+    width: 275px;
+  }
   .donation-form-container {
     grid-template-columns: 1fr;
   }
@@ -232,8 +233,5 @@
   .info-section {
     text-align: center;
   }
-
-  
-
 }
 

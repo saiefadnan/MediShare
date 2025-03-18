@@ -110,7 +110,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: auto;
   text-align: center;
   padding: 5rem 2rem;
   background-color: #304E42;
@@ -137,7 +137,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: auto;
   text-align: center;
   padding: 5rem 2rem;
   background-color: #C7AA92;
@@ -157,7 +157,7 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  height: 200vh;
+  height: auto;
   text-align: center;
   padding: 5rem 2rem;
   background-color: #FBF3EA;
@@ -190,7 +190,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: auto;
   text-align: center;
   padding: 3rem 2rem;
   background-color: #CEAE94;
@@ -207,7 +207,7 @@
 }
 
 .card69 {
-  width: 100%;
+  max-width: 300px;
   height: 24em;
   background: rgb(41, 41, 41);
   transition: 1s ease-in-out;
@@ -264,7 +264,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: auto;
   text-align: center;
   padding: 3rem 2rem;
   background-color: #304E42;

@@ -24,7 +24,8 @@ app.use(
   cors({
     origin:  [
       "https://medi-share-frontend.vercel.app",
-      "https://medishare-medisharefrontend.up.railway.app"
+      "https://medishare-medisharefrontend.up.railway.app",
+      "http://localhost:3000"
     ],
     methods: 'GET, POST, PUT, DELETE',
     credentials: true,

@@ -299,8 +299,8 @@ export default function ProfileEditor() {
         <hr className="divider-specific" />
 
         {/* Email and Contact Section */}
-        <div className="middle-div">
-          <div className="form-group116">
+        <div className="middle-div" >
+          <div className="form-group116" style={{width: '30%', minWidth: '280px'}}>
             <label htmlFor="email">E-mail</label>
             <input
               type="email"
@@ -311,7 +311,7 @@ export default function ProfileEditor() {
             />
           </div>
 
-          <div className="form-group116">
+          <div className="form-group116" style={{width: '30%', minWidth: '280px'}}>
             <label htmlFor="phone">Contact Number</label>
             <input
               type="tel"

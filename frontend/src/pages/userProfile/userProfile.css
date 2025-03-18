@@ -1,21 +1,18 @@
 .profile-page {
-    width: calc(100% - 250px); /* Subtract the width of the sidebar */
-    margin-left: 250px; /* Push the profile page under the sidebar */
+    width: 100%;
+    height: 100%;
+    margin-left: 250px;
     padding: 2rem;
     background-color: #f8f1e7;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
-    
   }
 
   .profile-header {
     display: flex;
-    gap: 2rem;
     margin-bottom: 2rem;
-    align-items: flex-start;
-    /*border-bottom: 2px solid #2b302f; */
-    border-bottom: none;
-    padding-bottom: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    min-width: 300px;
   }
 
   .profile-image-section {
@@ -27,8 +24,8 @@
   }
 
   .profile-image {
-    width: 275px;
-    height: 275px;
+    width: 50%;
+    height: 50%;
     border-radius: 50%;
     border: 2px dashed #ff9900;
     overflow: hidden;
@@ -38,6 +35,8 @@
   }
 
   .profile-image img {
+    max-width: 500px;
+    max-height: 500px;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -61,40 +60,16 @@
     gap: 1.5rem;
     width: 100%; /* Adjust spacing between the fields */
     max-width: 350px;
-    position: relative;
-    left: 180px;
-    /*transform: translateX(25px); */
-    top: 15px; /* Optional: Limit the width of the section */
-    /*margin: 0 auto; /* Center the section */
+    
   }
   
-  .name-fields .form-group116 {
+  .form-group116 {
     display: flex;
     flex-direction: column; /* Ensure labels and inputs are stacked */
     gap: 0.5rem; /* Add spacing between label and input */
   }
   
-  
 
-  .middle-div {
-    display: grid; /* Use flexbox for alignment */
-    grid-template-columns: 1fr 1fr; /* Stack elements like first and last name */
-    gap: 1.5rem; /* Add spacing between fields */
-    width: 100%; /* Take up full width of the container */
-    max-width: 1000px; /* Limit the maximum width */
-    position: relative; /* Prevent unnecessary centering */
-    left:15px; /* Align to the left to match name fields */
-    /*transform: translateX(50); /* Prevent shifting toward the middle */
-    top: 0; /* Maintain consistent vertical alignment */
-    /*margin: 0 auto; /* Optional: Center the container horizontally */
-  }
-
-  .form-group116 {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    
-  }
   #email, #phone {
      /* Adjust the width specifically for email and contact number */
     /*width: 400px; /* Ensure it respects the parent's width */
@@ -266,11 +241,13 @@
   
     /* Middle Div (E-mail and Contact): Stack vertically */
     .middle-div {
-      display: flex; /* Change from grid to flex for better stacking */
-      flex-direction: column; /* Stack elements vertically */
-      gap: 1rem; /* Add spacing between items */
-      width: 100%; /* Full width on smaller screens */
+      display: flex; 
+      flex-direction: column;
+      gap: 1rem; 
+      width: 100%;
+      min-width: 280px;
     }
+
   
     /* Address Divs (add-div1, add-div2): Stack and adjust spacing */
     .add-div1,
@@ -279,6 +256,7 @@
       flex-direction: column; /* Stack items vertically */
       gap: 1rem; /* Add spacing between address fields */
       width: 100%; /* Allow full width */
+      min-width: 280px;
     }
   
     /* Buttons: Stack and stretch */

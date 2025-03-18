@@ -327,14 +327,18 @@ function UserDashboard() {
           {/* Dashboard Cards */}
           <div className="dashboard-cards">
             <div className="dashboard-card donated">
-              <img src={heartIcon} alt="Heart Icon" className="heart-icon" />
-              <h3>{donationsData.donated}</h3>
               <p>Donated</p>
+              <div className='organize'>
+                 <img src={heartIcon} alt="Heart Icon" className="heart-icon" />
+                <h3>{donationsData.donated}</h3>
+              </div>
             </div>
             <div className="dashboard-card received">
-              <img src={parcelIcon} alt="Parcel Icon" className="parcel-icon" />
-              <h3>{donationsData.received}</h3>
               <p>Received</p>
+              <div className='organize'>
+                <img src={parcelIcon} alt="Parcel Icon" className="parcel-icon" />
+                <h3>{donationsData.received}</h3>
+              </div>
             </div>
           </div>
   
@@ -376,7 +380,7 @@ function UserDashboard() {
   
             {/* Monthly Reports */}
             <div className="monthly-reports">
-              <div className="header-container">
+              <div className="header-container1">
                 <h2>Monthly Reports</h2>
               </div>
               <div className="chart-container">
