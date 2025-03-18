@@ -22,7 +22,10 @@ const userRequestedRoutes = require('./routes/userRequestedRoute')
 // Middleware
 app.use(
   cors({
-    origin: 'https://medi-share-frontend.vercel.app',
+    origin:  [
+      "https://medi-share-frontend.vercel.app",
+      "https://medishare-medisharefrontend.up.railway.app"
+    ],
     methods: 'GET, POST, PUT, DELETE',
     credentials: true,
   })
@@ -70,7 +73,6 @@ app.use('/api/donation', donateMedicine);
 app.use('/api/user', user);
 app.use('/api', search);
 app.use('/api/userProfile', userProfileRoute);
-
 app.use('/api/userDashboard', userDashboardRoutes);
 app.use('/api/userRequests', userRequestRoute);  // This will handle all routes in 'userRequestRoute' under '/api/userRequests'
 app.use('/api/userRequested', userRequestedRoutes);  // This will handle all routes in 'userRequestedRoute' under '/api/userRequested'
