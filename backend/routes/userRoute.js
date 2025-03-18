@@ -50,11 +50,11 @@ router.get('/google/success', (req, res) => {
       success: false,
       message: 'No user data available',
     })
-  }
+  } 
 })
 router.get('/logout', (req, res) => {
   req.logout()
-  res.redirect('https://medi-share-frontend.vercel.app')
+  res.redirect('https://medishare-medisharefrontend.up.railway.app')
 })
 router.post('/forgot-password', forgotPassword)
 router.post('/reset-password', resetPassword)
