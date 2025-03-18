@@ -1,3 +1,4 @@
 name = "medishare078"  
 main = "./server.js" 
 compatibility_date = "2024-03-17"  
+compatibility_flags = ["nodejs_compat"]
