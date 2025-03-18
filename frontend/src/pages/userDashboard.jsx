@@ -12,9 +12,9 @@ import {
 import { useAuth } from '../Contexts/AuthContext.jsx';
 import axios from 'axios';
 import '../styles/userDash.css'; 
-import heartIcon from '../assets/icons8-medicine-48.png';
-import parcelIcon from '../assets/icons8-parcel-48.png';
-import MediShareLogo from '../assets/medisharelogo.png'; 
+import heartIcon from '../../public/assets/icons8-medicine-48.png';
+import parcelIcon from '../../public/assets/icons8-parcel-48.png';
+import MediShareLogo from '../../public/assets/medisharelogo.png'; 
 //import { set } from '../../../backend/config/mail.js';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);

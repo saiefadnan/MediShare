@@ -2,7 +2,7 @@ import { Avatar, Badge, Box, IconButton, Toolbar, Typography, styled } from "@mu
 import MenuIcon from '@mui/icons-material/Menu';
 import MuiAppBar from '@mui/material/AppBar';
 // import { StateContext } from "../../Contexts/SidebarContext";
-import Logo from '../../assets/medisharelogo.png'
+import Logo from '../../../public/assets/medisharelogo.png'
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import NotificationPanel from "./NotificationPanel";
 import { useContext, useEffect, useState } from "react";

@@ -1,8 +1,8 @@
 import React from 'react';
 import { DataGrid } from '@mui/x-data-grid';
 import { Avatar, Box, Button, LinearProgress} from '@mui/material';
-import check from './Icons/check.png'
-import error from './Icons/error.png'
+import check from '../../../public/Icons/check.png'
+import error from '../../../public/Icons/error.png'
 import { useState } from 'react';
 import ModalDiv from './ModalDiv';
 

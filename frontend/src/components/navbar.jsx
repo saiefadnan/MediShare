@@ -8,7 +8,7 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import Logo from '../assets/medisharelogo.png'
+import Logo from '../../public/assets/medisharelogo.png'
 
 const Navbar = () => {
   const { user, logout } = useAuth();

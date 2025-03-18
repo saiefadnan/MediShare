@@ -1,9 +1,9 @@
 import Typography from '@mui/material/Typography';
 import { Card } from '@mui/material';
-import star from './Icons/star.png'
-import ranking from './Icons/ranking.png'
-import users from './Icons/users.png'
-import result from './Icons/result.png'
+import star from '../../../public/Icons/star.png'
+import ranking from '../../../public/Icons/ranking.png'
+import users from '../../../public/Icons/users.png'
+import result from '../../../public/Icons/result.png'
 import useFetch from '../../hooks/useFetch';
 
 const ReviewCards = () => {

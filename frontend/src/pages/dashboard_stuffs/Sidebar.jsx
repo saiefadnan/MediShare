@@ -13,13 +13,13 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { Link } from 'react-router-dom';
 // import { StateContext } from '../../Contexts/SidebarContext';
-import signoutIcon from '../../assets/signout.png'
-import heartIcon from '../../assets/heartLogo.png'
-import dashboardIcon from '../../assets/dashboard.png'
-import mailIcon from '../../assets/mail.png'
-import starsIcon from '../../assets/stars.png'
-import boxIcon from '../../assets/Box.png'
-import accountsIcon from '../../assets/accounts.png'
+import signoutIcon from '../../../public/assets/signout.png'
+import heartIcon from '../../../public/assets/heartLogo.png'
+import dashboardIcon from '../../../public/assets/dashboard.png'
+import mailIcon from '../../../public/assets/mail.png'
+import starsIcon from '../../../public/assets/stars.png'
+import boxIcon from '../../../public/assets/Box.png'
+import accountsIcon from '../../../public/assets/accounts.png'
 
 const drawerWidth = 240;
 

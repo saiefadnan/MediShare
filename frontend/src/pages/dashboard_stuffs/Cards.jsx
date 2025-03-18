@@ -1,9 +1,9 @@
 import Typography from '@mui/material/Typography';
 import { Box, Card } from '@mui/material';
-import heart from '../dashboard_stuffs/Icons/heart.png'
-import history from '../dashboard_stuffs/Icons/history.png'
-import saving from '../dashboard_stuffs/Icons/saving.png'
-import time from '../dashboard_stuffs/Icons/time.png'
+import heart from '../../../public/Icons/heart.png'
+import history from '../../../public/Icons/history.png'
+import saving from '../../../public/Icons/saving.png'
+import time from '../../../public/Icons/time.png'
 import useFetch from '../../hooks/useFetch';
 
 const Cards = () => {

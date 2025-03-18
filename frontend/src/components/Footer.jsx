@@ -1,14 +1,14 @@
 import { Container, Row, Col } from "react-bootstrap";
-import arrow from '../assets/arrow.png';
-import location from '../assets/frame.png';
-import email from '../assets/email.png';
-import phone from '../assets/phone.png';
-import share from '../assets/Share.png';
-import fb from '../assets/Facebook.png';
-import twitter from '../assets/Twitter.png';
-import insta from '../assets/Instagram.png';
-import li from '../assets/Linkedin.png';
-import line from '../assets/Line.png';
+import arrow from '../../public/assets/arrow.png';
+import location from '../../public/assets/frame.png';
+import email from '../../public/assets/email.png';
+import phone from '../../public/assets/phone.png';
+import share from '../../public/assets/Share.png';
+import fb from '../../public/assets/Facebook.png';
+import twitter from '../../public/assets/Twitter.png';
+import insta from '../../public/assets/Instagram.png';
+import li from '../../public/assets/Linkedin.png';
+import line from '../../public/assets/Line.png';
 import '../styles/footer.css';
 
 export default function Footer() {

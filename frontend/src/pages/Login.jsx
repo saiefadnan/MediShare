@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 import '../styles/login.css';
-import loginAnimated from '../assets/tablet-login-animate.svg';
-import signupAnimated from '../assets/sign-up-animate.svg';
+import loginAnimated from '../../public/assets/tablet-login-animate.svg';
+import signupAnimated from '../../public/assets/sign-up-animate.svg';
 
 function LoginPage() {
   const { login } = useAuth();

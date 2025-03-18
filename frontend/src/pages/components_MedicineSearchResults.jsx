@@ -8,21 +8,21 @@ const MedicineSearchResults = ({ isOpen, onClose }) => {
     {
       id: 1,
       name: "ALLER TEC",
-      image: "src/assets/allertec.jfif", // Replace with your image path
+      image: "../../public/assets/allertec.jfif", // Replace with your image path
       price: 3,
       available: true
     },
     {
       id: 2,
       name: "Zyrtec",
-      image: "src/assets/zyrtec.jfif", // Replace with your image path
+      image: "../../public/assets/zyrtec.jfif", // Replace with your image path
       price: 2.5,
       available: true
     },
     {
       id: 3,
       name: "Reactine",
-      image: "src/assets/reactine.jfif", // Replace with your image path
+      image: "../../public/assets/reactine.jfif", // Replace with your image path
       price: 3.5,
       available: false
     }

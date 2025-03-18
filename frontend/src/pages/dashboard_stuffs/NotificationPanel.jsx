@@ -3,9 +3,9 @@ import { Avatar, Box, Divider, Icon, List, ListItem, ListItemText, Menu, Popover
 import { useEffect, useRef } from "react";
 import { formatDistanceToNow } from 'date-fns';
 import useFetch from "../../hooks/useFetch";
-import user from './Icons/user.png';
-import alert from './Icons/alert.png';
-import donation from './Icons/donation.png'
+import user from '../../../public/Icons/user.png';
+import alert from '../../../public/Icons/alert.png';
+import donation from '../../../public/Icons/donation.png'
 const NotificationPanel = ({Params}) => {
     const {data, isPending, error} = useFetch(`${import.meta.env.VITE_BACKEND_URL}/api/admin/fetch-notifs`);
     console.log(data);
