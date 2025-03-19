@@ -94,7 +94,7 @@ const handleRequestSubmission=async (e)=>{
         return;
     }
     if(requesterId==donorId){
-        showAlert("Tui ki bokachoda naki shala! Nijer dhon nije chushos?", 'error');
+        showAlert("You can't request your own meds!", 'error');
         return;
     }
     const formData=new FormData();

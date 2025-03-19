@@ -114,7 +114,7 @@ const request=async(req,res)=>{
     const {requester_id,med_id,donor_id,reason,quantity}=req.body;
     const file=req.file;
     if(requester_id==donor_id){
-        return res.status(400).json({message:"Tui ki bokachoda naki shala! Nijer dhon nije chushos?"});
+        return res.status(400).json({message:"You can't request your own meds!"});
     }
     
   
